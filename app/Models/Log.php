@@ -6,19 +6,17 @@ use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Service extends Model
+class Log extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'service_name',
-        'service_price',
-        'service_day',
-        'created_at',
-        'updated_at',
+        'log_id',
+        'before_status',
+        'after_status',
     ];
 
     public function orders(){
-        return $this->hasOne(Order::class);
+        return $this->hasMany(Order::class);
     }
 }

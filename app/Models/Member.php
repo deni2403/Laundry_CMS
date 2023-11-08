@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Member extends Model
 {
@@ -16,4 +17,8 @@ class Member extends Model
         'total_point',
         'registration_date',
     ];
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }

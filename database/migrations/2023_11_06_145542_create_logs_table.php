@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('before_status');
-            $table->dateTime('after_status');
+            $table->string('before_status');
+            $table->string('after_status');
             $table->timestamps();
         });
     }

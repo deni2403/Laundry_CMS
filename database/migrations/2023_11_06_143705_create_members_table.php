@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->unsignedBigInteger('phone_number');
+            $table->string('phone_number', 16);
             $table->integer('total_Point');
             $table->dateTime('registration_date');
             $table->timestamps();
