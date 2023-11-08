@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice');
+            $table->string('invoice');
             $table->string('customer_name', 25);
             $table->dateTime('order_in');
             $table->dateTime('order_out');
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->enum('status', ['Dalam Antrian','Belum dicuci','Sedang dicuci','Sudah Dicuci','Belum disetrika','Sedang disetrika','Sudah disetrika','Sedang dipacking','Selesai'])->default('Dalam Antrian');
             $table->foreignId('service_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('member_id')->constrained();
-            $table->foreignId('log_id')->constrained();
+            $table->foreignId('member_id')->nullable()->constrained();
+            $table->foreignId('log_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
