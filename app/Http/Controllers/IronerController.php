@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class IronerController extends Controller
 {
     public function dashboard(){
-        return view('dashboard.ironer');
+        return view('ironer.dashboard');
     }
 }

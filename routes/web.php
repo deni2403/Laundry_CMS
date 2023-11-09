@@ -35,33 +35,29 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::middleware('super_admin')->group(function () {
-        // Route::resource('/superadmin', OrderController::class);
-        Route::get('/superadmin/create', [OrderController::class,'create'])->name('create.superadmin');
-        Route::post('/superadmin/store', [OrderController::class,'store'])->name('store.superadmin');
+    Route::middleware('superAdmin')->group(function () {
+        Route::get('/superadmin/create', [SuperAdminController::class,'createOrder'])->name('create.superadmin');
+        Route::post('/superadmin/store', [SuperAdminController::class,'storeOrder'])->name('store.superadmin');
         Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard.superadmin');
     });
 
     Route::middleware('admin')->group(function () {
-        Route::get('/dashboard/admin', [AdminController::class, 'dashboard'])->name('dashboard.admin');
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
     });
 
     Route::middleware('cashier')->group(function () {
-        Route::resource('/cashier', OrderController::class);
-        Route::get('/dashboard/cashier', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
+        Route::get('/cashier/create', [CashierController::class,'createOrder'])->name('create.cashier');
+        Route::post('/cashier/store', [CashierController::class,'storeOrder'])->name('store.cashier');
+        Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
     });
 
     Route::middleware('ironer')->group(function () {
-        // Route::resource('/ironer', OrderController::class);
-        Route::get('/dashboard/ironer', [IronerController::class, 'dashboard'])->name('dashboard.ironer');
+        Route::get('/ironer/dashboard', [IronerController::class, 'dashboard'])->name('dashboard.ironer');
     });
 
     Route::middleware('packer')->group(function () {
-        // Route::resource('/packer', OrderController::class);
-        Route::get('/dashboard/packer', [PackerController::class, 'dashboard'])->name('dashboard.packer');
+        Route::get('/packer/dashboard', [PackerController::class, 'dashboard'])->name('dashboard.packer');
     });
-
-
 });
 
 require __DIR__ . '/auth.php';
