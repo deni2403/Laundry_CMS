@@ -14,7 +14,7 @@
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-3">
                 <div class="container p-6">
-                    <form action="{{route('orders.store')}}" method="POST">
+                    <form action="{{route('store.superadmin')}}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -32,16 +32,16 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="orderIn">Tgl. Pesan</label>
-                                <input type="date" class="form-control" id="orderIn" name="order_in">
+                                <input type="datetime-local" class="form-control" id="orderIn" name="order_in">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="orderOut">Tgl. Selesai</label>
-                            <input type="date" class="form-control" id="orderOut" name="order_out">
+                            <input type="datetime-local" class="form-control" id="orderOut" name="order_out">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="totalWeight">Total Berat</label>
-                            <input type="number" class="form-control" id="totalWeight" name="total_weight"
+                            <input type="number" class="form-control" id="totalWeight" name="total_weight" step="0.01"
                                 min="0">
                         </div>
                         <div class="form-group col-md-6">
