@@ -17,35 +17,35 @@ class UserSeeder extends Seeder
         $userData->name = 'Joko';
         $userData->email = 'superadmin@gmail.com';
         $userData->password = bcrypt('12345678');
-        $userData->role = 'Super Admin';
+        $userData->role = 'superadmin';
         $userData->save();
 
         $userData = new User();
         $userData->name = 'Susilo';
         $userData->email = 'admin@gmail.com';
         $userData->password = bcrypt('12345678');
-        $userData->role = 'Admin';
+        $userData->role = 'admin';
         $userData->save();
 
         $userData = new User();
         $userData->name = 'Andi';
         $userData->email = 'cashier@gmail.com';
         $userData->password = bcrypt('12345678');
-        $userData->role = 'Cashier';
+        $userData->role = 'cashier';
         $userData->save();
 
         $userData = new User();
         $userData->name = 'Agung';
         $userData->email = 'ironer@gmail.com';
         $userData->password = bcrypt('12345678');
-        $userData->role = 'Ironer';
+        $userData->role = 'ironer';
         $userData->save();
 
         $userData = new User();
         $userData->name = 'Jaka';
         $userData->email = 'packer@gmail.com';
         $userData->password = bcrypt('12345678');
-        $userData->role = 'Packer';
+        $userData->role = 'packer';
         $userData->save();
 
     }

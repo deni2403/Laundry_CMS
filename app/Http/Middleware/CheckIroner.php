@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckSuperAdmin
+class CheckIroner
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class CheckSuperAdmin
     {
         $role = Auth::user()->role;
 
-        if (Auth::user()->role == 'superadmin') {
+        if (Auth::user()->role == 'ironer') {
             return  $next($request);
         }
         return redirect($role . '/dashboard');
