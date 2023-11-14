@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IronerController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,16 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('superAdmin')->group(function () {
-        Route::get('/superadmin/create', [SuperAdminController::class,'createOrder'])->name('create.superadmin');
-        Route::post('/superadmin/store', [SuperAdminController::class,'storeOrder'])->name('store.superadmin');
+        Route::get('/superadmin/create/order', [SuperAdminController::class,'createOrder'])->name('create.superadmin');
+        Route::post('/superadmin/store/order', [SuperAdminController::class,'storeOrder'])->name('store.superadmin');
         Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard.superadmin');
+        //Member
+        Route::get('/superadmin/index/member',[SuperAdminController::class,'indexMember'])->name('index.member');
+        Route::get('/superadmin/create/member',[SuperAdminController::class,'createMember'])->name('create.member');
+        Route::post('/superadmin/store/member',[SuperAdminController::class,'storeMember'])->name('store.member');
+        Route::get('/superadmin/edit/member/{id}',[SuperAdminController::class,'editMember'])->name('edit.member');
+        Route::put('/superadmin/member/{id}',[SuperAdminController::class,'updateMember'])->name('update.member');
+        Route::delete('/superadmin/member/{id}',[SuperAdminController::class,'destroyMember'])->name('destroy.member'); 
     });
 
     Route::middleware('admin')->group(function () {
@@ -46,8 +54,8 @@ Route::middleware('auth', 'verified')->group(function () {
     });
 
     Route::middleware('cashier')->group(function () {
-        Route::get('/cashier/create', [CashierController::class,'createOrder'])->name('create.cashier');
-        Route::post('/cashier/store', [CashierController::class,'storeOrder'])->name('store.cashier');
+        Route::get('/cashier/create/order', [CashierController::class,'createOrder'])->name('create.cashier');
+        Route::post('/cashier/store/order', [CashierController::class,'storeOrder'])->name('store.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
     });
 
@@ -59,5 +67,6 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/packer/dashboard', [PackerController::class, 'dashboard'])->name('dashboard.packer');
     });
 });
+
 
 require __DIR__ . '/auth.php';
