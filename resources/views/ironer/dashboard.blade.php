@@ -11,6 +11,31 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                @foreach ($orderTake as $order)
+                    <p>Data Barang Sudah Dicuci</p>
+                    <p>{{ $order->invoice }}</p>
+                    <form action="{{ route('takeOrder.ironer', $order->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit">Ambil Order</button>
+                    </form>
+                @endforeach
+
+                @foreach ($orderDone as $order)
+                    <p>Data Barang Proses</p>
+                    <p>{{ $order->invoice }}</p>
+                    <form action="{{ route('doneOrder.ironer', $order->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit">Selesai</button>
+                    </form>
+                @endforeach
+
+                @foreach ($orders as $order)
+                    <p>Data Barang Take</p>
+                    <p>{{ $order->invoice }}</p>
+                    <p>{{ $order->status }}</p>
+                @endforeach
             </div>
         </div>
     </div>
