@@ -29,7 +29,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (Auth::user()->role == 'superadmin') {
+            return redirect()->route('dashboard.superadmin');
+        } elseif (Auth::user()->role == 'admin') {
+            return redirect()->route('dashboard.admin');
+        } elseif (Auth::user()->role == 'cashier') {
+            return redirect()->route('dashboard.cashier');
+        } elseif (Auth::user()->role == 'ironer') {
+            return redirect()->route('dashboard.ironer');
+        } elseif (Auth::user()->role == 'packer') {
+            return redirect()->route('dashboard.Packer');
+        }
+        return redirect('/dashboard');
     }
 
     /**

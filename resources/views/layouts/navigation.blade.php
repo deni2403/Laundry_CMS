@@ -5,16 +5,79 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    @if (Auth::user()->role == 'superadmin')
+                    <a href="{{ route('dashboard.superadmin') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
+                    @endif
+                    @if (Auth::user()->role == 'Admin')
+                    <a href="{{ route('dashboard.admin') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                    @endif
+                    @if (Auth::user()->role == 'cashier')
+                    <a href="{{ route('dashboard.cashier') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                    @endif
+
+                    @if (Auth::user()->role == 'ironer')
+                    <a href="{{ route('dashboard.ironer') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                    @endif
+
+                    @if (Auth::user()->role == 'packer')
+                    <a href="{{ route('dashboard.packer') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    @if (Auth::user()->role == 'superadmin')
+                    <x-nav-link :href="route('dashboard.superadmin')" :active="request()->routeIs('dashboard.superadmin')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'superadmin')
+                    <x-nav-link :href="route('create.superadmin')" :active="request()->routeIs('create.superadmin')">
+                        {{ __('Orders') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'cashier')
+                    <x-nav-link :href="route('dashboard.cashier')" :active="request()->routeIs('dashboard.cashier')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'cashier')
+                    <x-nav-link :href="route('create.cashier')" :active="request()->routeIs('create.cashier')">
+                        {{ __('Orders') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'admin')
+                    <x-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'ironer')
+                    <x-nav-link :href="route('dashboard.ironer')" :active="request()->routeIs('dashboard.ironer')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'packer')
+                    <x-nav-link :href="route('dashboard.packer')" :active="request()->routeIs('dashboard.packer')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 
@@ -67,7 +130,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard.superadmin')" :active="request()->routeIs('dashboard.superadmin')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
