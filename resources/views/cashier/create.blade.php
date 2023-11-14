@@ -14,7 +14,7 @@
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-3">
                 <div class="container p-6">
-                    <form action="{{route('store.superadmin')}}" method="POST">
+                    <form action="{{ route('storeOrder.cashier') }}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -41,8 +41,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="totalWeight">Total Berat</label>
-                            <input type="number" class="form-control" id="totalWeight" name="total_weight" step="0.01"
-                                min="0">
+                            <input type="number" class="form-control" id="totalWeight" name="total_weight"
+                                step="0.01" min="0">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="status">Status</label>

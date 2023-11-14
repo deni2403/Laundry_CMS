@@ -22,7 +22,11 @@ class Order extends Model
         'total_weight',
         'total_price',
         'status',
-        'user_id',
+        'superadmin_id',
+        'admin_id',
+        'cashier_id',
+        'ironer_id',
+        'packer_id',
         'service_id',
         'member_id',
         'log_id',
@@ -45,6 +49,4 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
-
 }
