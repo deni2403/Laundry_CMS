@@ -2,11 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CashierController;
-use App\Models\Order;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IronerController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\SuperAdminController;
@@ -43,6 +40,15 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
+        Route::get('/admin/dashboard/{event}', [AdminController::class,'showEvent']);
+        Route::get('/admin/events/checkSlug', [AdminController::class,'checkSlug']);
+        Route::get('/admin/events', [AdminController::class,'index']);
+        Route::get('/admin/events/create', [AdminController::class,'create']);
+        Route::post('/admin/events', [AdminController::class,'store']);
+        Route::get('/admin/events/{event}', [AdminController::class,'show']);
+        Route::get('/admin/events/{event}/edit', [AdminController::class,'edit']);
+        Route::patch('/admin/events/{event}', [AdminController::class,'update']);
+        Route::delete('/admin/events/{event}', [AdminController::class,'destroy']);
     });
 
     Route::middleware('cashier')->group(function () {

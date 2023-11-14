@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 25);
+            $table->string('title');
             $table->string('slug')->unique();
             $table->text('body', 100);
             $table->foreignId('user_id')->constrained();
