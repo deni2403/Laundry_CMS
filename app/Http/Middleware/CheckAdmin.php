@@ -21,7 +21,6 @@ class CheckAdmin
         if (Auth::user()->role == 'admin') {
             return  $next($request);
         }
-        
-        return redirect()->to(url($role . '/dashboard'));
+        return redirect($role . '/dashboard');
     }
 }
