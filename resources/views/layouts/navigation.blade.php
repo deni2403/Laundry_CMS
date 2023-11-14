@@ -43,7 +43,7 @@
                     @endif
 
                     @if (Auth::user()->role == 'superadmin')
-                    <x-nav-link :href="route('create.superadmin')" :active="request()->routeIs('create.superadmin')">
+                    <x-nav-link :href="route('createOrder.superadmin')" :active="request()->routeIs('create.superadmin')">
                         {{ __('Orders') }}
                     </x-nav-link>
                     @endif
@@ -55,7 +55,7 @@
                     @endif
 
                     @if (Auth::user()->role == 'cashier')
-                    <x-nav-link :href="route('create.cashier')" :active="request()->routeIs('create.cashier')">
+                    <x-nav-link :href="route('createOrder.cashier')" :active="request()->routeIs('create.cashier')">
                         {{ __('Orders') }}
                     </x-nav-link>
                     @endif
@@ -69,6 +69,12 @@
                     @if (Auth::user()->role == 'ironer')
                     <x-nav-link :href="route('dashboard.ironer')" :active="request()->routeIs('dashboard.ironer')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if (Auth::user()->role == 'ironer')
+                    <x-nav-link :href="route('editOrder.ironer')" :active="request()->routeIs('edit.ironer')">
+                        {{ __('Edit Data') }}
                     </x-nav-link>
                     @endif
 

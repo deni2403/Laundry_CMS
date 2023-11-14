@@ -14,7 +14,7 @@
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-3">
                 <div class="container p-6">
-                    <form action="{{route('store.superadmin')}}" method="POST">
+                    <form action="{{route('storeOrder.cashier')}}" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">

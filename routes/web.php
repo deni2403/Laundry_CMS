@@ -36,8 +36,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware('superAdmin')->group(function () {
-        Route::get('/superadmin/create', [SuperAdminController::class,'createOrder'])->name('create.superadmin');
-        Route::post('/superadmin/store', [SuperAdminController::class,'storeOrder'])->name('store.superadmin');
+        Route::get('/superadmin/create', [SuperAdminController::class,'createOrder'])->name('createOrder.superadmin');
+        Route::post('/superadmin/store', [SuperAdminController::class,'storeOrder'])->name('storeOrder.superadmin');
         Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard.superadmin');
     });
 
@@ -46,13 +46,16 @@ Route::middleware('auth', 'verified')->group(function () {
     });
 
     Route::middleware('cashier')->group(function () {
-        Route::get('/cashier/create', [CashierController::class,'createOrder'])->name('create.cashier');
-        Route::post('/cashier/store', [CashierController::class,'storeOrder'])->name('store.cashier');
+        Route::get('/cashier/create', [CashierController::class,'createOrder'])->name('createOrder.cashier');
+        Route::post('/cashier/store', [CashierController::class,'storeOrder'])->name('storeOrder.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
     });
 
     Route::middleware('ironer')->group(function () {
         Route::get('/ironer/dashboard', [IronerController::class, 'dashboard'])->name('dashboard.ironer');
+        route::get('/ironer/edit', [IronerController::class,'editOrder'])->name('editOrder.ironer');
+        Route::patch('/ironer/take-order/{Id}', [IronerController::class, 'takeOrder'])->name('takeOrder.ironer');
+        Route::patch('/ironer/done-order/{Id}', [IronerController::class, 'doneOrder'])->name('doneOrder.ironer');
     });
 
     Route::middleware('packer')->group(function () {

@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class CashierController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('cashier.dashboard');
     }
 
@@ -24,7 +25,7 @@ class CashierController extends Controller
         $logs = Log::all();
         $members = Member::all();
         $users = User::all();
-        return view('orders.create', compact('orders', 'services', 'logs', 'members', 'users'));
+        return view('cashier.create', compact('orders', 'services', 'logs', 'members', 'users'));
     }
 
     public function storeOrder(Request $request)
@@ -39,7 +40,7 @@ class CashierController extends Controller
         $newOrder->status = $request->status;
         $newOrder->service_id = $request->service_id;
         $newOrder->member_id = $request->member_id;
-        $newOrder->user_id = Auth::user()->id;
+        $newOrder->cashier_id = Auth::user()->id;
         $service = Service::find($newOrder->service_id);
         $newOrder->total_price = $newOrder->total_weight * $service->service_price;
         $newOrder->save();
@@ -54,5 +55,20 @@ class CashierController extends Controller
         $newOrder->save();
 
         return redirect()->route('dashboard')->with('success', '');
+    }
+
+    public function takeOrder($id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Validasi apakah order belum diambil oleh ironer lain
+        if ($order->ironer_id === null) {
+            // Update ironer_id pada order
+            $order->update(['ironer_id' => auth()->user()->id, 'status' => 'Sedang Disetrika']);
+
+            return redirect()->route('ironer.dashboard')->with('success', 'Order berhasil diambil.');
+        } else {
+            return redirect()->route('ironer.dashboard')->with('error', 'Order sudah diambil oleh ironer lain.');
+        }
     }
 }
