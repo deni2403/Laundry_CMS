@@ -4,7 +4,7 @@
 @section('content')
     <div id="tracking" class="section-tracking">
         <div class="container-fluid tracking">
-            <h1 class="tracking-header__title">Traking Pesanan Service Mu !</h1>
+            <h1 class="tracking-header__title">Lacak Pesanan Kamu !</h1>
             <div class="row">
                 <div class="col-lg-5 col-md-6">
                     <div class="tracking-search-bar d-flex align-items-center">

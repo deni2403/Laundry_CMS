@@ -18,7 +18,7 @@
         <div class="login shadow-sm">
             <div class="login-header d-flex flex-column align-items-center">
                 <h1 class="login-header__title">Alza Laundry</h1>
-                <p class="login-header__text">login to your account !</p>
+                <p class="login-header__text">masuk ke akun kamu !</p>
             </div>
             <div class="login-form">
                 <form>
@@ -29,9 +29,8 @@
                       <input type="password" class="form-control password-input" placeholder="Password" required>
                       <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
-                    <a href="" class="forgot-btn d-flex justify-content-end">Forgot Password</a>
                     <div class="d-flex button-container justify-content-center">
-                        <button type="submit" class="login-btn">Login</button>
+                        <button type="submit" class="login-btn">Masuk</button>
                     </div>
                   </form>
             </div>

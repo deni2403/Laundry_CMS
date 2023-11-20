@@ -11,6 +11,7 @@ use App\Http\Controllers\IronerController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\WebProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,44 +24,8 @@ use App\Http\Controllers\MemberController;
 |
 */
 
-Route::get('/', function () {
-    return view('landingPage', [
-        'services' => [
-            [
-                'title' => 'Cuci Setrika Reguler',
-                'image' => '/assets/icons/cuci-setrika.png',
-            ],
-            [
-                'title' => 'Cuci Setrika Express',
-                'image' => '/assets/icons/cuci-setrika.png',
-            ],
-            [
-                'title' => 'Cuci Reguler',
-                'image' => '/assets/icons/cuci.png',
-            ],
-            [
-                'title' => 'Cuci Express',
-                'image' => '/assets/icons/cuci.png',
-            ],
-            [
-                'title' => 'Setrika Reguler',
-                'image' => '/assets/icons/setrika.png',
-            ],
-            [
-                'title' => 'Setrika Express',
-                'image' => '/assets/icons/setrika.png',
-            ],
-            [
-                'title' => 'Cuci Karpet',
-                'image' => '/assets/icons/karpet.png',
-            ],
-            [
-                'title' => 'Cuci Setrika',
-                'image' => '/assets/icons/cuci-setrika.png',
-            ],
-        ]
-    ]);
-});
+Route::get('/', [WebProfileController::class, 'index']);
+Route::get('/events/{event}', [WebProfileController::class, 'showEvent']);
 
 Route::get('/tracking', function () {
     return view('trackingPage');
@@ -82,13 +47,6 @@ Route::get('/member', function () {
     return view('memberProfile');
 });
 
-Route::get('/admin', function () {
-    return view('cms');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -112,7 +70,7 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.admin');
         Route::get('/admin/dashboard/{event}', [AdminController::class, 'showEvent']);
         Route::get('/admin/events/checkSlug', [AdminController::class, 'checkSlug']);
-        Route::get('/admin/events', [AdminController::class, 'index']);
+        Route::get('/admin/events', [AdminController::class, 'index'])->name('index.admin');
         Route::get('/admin/events/create', [AdminController::class, 'create']);
         Route::post('/admin/events', [AdminController::class, 'store']);
         Route::get('/admin/events/{event}', [AdminController::class, 'show']);

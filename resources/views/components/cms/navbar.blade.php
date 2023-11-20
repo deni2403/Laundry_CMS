@@ -8,10 +8,13 @@
         </div>
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span>Hi, Joko Abdi</span>
+                <span>welcome, {{ Auth::user()->name }}</span>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Log out</a></li>
+                <form action="/logout" method="POST">
+                    @csrf
+                    <li><button class="dropdown-item" type="submit">Log out</button></li>
+                </form>
             </ul>
         </div>
     </div>
