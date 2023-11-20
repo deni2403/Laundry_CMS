@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CashierController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IronerController;
-use App\Http\Controllers\PackerController;
-use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PackerController;
+use App\Http\Controllers\CashierController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\WAController;
 use App\Http\Controllers\WebProfileController;
 
 /*
@@ -47,7 +47,6 @@ Route::get('/member', function () {
     return view('memberProfile');
 });
 
-
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,12 +57,12 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/superadmin/store', [SuperAdminController::class, 'storeOrder'])->name('storeOrder.superadmin');
         Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard.superadmin');
         //Member
-        Route::get('/superadmin/index/member', [SuperAdminController::class, 'indexMember'])->name('index.member');
-        Route::get('/superadmin/create/member', [SuperAdminController::class, 'createMember'])->name('create.member');
-        Route::post('/superadmin/store/member', [SuperAdminController::class, 'storeMember'])->name('store.member');
-        Route::get('/superadmin/edit/member/{id}', [SuperAdminController::class, 'editMember'])->name('edit.member');
-        Route::put('/superadmin/member/{id}', [SuperAdminController::class, 'updateMember'])->name('update.member');
-        Route::delete('/superadmin/member/{id}', [SuperAdminController::class, 'destroyMember'])->name('destroy.member');
+        Route::get('/superadmin/index/member',[SuperAdminController::class,'indexMember'])->name('index.member');
+        Route::get('/superadmin/create/member',[SuperAdminController::class,'createMember'])->name('create.member');
+        Route::post('/superadmin/store/member',[SuperAdminController::class,'storeMember'])->name('store.member');
+        Route::get('/superadmin/edit/member/{id}',[SuperAdminController::class,'editMember'])->name('edit.member');
+        Route::put('/superadmin/member/{id}',[SuperAdminController::class,'updateMember'])->name('update.member');
+        Route::delete('/superadmin/member/{id}',[SuperAdminController::class,'destroyMember'])->name('destroy.member');
     });
 
     Route::middleware('admin')->group(function () {
@@ -83,6 +82,7 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/cashier/create', [CashierController::class, 'createOrder'])->name('createOrder.cashier');
         Route::post('/cashier/store', [CashierController::class, 'storeOrder'])->name('storeOrder.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
+        Route::post('/cashier/WhatsApp', [WAController::class, 'store'])->name('store.wa');
     });
 
     Route::middleware('ironer')->group(function () {
@@ -94,6 +94,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::middleware('packer')->group(function () {
         Route::get('/packer/dashboard', [PackerController::class, 'dashboard'])->name('dashboard.packer');
+        Route::patch('/packer/take-order/{Id}', [PackerController::class, 'takeOrder'])->name('takeOrder.packer');
+        Route::patch('/paacker/done-order/{Id}', [PackerController::class, 'doneOrder'])->name('doneOrder.packer');
     });
 });
 

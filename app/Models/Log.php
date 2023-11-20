@@ -14,6 +14,8 @@ class Log extends Model
         'log_id',
         'before_status',
         'after_status',
+        'updated_at',
+        'created_at',
     ];
 
     public function orders(){

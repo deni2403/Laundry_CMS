@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         } elseif (Auth::user()->role == 'ironer') {
             return redirect()->route('dashboard.ironer');
         } elseif (Auth::user()->role == 'packer') {
-            return redirect()->route('dashboard.Packer');
+            return redirect()->route('dashboard.packer');
         }
         return redirect('/dashboard');
     }

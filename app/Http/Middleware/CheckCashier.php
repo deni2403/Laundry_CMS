@@ -18,7 +18,7 @@ class CheckCashier
     {
         $role = Auth::user()->role;
 
-        if (Auth::user()->role == 'cashier') {
+        if (Auth::user()->role == 'cashier' || Auth::user()->role == 'superadmin') {
             return  $next($request);
         }
         return redirect($role . '/dashboard');
