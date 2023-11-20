@@ -11,8 +11,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+
+                <p class="mt-3">Data Barang Sudah Dicuci</p>
                 @foreach ($orderTake as $order)
-                    <p>Data Barang Sudah Dicuci</p>
                     <p>{{ $order->invoice }}</p>
                     <form action="{{ route('takeOrder.ironer', $order->id) }}" method="POST">
                         @csrf
@@ -21,8 +22,8 @@
                     </form>
                 @endforeach
 
+                <p class="mt-3">Data Barang Proses</p>
                 @foreach ($orderDone as $order)
-                    <p>Data Barang Proses</p>
                     <p>{{ $order->invoice }}</p>
                     <form action="{{ route('doneOrder.ironer', $order->id) }}" method="POST">
                         @csrf
@@ -31,8 +32,8 @@
                     </form>
                 @endforeach
 
+                <p class="mt-3"> Data Barang Take</p>
                 @foreach ($orders as $order)
-                    <p>Data Barang Take</p>
                     <p>{{ $order->invoice }}</p>
                     <p>{{ $order->status }}</p>
                 @endforeach

@@ -55,4 +55,40 @@ class SuperAdminController extends Controller
 
         return redirect()->route('dashboard.superadmin')->with('success', '');
     }
+
+    //Member Start
+    public function indexMember(){
+        $member = Member::all();
+        return view('member.index',compact(['member']));
+    }
+
+    public function createMember()
+    {
+        return view('member.create');
+    }
+
+    public function storeMember(Request $request)
+    {
+        member::create($request->except('_token','submit'));
+        return redirect()->route('index.member');
+    }
+
+    public function editMember($id)
+    {
+        $member = member::find($id);
+        return view('member.edit', compact(['member']));
+    }
+    public function updateMember($id, Request $request){
+        $member = member::find($id);
+        $member->update($request->except(['_token','submit']));
+        return redirect()->route('index.member');
+    }
+
+    public function destroyMember($id){
+        $member = member::find($id);
+        $member -> delete();
+        return redirect()->route('index.member');
+    }
+
+    //Member End
 }
