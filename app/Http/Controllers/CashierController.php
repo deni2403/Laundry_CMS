@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 class CashierController extends Controller
 {
     public function dashboard(){
-        return view('cashier.dashboard');
+        $order = Order::where('status', 'Selesai')->get();
+        return view('cashier.dashboard', compact('order'));
     }
 
     public function createOrder()

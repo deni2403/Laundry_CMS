@@ -53,11 +53,9 @@ class AdminController extends Controller
 
     public function show(Event $event)
     {
-        // return view('admin.show', [
-        //     'event' => $event,
-        // ]);
-
-        return $event;
+        return view('admin.show', [
+            'event' => $event,
+        ]);
     }
 
     public function edit(Event $event)
