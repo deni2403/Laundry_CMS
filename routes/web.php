@@ -63,6 +63,10 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/superadmin/edit/member/{id}',[SuperAdminController::class,'editMember'])->name('edit.member');
         Route::put('/superadmin/member/{id}',[SuperAdminController::class,'updateMember'])->name('update.member');
         Route::delete('/superadmin/member/{id}',[SuperAdminController::class,'destroyMember'])->name('destroy.member');
+        //user
+        Route::get('/superadmin/users',[SuperAdminController::class,'indexUser'])->name('users.superadmin'); //new
+        Route::get('/superadmin/users/create',[SuperAdminController::class,'createUser'])->name('createUser.superadmin'); //new
+        Route::get('/superadmin/users/{user}/edit', [SuperAdminController::class, 'editUser']); //new
     });
 
     Route::middleware('admin')->group(function () {
@@ -82,6 +86,8 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/cashier/create', [CashierController::class, 'createOrder'])->name('createOrder.cashier');
         Route::post('/cashier/store', [CashierController::class, 'storeOrder'])->name('storeOrder.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
+        Route::get('/cashier/orders', [CashierController::class, 'orderData'])->name('orderData.cashier'); //new
+        Route::get('/cashier/members/create', [CashierController::class, 'createMember'])->name('createMember.cashier'); //new
         Route::post('/cashier/WhatsApp', [WAController::class, 'store'])->name('store.wa');
     });
 
@@ -90,12 +96,14 @@ Route::middleware('auth', 'verified')->group(function () {
         route::get('/ironer/edit', [IronerController::class, 'editOrder'])->name('editOrder.ironer');
         Route::patch('/ironer/take-order/{Id}', [IronerController::class, 'takeOrder'])->name('takeOrder.ironer');
         Route::patch('/ironer/done-order/{Id}', [IronerController::class, 'doneOrder'])->name('doneOrder.ironer');
+        Route::get('/ironer/orders', [IronerController::class, 'orderData'])->name('orderData.ironer'); //new
     });
 
     Route::middleware('packer')->group(function () {
         Route::get('/packer/dashboard', [PackerController::class, 'dashboard'])->name('dashboard.packer');
         Route::patch('/packer/take-order/{Id}', [PackerController::class, 'takeOrder'])->name('takeOrder.packer');
-        Route::patch('/paacker/done-order/{Id}', [PackerController::class, 'doneOrder'])->name('doneOrder.packer');
+        Route::patch('/packer/done-order/{Id}', [PackerController::class, 'doneOrder'])->name('doneOrder.packer');
+        Route::get('/packer/orders', [PackerController::class, 'orderData'])->name('orderData.packer'); //new
     });
 });
 
