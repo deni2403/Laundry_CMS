@@ -63,9 +63,11 @@
                             <select class="form-control" id="service" name="member_id">
                                 <option value="">-- Kosong --</option>
                                 @foreach ($members as $data)
-                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                    <option value="{{ $data->id }}">{{ $data->name }} - {{$data->total_point}}</option>
                                 @endforeach
                             </select>
+                            <label for="use_points">Gunakan Poin:</label>
+                            <input type="checkbox" name="use_points" id="use_points" value="1">
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>

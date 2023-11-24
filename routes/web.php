@@ -82,7 +82,7 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/cashier/create', [CashierController::class, 'createOrder'])->name('createOrder.cashier');
         Route::post('/cashier/store', [CashierController::class, 'storeOrder'])->name('storeOrder.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
-        Route::post('/cashier/WhatsApp', [WAController::class, 'store'])->name('store.wa');
+        Route::post('/cashier/WhatsApp/{Id}', [WAController::class, 'store'])->name('store.wa');
     });
 
     Route::middleware('ironer')->group(function () {

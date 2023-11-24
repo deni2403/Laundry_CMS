@@ -9,28 +9,33 @@ use Illuminate\Http\Request;
 
 class WAController extends Controller
 {
-    public function store()
+
+    public function store(String $id)
     {
-        $kumpulan_data = [];
+        // Mengambil data order berdasarkan ID yang diberikan
+        $order = Order::with('members')->find($id);
 
-        $orders = Order::all();
+        // Pastikan order ditemukan sebelum melanjutkan
+        if ($order) {
+            // Mengambil informasi member dari order
+            $member = Member::findOrFail($order->member_id);
 
-        foreach ($orders as $order) {
-            $member = Member::find($order->member_id);
-
+            // Pastikan member ditemukan sebelum melanjutkan
             if ($member) {
+                // Mengambil phone number dan informasi lainnya
                 $data['phone'] = $member->phone_number;
-                $data['message'] = 'Laundry Selesai';
+                $data['message'] = 'Laundry dengan nomor invoice ' . $order->invoice . ' atas nama ' . $order->customer_name . ' telah selesai diproses. Terima kasih telah menggunakan jasa kami.';
                 $data['secret'] = false;
                 $data['retry'] = false;
                 $data['isGroup'] = false;
-                array_push($kumpulan_data, $data);
+
+                // Asumsi Anda memiliki metode sendText dalam WablasTrait
+                WablasTrait::sendText([$data]);
+
+                return redirect()->back()->with('success', 'Pesan WhatsApp berhasil dikirim.');
             }
         }
 
-
-        WablasTrait::sendText($kumpulan_data);
-
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Order tidak ditemukan atau member tidak ditemukan.');
     }
 }

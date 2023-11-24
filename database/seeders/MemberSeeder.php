@@ -22,5 +22,15 @@ class MemberSeeder extends Seeder
         $memberData->created_at = now();
         $memberData->updated_at = now();
         $memberData->save();
+
+        $memberData = new Member();
+        $memberData->name = 'Aji Agung';
+        $memberData->email = 'aji@gmail.com';
+        $memberData->phone_number = '6281234567890';
+        $memberData->total_point = 100;
+        $memberData->registration_date = now();
+        $memberData->created_at = now();
+        $memberData->updated_at = now();
+        $memberData->save();
     }
 }

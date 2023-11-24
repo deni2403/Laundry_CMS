@@ -9,7 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite([])
 </head>
 
@@ -23,16 +25,16 @@
             <div class="login-form">
                 <form>
                     <div class="mb-4">
-                      <input type="email" class="form-control" placeholder="Email" required>
+                        <input type="email" class="form-control" placeholder="Email" required>
                     </div>
                     <div class="mb-2 pass-container">
-                      <input type="password" class="form-control password-input" placeholder="Password" required>
-                      <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
+                        <input type="password" class="form-control password-input" placeholder="Password" required>
+                        <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
                     <div class="d-flex button-container justify-content-center">
                         <button type="submit" class="login-btn">Masuk</button>
                     </div>
-                  </form>
+                </form>
             </div>
         </div>
     </div>

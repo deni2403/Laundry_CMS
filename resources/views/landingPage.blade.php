@@ -69,15 +69,15 @@
             <div class="row">
                 <div class="col">
                     <div class="container-fluid event-section-item d-flex justify-content-center flex-wrap">
-                        @foreach ($events as $event )
-                        <div class="card m-2 shadow-sm">
-                            <img src="/assets/images/event-image.png" class="card-img-top img-fluid" alt="Event Image">
-                            <div class="card-body m-1">
-                                <h5 class="card-title">{{ $event->created_at->format('d M Y') }}</h5>
-                                <p class="card-text">{{ $event->title }}</p>
-                                <a href="/events/{{ $event->slug }}" class="btn event-btn py-1">Read More -></a>
+                        @foreach ($events as $event)
+                            <div class="card m-2 shadow-sm">
+                                <img src="/assets/images/event-image.png" class="card-img-top img-fluid" alt="Event Image">
+                                <div class="card-body m-1">
+                                    <h5 class="card-title">{{ $event->created_at->format('d M Y') }}</h5>
+                                    <p class="card-text">{{ $event->title }}</p>
+                                    <a href="/events/{{ $event->slug }}" class="btn event-btn py-1">Read More -></a>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -115,5 +115,5 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection
