@@ -3,13 +3,12 @@
 :root {
     --primary-color: #012970;
     --secondary-color: #E58440;
-    --text-dark: #000000;
+    --text--dark: #000000;
     --text-gray: #595858;
     --bg-light: #E9F1F6;
-    --bg-soft: #F8D3B9;
-    --bg-red: #FF3434;
+    --bg-sky: #4574C7;
+    --bg-cloud: #BCE4FC;
     --bg-white: #FFFFFF;
-    --bg-gray: #cccccc;
 }
 
 * {
@@ -26,7 +25,14 @@
 /* Navbar */
 
 .navbar {
-    background-color: var(--primary-color);
+    background-color: var(--bg-white);
+}
+
+.brand-wrapper__name {
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 5px;
 }
 
 .toggler-button {
@@ -35,14 +41,10 @@
 }
 
 .toggler-button i {
-    font-size: 16px;
+    font-size: 13px;
+    color: var(--primary-color);
 }
 
-.brand-wrapper__name {
-    color: var(--secondary-color);
-    font-size: 16px;
-    font-weight: bold;
-}
 
 .dropdown button {
     border: 0;
@@ -50,25 +52,30 @@
 }
 
 .dropdown button span {
-    color: var(--bg-white);
+    color: var(--primary-color);
     font-weight: bold;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .dropdown-toggle {
-    color: var(--bg-white);
+    color: var(--primary-color);
 }
 
 .dropdown-item {
     color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .dropdown-item:hover {
     color: var(--primary-color);
+    background-color: var(--bg-light);
 }
 
 .dropdown-menu {
-    border-radius: 0;
+    border-radius: 5px;
+    margin-left: -50px;
+    padding: 0;
 }
 
 
@@ -77,7 +84,7 @@
     max-width: 100px;
     min-width: 100px;
     transition: all 0.3s;
-    background-color: var(--bg-light);
+    background-color: var(--bg-white);
     min-height: 100vh;
 }
 
@@ -88,6 +95,11 @@
 
 .sidebar-header__avatar {
     margin: 10px 10px;
+}
+
+.sidebar-header__avatar img {
+    max-height: 70px;
+    max-width: 70px;
 }
 
 .sidebar-header__user {
@@ -115,76 +127,118 @@
     padding: 0px;
 }
 
-.sideber-menu__item {
+.sidebar-menu__item {
     margin-bottom: 20px;
     list-style: none;
     display: flex;
     justify-content: center;
+    padding: 10px 0;
+    margin: 0 10px;
 }
 
-.sideber-item__link {
+.sidebar-item__link {
     text-decoration: none;
 }
 
-.sideber-menu__item button {
-    border: 0;
-    background-color: var(--bg-gray);
-    border-radius: 5px;
-    padding: 5px 10px;
+.sidebar-menu__item i {
+    height: 18px;
+    width: 18px;
+    color: var(--primary-color);
+    padding-right: 20px;
 }
 
-.sideber-menu__item button i {
+.sidebar-menu__item span {
     font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-color);
 }
 
-.sideber-menu__item span {
-    font-size: 18px;
+.sidebar-menu__item:hover {
+    background-color: var(--bg-light);
+    border-radius: 5px;
+}
+
+.sidebar-menu__item:hover i {
+    color: var(--bg-sky);
+}
+
+.sidebar-menu__item:hover span {
+    color: var(--bg-sky);
+}
+
+.sidebar-menu__item.active {
+    background-color: var(--bg-light);
+    border-radius: 5px;
+}
+
+.sidebar-menu__item.active a i {
+    color: var(--bg-sky);
+}
+
+.sidebar-menu__item.active a span {
+    color: var(--bg-sky);
+}
+
+.btn-toggle-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.cashier-collapse__item a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 9px;
     font-weight: 600;
-    color: var(--text-gray);
+    margin-left: 10px;
 }
 
-.sideber-menu__item:hover button {
-    background-color: var(--primary-color);
+.cashier-collapse__item:hover {
+    background-color: var(--bg-light);
+    border-radius: 5px;
 }
 
-.sideber-menu__item:hover button i {
-    color: var(--bg-white);
+.cashier-collapse__item a:hover {
+    color: var(--bg-sky);
 }
 
-.sideber-menu__item:hover span {
-    color: var(--text-dark);
+.cashier-collapse__item.active {
+    background-color: var(--bg-light);
+    border-radius: 5px;
 }
 
-.sideber-menu__item.active button {
-    background-color: var(--primary-color);
+.cashier-collapse__item.active a {
+    color: var(--bg-sky);
 }
 
-.sideber-menu__item.active button i {
-    color: var(--bg-white);
+/* Page Section */
+.content-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-light);
+    padding: 10px 10px;
 }
-
-.sideber-menu__item.active span {
-    color: var(--text-dark);
-}
-
 
 /* Admin */
 
 /*  Dashboard  */
 .admin-dashboard {
-    margin: 15px 0px;
+    margin: 10px 0px;
 }
 
 .admin-dashboard__title {
     font-size: 20px;
     font-weight: 600;
     color: var(--primary-color);
-    margin: 0 10px;
-    margin-bottom: 10px;
+    padding-left: 15px;
 }
 
-.event-list a{
+.event-list a {
     text-decoration: none;
+}
+
+.card-img-top {
+    flex: 1 1 auto;
+    object-fit: cover;
 }
 
 .event-list .card {
@@ -209,6 +263,9 @@
 
 .detail-event {
     margin: 20px 0;
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    padding: 20px 20px;
 }
 
 .detail-event__title {
@@ -242,7 +299,10 @@
 /* Index */
 
 .event-index {
-    margin: 20px 0px;
+    background-color: var(--bg-white);
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 20px;
 }
 
 .event-index__title {
@@ -260,15 +320,16 @@
 }
 
 .event-index__table td .btn {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 /* Create */
 .create-event {
     margin: 10px 0px;
-    padding-left: 10px;
+    padding: 10px;
     max-width: 210px;
-    max-height: 400px;
+    background-color: var(--bg-white);
+    border-radius: 10px;
 }
 
 .create-event__title {
@@ -285,10 +346,142 @@
 
 /* Admin-end */
 
+/* Super Admin */
 
+/* Dashboard */
+.superadmin-dashboard__title {
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dashboard-information {
+    justify-content: center;
+}
+
+.dashboard-information__item {
+    max-width: 335px;
+    max-height: 195px;
+    background-color: var(--bg-white);
+    padding: 25px 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.dashboard-information__item-image {
+    max-width: 80px;
+    max-height: 80px;
+    background-color: var(--bg-cloud);
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.dashboard-information__desc-box {
+    margin: 0 10px;
+}
+
+.dashboard-information__desc-box__value {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.dashboard-information__desc-box__text {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+/* Super Admin End */
+
+.divider {
+    color: var(--text-gray);
+}
+
+/* Cashier, Ironer, Packer */
+.complete-button {
+    background-color: #25D366;
+    border: 0;
+    border-radius: 5px;
+    color: var(--bg-white);
+    padding: 5px 10px;
+}
+
+.update-button {
+    background-color: var(--secondary-color);
+    border: 0;
+    border-radius: 5px;
+    color: var(--bg-white);
+    padding: 5px 10px;
+}
+
+.form-input form {
+    margin: 20px 0;
+}
+
+.form-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+.form-group input {
+    color: var(--text-gray);
+    max-width: 50%;
+    font-size: 12px;
+}
+
+.form-group select {
+    color: var(--text-gray);
+    max-width: 50%;
+    font-size: 12px;
+}
+
+.form-button {
+    border: 0;
+    border-radius: 5px;
+    background-color: var(--bg-sky);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--bg-white);
+    padding: 8px 20px;
+    margin-top: 20px;
+}
+
+.checkbox-point label{
+    font-size: 12px;
+    color: var(--text-gray);
+    margin-right: 45px;
+}
+
+/* Cashier End */
 
 /* Media Query */
 @media (min-width: 768px) {
+    .brand-wrapper__name {
+        margin-left: 10px;
+        margin-right: 35px;
+        font-size: 16px;
+    }
+
+    .toggler-button i {
+        font-size: 16px;
+    }
+
     .sidebar {
         max-width: 160px;
         min-width: 160px;
@@ -298,44 +491,72 @@
         margin-left: -160px;
     }
 
+    .sidebar-header__user-name {
+        font-size: 16px;
+    }
+
+    .sidebar-header__user-role {
+        font-size: 14px;
+    }
+
     .sidebar-menu {
         margin-top: 20px;
     }
 
-    .sideber-menu__item {
-        margin-bottom: 20px;
+    .dropdown button span {
+        font-size: 16px;
     }
 
-    .sideber-item__link {
+    .dropdown-menu {
+        margin-left: -30px;
+    }
+
+    .sidebar-item__link {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .sideber-menu__item button i {
-        font-size: 16px;
+    .sidebar-menu__item span {
+        margin-top: 5px;
     }
 
-    .sideber-menu__item span {
+    .btn-toggle-nav {
+        padding: 0;
+    }
+
+    .cashier-collapse__item {
+        padding: 5px 0;
+    }
+
+    .cashier-collapse__item a {
         font-size: 14px;
-        margin-top: 5px;
+        font-weight: 500;
+        margin-left: 20px;
+    }
+
+    /* Page Section */
+    .content-wrapper {
+        padding: 0px 30px;
     }
 
     /* Admin */
 
-    .admin-dashboard {
-        margin: auto 15px;
-    }
-
     .admin-dashboard__title {
         font-size: 30px;
-        margin: 15px 10px;
+        margin: 10px 0;
+        padding-left: 15px;
+    }
+
+    .event-list {
+        justify-content: center;
     }
 
     .event-list .card {
         max-width: 260px;
         max-height: 360px;
+        margin: 10px;
     }
 
     .event-list .card-text {
@@ -348,11 +569,6 @@
     }
 
     /* Index */
-
-    .event-index {
-        margin: 30px 30px;
-    }
-
     .event-index__title {
         font-size: 30px;
     }
@@ -371,9 +587,8 @@
 
     /* Create */
     .create-event {
-        margin: 30px 30px;
+        margin: 20px 0px;
         max-width: 100%;
-        max-height: 100%;
     }
 
     .create-event__title {
@@ -385,26 +600,80 @@
     }
 
     /* Admin End */
+
+
+    /* Super Admin */
+    /* Dashboard */
+    .superadmin-dashboard__title {
+        font-size: 25px;
+        font-weight: 600;
+        margin: 10px 0;
+    }
+
+    .dashboard-information {
+        justify-content: space-evenly;
+    }
+
+    .dashboard-information__item {
+        padding: 40px 30px;
+    }
+
+    .dashboard-information__item-image {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .dashboard-information__desc-box {
+        margin: 0 10px;
+    }
+
+    .dashboard-information__desc-box__value {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .dashboard-information__desc-box__text {
+        font-size: 15px;
+        margin: 0;
+    }
+    /* Super Admin End */
+
+
+    /* Cashier */
+    .form-group input {
+        max-width: 70%;
+    }
+
+    .form-group select {
+        max-width: 70%;
+    }
+
+    .checkbox-point label{
+        margin-right: 65px;
+    }
+    /* Cashier End */
 }
 
 @media (min-width: 992px) {
 
     /* Navbar */
-
-    .toggler-button i {
-        font-size: 20px;
+    .brand-wrapper__name {
+        font-size: 25px;
+        margin-left: 20px;
+        margin-right: 60px;
     }
 
-    .brand-wrapper__name {
-        font-size: 20px;
+    .toggler-button i {
+        font-size: 25px;
     }
 
     .dropdown button span {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .dropdown-menu {
-        margin-left: 20px;
+        margin-left: 40px;
+        padding: 10px 0;
     }
 
     /* Sidebar */
@@ -421,52 +690,67 @@
         padding: 10px 0;
     }
 
-    .sidebar-header__avatar img {
-        max-width: 100px;
-        max-height: 100px;
-    }
-
     .sidebar-header__user-name {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .sidebar-header__user-role {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .sidebar-menu {
-        padding-left: 10px;
         margin-top: 20px;
     }
 
-    .sideber-item__link {
+    .sidebar-item__link {
         display: block;
     }
 
-    .sideber-menu__item {
+    .sidebar-menu__item i {
+        height: 20px;
+        width: 20px;
+    }
+
+    .sidebar-menu__item {
         display: block;
-        margin-bottom: 20px;
-        padding-left: 20px;
+        margin-bottom: 0px;
+        padding: 10px 0 10px 10px;
+        margin: 0 20px;
     }
 
-    .sideber-menu__item button {
-        margin-right: 20px;
-        padding: 10px 15px;
+    .sidebar-menu__item span {
+        margin-left: 15px;
+        font-size: 18px;
     }
 
-    .sideber-menu__item button i {
-        font-size: 20px;
+    .btn-toggle-nav {
+        padding: 0;
+    }
+
+    .cashier-collapse__item {
+        padding: 10px 0;
+    }
+
+    .cashier-collapse__item a {
+        font-size: 16px;
+        margin-left: 70px;
+    }
+
+    /* Page Section */
+    .content-wrapper {
+        padding: 20px 40px;
     }
 
     /* Admin */
 
-    .admin-dashboard {
-        margin: 30px 30px;
+    .admin-dashboard__title {
+        font-size: 30px;
+        margin: 10px 10px;
+        padding-left: 5px;
     }
 
-    .admin-dashboard__title {
-        font-size: 40px;
-        margin: 10px 10px;
+    .event-list {
+        justify-content: normal;
     }
 
     .event-list .card {
@@ -484,11 +768,6 @@
     }
 
     /* Detail Event */
-
-    .detail-event {
-        margin: 30px 30px;
-    }
-
     .detail-event__title {
         font-size: 30px;
     }
@@ -520,7 +799,7 @@
     /* Index */
 
     .event-index {
-        margin: 30px 30px;
+        padding: 30px;
     }
 
     .event-index__title {
@@ -541,7 +820,8 @@
 
     /* Create */
     .create-event {
-        margin: 30px 30px;
+        margin: 20px 0px;
+        padding: 20px;
         max-width: 100%;
         max-height: 100%;
     }
@@ -555,4 +835,84 @@
     }
 
     /* Admin - End */
+
+    /* Super Admin */
+
+    /* Dashboard */
+    .superadmin-dashboard__title {
+        font-size: 30px;
+        font-weight: 600;
+        margin: 20px 0;
+    }
+
+    .dashboard-information {
+        justify-content: space-between;
+    }
+
+    .dashboard-information__item {
+        padding: 50px 40px;
+    }
+
+    .dashboard-information__item-image {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    .dashboard-information__desc-box {
+        margin: 0 10px;
+    }
+
+    .dashboard-information__desc-box__value {
+        font-size: 30px;
+        margin: 0;
+    }
+
+    .dashboard-information__desc-box__text {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    /* Super Admin End */
+
+    /* Cashier, Ironer, Packer */
+    .form-input form {
+        margin: 40px 0;
+    }
+
+    .form-title {
+        font-size: 25px;
+    }
+
+    .form-group {
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: space-between;
+    }
+
+    .form-group label {
+        font-size: 17px;
+    }
+
+    .form-group input {
+        font-size: 17px;
+        max-width: 80%;
+    }
+
+    .form-group select {
+        font-size: 17px;
+        max-width: 80%;
+    }
+
+    .form-button {
+        font-size: 17px;
+        padding: 8px 20px;
+        margin-top: 20px;
+    }
+
+    .checkbox-point label{
+        font-size: 17px;
+        margin-right: 75px;
+    }
+
+    /* Cashier End */
 }

@@ -2,12 +2,11 @@
 
 @section('content')
     <div class="content-wrapper">
-        <a href="/admin/events" class="btn btn-success mt-3 mx-3">Back</a>
+        <a href="/admin/events" class="btn btn-danger mt-2">Kembali</a>
         <div class="create-event">
-            <h1 class="create-event__title">Update Event Information</h1>
+            <h1 class="create-event__title">Update Informasi Event</h1>
             <div class="create-event__form">
-
-                <form method="POST" action="/admin/events/{{ $event->slug }}">
+                <form method="POST" action="/admin/events/{{ $event->slug }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
                     <div class="mb-3">
@@ -31,6 +30,22 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="image" class="form-label">Gambar</label>
+                        <input type="hidden" name="oldImage" value="{{ $event->image }}">
+                        @if ($event->image)
+                            <img src="{{ asset('storage/' . $event->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                        @else
+                            <img class="img-preview img-fluid mb-3 col-sm-5">
+                        @endif
+                        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                            name="image" onchange="previewImage()">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="body" class="form-label">Body</label>
                         @error('body')
                             <p class="text-danger">{{ $message }}</p>
@@ -39,7 +54,7 @@
                         <trix-editor input="body"></trix-editor>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Events</button>
+                    <button type="submit" class="form-button"><i class="fa-solid fa-file-pen me-1"></i>Update Events</button>
                 </form>
             </div>
         </div>

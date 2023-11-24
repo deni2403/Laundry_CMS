@@ -23,10 +23,10 @@
             <div class="login-form">
                 <form>
                     <div class="mb-4">
-                      <input type="email" class="form-control" placeholder="Email" required>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                     </div>
                     <div class="mb-2 pass-container">
-                      <input type="password" class="form-control password-input" placeholder="Password" required>
+                      <input type="password" class="form-control password-input" name="password" id="password" placeholder="Password" required>
                       <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
                     <div class="d-flex button-container justify-content-center">

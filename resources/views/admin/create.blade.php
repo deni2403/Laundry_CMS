@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="content-wrapper">
-        <a href="/admin/events" class="btn btn-success mt-3 mx-3">Back</a>
-        <div class="create-event">
-            <h1 class="create-event__title">Post New Event</h1>
+        <a href="/admin/events" class="btn btn-danger mt-2">Kembali</a>
+        <div class="create-event shadow-sm border">
+            <h1 class="create-event__title">Buat Event Baru</h1>
             <div class="create-event__form">
-                <form method="POST" action="/admin/events">
+                <form method="POST" action="/admin/events" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
+                        <label for="title" class="form-label">Judul</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
                             name="title" required autofocus value="{{ old('title') }}">
                         @error('title')
@@ -29,6 +29,16 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="image" class="form-label">Gambar</label>
+                        <img class="img-preview img-fluid mb-3 col-sm-5">
+                        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="body" class="form-label">Body</label>
                         @error('body')
                             <p class="text-danger">{{ $message }}</p>
@@ -39,7 +49,7 @@
                         </div>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create Events</button>
+                    <button type="submit" class="form-button"><i class="fa-solid fa-file-circle-plus me-1"></i>Tambah</button>
                 </form>
             </div>
         </div>

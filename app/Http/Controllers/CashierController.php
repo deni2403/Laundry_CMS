@@ -56,4 +56,12 @@ class CashierController extends Controller
 
         return redirect()->route('dashboard.cashier')->with('success', '');
     }
+
+    public function orderData(){
+        return view('cashier.index');
+    }
+
+    public function createMember(){
+        return view('cashier.createMember');
+    }
 }

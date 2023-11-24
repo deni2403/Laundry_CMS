@@ -8,7 +8,12 @@
                 <div class="col-lg-9 col-md-8 event-col">
                     <div class="event-info">
                         <div class="event-info__image">
-                            <img src="/assets/images/event-detail.png" class="img-fluid" alt="Event Detail">
+                            @if ($event->image)
+                                <img src="{{ asset('storage/' . $event->image) }}" class="img-fluid"
+                                    alt="{{ $event->title }}">
+                            @else
+                                <img src="/assets/images/event-image.png" class="img-fluid" alt="{{ $event->title }}">
+                            @endif
                         </div>
                         <div class="event-info__date">
                             <span class="event-info__date-icon"><i class="fa-regular fa-calendar-days"
@@ -24,17 +29,22 @@
                     <aside class="aside-event">
                         <h3 class="aside-event__title">Event Terbaru</h3>
                         <div class="aside-event__content">
-                            @foreach ($events as $e )
-                                
-                            <div class="card my-3 shadow-sm">
-                                <img src="/assets/images/event-image.png" class="card-img-top img-fluid" width="280px"
-                                    height="224px" alt="Event Image">
-                                <div class="card-body m-1">
-                                    <h5 class="card-title">{{ $e->created_at->format('d M Y') }}</h5>
-                                    <p class="card-text">{{ $e->title }}</p>
+                            @foreach ($events as $e)
+                                <div class="card my-3 shadow-sm">
+                                    @if ($e->image)
+                                        <img src="{{ asset('storage/' . $e->image) }}" class="card-img-top img-fluid"
+                                            alt="{{ $e->title }}">
+                                    @else
+                                        <img src="/assets/images/event-image.png" class="card-img-top img-fluid"
+                                            alt="{{ $e->title }}">
+                                    @endif
+                                    <a href="/events/{{ $e->slug }}" class="text-decoration-none">
+                                        <div class="card-body m-1">
+                                            <h5 class="card-title">{{ $e->created_at->format('d M Y') }}</h5>
+                                            <p class="card-text">{{ $e->title }}</p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-
                             @endforeach
                         </div>
                     </aside>
