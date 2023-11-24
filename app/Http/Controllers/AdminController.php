@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Models\Event;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -28,7 +29,7 @@ class AdminController extends Controller
     {
         return view('admin.index', [
             'title' => 'Manage Event',
-            'events' => Event::all()->sortDesc(),
+            'events' => Event::latest()->paginate(8),
         ]);
     }
 
@@ -39,12 +40,18 @@ class AdminController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // 'nullable
             'body' => 'required',
         ]);
+
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('event-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         Event::create($validatedData);
@@ -70,6 +77,7 @@ class AdminController extends Controller
     {
         $rules = [
             'title' => 'required|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // 'nullable
             'body' => 'required',
         ];
 
@@ -78,15 +86,25 @@ class AdminController extends Controller
         }
 
         $validatedData = $request->validate($rules);
-        $validatedData['user_id'] = auth()->user()->id;
 
+        if($request->file('image')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('event-images');
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
         Event::where('id', $event->id)
             ->update($validatedData);
         return redirect('/admin/events')->with('success', 'Event has been updated!');
     }
 
     public function destroy(Event $event)
-    {
+    {   
+        if($event->image){
+            Storage::delete($event->image);
+        }
         Event::destroy($event->id);
         return redirect('/admin/events')->with('success', 'Event has been deleted!');
     }

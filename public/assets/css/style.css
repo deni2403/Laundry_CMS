@@ -237,6 +237,11 @@
     color: var(--bg-white);
 }
 
+.card-img-top {
+    flex: 1 1 auto;
+    object-fit: cover;
+}
+
 .event-section-item .card {
     max-width: 280px;
     max-height: 396px;
@@ -254,30 +259,39 @@
     font-size: 9px;
 }
 
-.event-pagination {
+.event-section-pagination .pagination {
     list-style: none;
     padding: 0;
 }
 
-.event-pagination__item {
+.event-section-pagination li {
     margin: 0 10px;
 }
 
-.event-pagination__link {
+.event-section-pagination a {
     text-decoration: none;
     font-weight: 600;
     color: var(--text-gray);
-    font-size: 13px;
+    font-size: 14px;
+    border: 0;
 }
 
-.event-pagination__link:hover {
+.event-section-pagination a:hover {
     border-bottom: 2px solid var(--secondary-color);
     color: var(--secondary-color);
+    border: 0;
 }
 
-.event-pagination__link:active {
+.event-section-pagination a:active {
     border-bottom: 2px solid var(--secondary-color);
     color: var(--secondary-color);
+    border: 0;
+}
+
+.event-section-pagination .page-link {
+    border: 0;
+    background-color: transparent;
+    color: var(--text-gray);
 }
 
 /* Footer */
@@ -383,7 +397,7 @@ footer {
     border-radius: 0;
 }
 
-.status-btn__process{
+.status-btn__process {
     border: 0;
     border-radius: 3px;
     background-color: var(--secondary-color);
@@ -393,7 +407,7 @@ footer {
     font-weight: 500;
 }
 
-.status-btn__finish{
+.status-btn__finish {
     border: 0;
     border-radius: 3px;
     background-color: var(--bg-red);
@@ -406,12 +420,12 @@ footer {
 
 /* Event Detail Page */
 
-.detail-event{
+.detail-event {
     padding: 0 20px;
     margin-bottom: 30px;
 }
 
-.detail-event__title{
+.detail-event__title {
     font-size: 20px;
     color: var(--primary-color);
     margin: 30px 0;
@@ -419,56 +433,56 @@ footer {
     font-weight: 600;
 }
 
-.event-info__date{
+.event-info__date {
     margin: 15px 0;
 }
 
-.event-info__date-icon{
+.event-info__date-icon {
     border-right: 2px solid var(--text-gray);
     padding-right: 10px;
     margin-right: 5px;
 }
 
-.event-info__date-icon i{
+.event-info__date-icon i {
     font-size: 12px;
 }
 
-.event-info__date-text{
+.event-info__date-text {
     font-size: 12px;
 }
 
-.event-info-context p{
+.event-info-context p {
     font-size: 1rem;
 }
 
-.aside-event__title{
+.aside-event__title {
     color: var(--primary-color);
     font-size: 12px;
     font-weight: 500;
 }
 
-.aside-event__content .card{
+.aside-event__content .card {
     max-width: 280px;
     max-height: 350px;
 }
 
-.aside-event__content .card-title{
+.aside-event__content .card-title {
     font-size: 10px;
     color: var(--text-gray);
 }
 
-.aside-event__content .card-text{
+.aside-event__content .card-text {
     font-size: 13px;
     font-weight: 600;
     color: var(--text-dark);
 }
 
 /* Member Profile Page */
-.member-section{
+.member-section {
     padding-bottom: 100px;
 }
 
-.member-section__title{
+.member-section__title {
     color: var(--primary-color);
     font-size: 18px;
     font-weight: 600;
@@ -476,25 +490,25 @@ footer {
     padding-left: 5px;
 }
 
-.profile{
+.profile {
     border-radius: 5px;
     box-shadow: 3px 3px 3px var(--bg-light);
     padding: 20px 15px;
     margin-bottom: 20px;
 }
 
-.profile-image{
+.profile-image {
     max-width: 100px;
     max-height: 100px;
 }
 
-.profile-name{
+.profile-name {
     color: var(--primary-color);
     font-size: 16px;
     font-weight: 500;
 }
 
-.profile-email{
+.profile-email {
     color: var(--primary-color);
     font-size: 14px;
     font-weight: 300;
@@ -504,7 +518,7 @@ footer {
     margin-bottom: 10px;
 }
 
-.profile-email::after{
+.profile-email::after {
     content: '';
     position: absolute;
     border-bottom: 1px solid var(--secondary-color);
@@ -513,28 +527,28 @@ footer {
     left: 0;
 }
 
-.profile-points span{
+.profile-points span {
     color: var(--primary-color);
     font-size: 14px;
     font-weight: 600;
 }
 
-.profile-points__total{
+.profile-points__total {
     margin-left: 10px;
 }
 
-.profile-edit{
+.profile-edit {
     padding: 10px 15px;
     box-shadow: 3px 3px 3px var(--bg-light);
 }
 
-.profile-edit__title{
+.profile-edit__title {
     color: var(--primary-color);
     font-size: 16px;
     font-weight: 600;
 }
 
-.profile-edit__text{
+.profile-edit__text {
     color: var(--primary-color);
     font-size: 14px;
     padding-bottom: 10px;
@@ -543,7 +557,7 @@ footer {
     display: inline-block;
 }
 
-.profile-edit__text::after{
+.profile-edit__text::after {
     content: '';
     position: absolute;
     border-bottom: 1px solid var(--secondary-color);
@@ -552,17 +566,17 @@ footer {
     left: 0;
 }
 
-.profile-edit__form input{
+.profile-edit__form input {
     padding: 5px 10px;
 }
 
-.profile-edit__form label{
+.profile-edit__form label {
     color: var(--primary-color);
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.save-button{
+.save-button {
     border: 0;
     background-color: #FF9D33;
     color: var(--bg-white);
@@ -698,44 +712,44 @@ footer {
         margin-right: 15px;
     }
 
-    .tracking-table td{
-        font-size: 14px;    
+    .tracking-table td {
+        font-size: 14px;
     }
 
     /* Event Detail Page */
 
-    .detail-event{
+    .detail-event {
         padding: 0 70px;
         margin-bottom: 50px;
     }
 
-    .detail-event__title{
+    .detail-event__title {
         font-size: 25px;
         margin: 30px 0;
     }
 
-    .event-info__date{
+    .event-info__date {
         margin: 30px 0;
     }
 
-    .event-info__date-icon{
+    .event-info__date-icon {
         padding-right: 15px;
         margin-right: 10px;
     }
 
-    .event-info__date-icon i{
+    .event-info__date-icon i {
         font-size: 18px;
     }
 
-    .event-info__date-text{
+    .event-info__date-text {
         font-size: 18px;
     }
 
-    .aside-event{
+    .aside-event {
         margin-left: 20px;
     }
 
-    .aside-event__title{
+    .aside-event__title {
         font-size: 20px;
     }
 }
@@ -840,8 +854,8 @@ footer {
     }
 
     .event-section-item .card {
-        width: 280px;
-        height: 396px;
+        max-width: 280px;
+        max-height: 396px;
     }
 
     .event-section-item .card-title {
@@ -928,109 +942,109 @@ footer {
 
     /* Event Detail Page */
 
-    .detail-event{
+    .detail-event {
         padding: 0 100px;
         margin-bottom: 50px;
     }
 
-    .detail-event__title{
+    .detail-event__title {
         font-size: 40px;
         margin: 50px 0;
         padding: 0 80px;
     }
 
-    .event-col{
+    .event-col {
         border-right: 2px solid #DADADA;
     }
 
-    .event-info__date{
+    .event-info__date {
         margin: 30px 0;
     }
 
-    .event-info__date-icon{
+    .event-info__date-icon {
         padding-right: 15px;
         margin-right: 10px;
     }
 
-    .event-info__date-icon i{
+    .event-info__date-icon i {
         font-size: 20px;
     }
 
-    .event-info__date-text{
+    .event-info__date-text {
         font-size: 20px;
     }
 
-    .event-info-context{
+    .event-info-context {
         padding-right: 70px;
-        font-size: 18px; 
+        font-size: 18px;
     }
 
-    .aside-event{
+    .aside-event {
         margin-left: 20px;
     }
 
-    .aside-event__title{
+    .aside-event__title {
         font-size: 25px;
     }
 
     /* Member Profile Page */
-    .member-section{
+    .member-section {
         padding: 0 100px;
         padding-bottom: 100px;
     }
-    
-    .member-section__title{
+
+    .member-section__title {
         font-size: 35px;
         margin: 30px 0;
         padding-left: 10px;
     }
-    
-    .profile{
+
+    .profile {
         padding: 40px 30px;
     }
-    
-    .profile-name{
+
+    .profile-name {
         font-size: 25px;
     }
-    
-    .profile-email{
+
+    .profile-email {
         font-size: 20;
         padding-bottom: 10px;
         margin-bottom: 10px;
     }
-    
-    .profile-points span{
+
+    .profile-points span {
         font-size: 18px;
     }
-    
-    .profile-points__total{
+
+    .profile-points__total {
         margin-left: 15px;
     }
-    
-    .profile-edit{
+
+    .profile-edit {
         padding: 20px 30px;
     }
-    
-    .profile-edit__title{
+
+    .profile-edit__title {
         font-size: 25px;
     }
-    
-    .profile-edit__text{
+
+    .profile-edit__text {
         font-size: 20px;
         padding-bottom: 20px;
         margin-bottom: 30px;
     }
-    
-    .profile-edit__form input{
+
+    .profile-edit__form input {
         padding: 10px 20px;
     }
-    
-    .profile-edit__form label{
+
+    .profile-edit__form label {
         font-size: 18px;
         margin-bottom: 5px;
     }
-    
-    .save-button{
+
+    .save-button {
         font-size: 20px;
         padding: 5px 20px;
         margin-bottom: 20px;

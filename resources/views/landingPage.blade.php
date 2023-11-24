@@ -69,15 +69,21 @@
             <div class="row">
                 <div class="col">
                     <div class="container-fluid event-section-item d-flex justify-content-center flex-wrap">
-                        @foreach ($events as $event )
-                        <div class="card m-2 shadow-sm">
-                            <img src="/assets/images/event-image.png" class="card-img-top img-fluid" alt="Event Image">
-                            <div class="card-body m-1">
-                                <h5 class="card-title">{{ $event->created_at->format('d M Y') }}</h5>
-                                <p class="card-text">{{ $event->title }}</p>
-                                <a href="/events/{{ $event->slug }}" class="btn event-btn py-1">Read More -></a>
+                        @foreach ($events as $event)
+                            <div class="card m-2 shadow-sm">
+                                @if ($event->image)
+                                    <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top img-fluid"
+                                        alt="{{ $event->title }}">
+                                @else
+                                    <img src="/assets/images/event-image.png" class="card-img-top img-fluid"
+                                        alt="{{ $event->title }}">
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $event->created_at->format('d M Y') }}</h5>
+                                    <p class="card-text">{{ $event->title }}</p>
+                                    <a href="/events/{{ $event->slug }}" class="btn event-btn py-1">Read More -></a>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -85,35 +91,11 @@
             <div class="row">
                 <div class="col">
                     <div class="container-fluid event-section-pagination d-flex justify-content-center">
-                        {{-- <ul class="event-pagination d-flex justify-content-center">
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">
-                                    < </a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">1</a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">2</a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">3</a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">4</a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">5</a>
-                            </li>
-                            <li class="event-pagination__item">
-                                <a href="" class="event-pagination__link">></a>
-                            </li>
-                        </ul> --}}
                         {{ $events->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection

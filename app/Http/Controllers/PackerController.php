@@ -60,4 +60,8 @@ class PackerController extends Controller
             return redirect()->route('dashboard.packer')->with('error', 'Gagal Selesai.');
         }
     }
+
+    public function orderData(){
+        return view('packer.index');
+    }
 }
