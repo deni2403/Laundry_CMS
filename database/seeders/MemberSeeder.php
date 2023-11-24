@@ -6,6 +6,8 @@ use App\Models\Member;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use function Symfony\Component\String\b;
+
 class MemberSeeder extends Seeder
 {
     /**
@@ -17,6 +19,7 @@ class MemberSeeder extends Seeder
         $memberData->name = 'Aji Pamungkas';
         $memberData->email = 'aji@gmail.com';
         $memberData->phone_number = '6281234567890';
+        $memberData->password = bcrypt('12345678');
         $memberData->total_point = 100;
         $memberData->registration_date = now();
         $memberData->created_at = now();
@@ -27,6 +30,7 @@ class MemberSeeder extends Seeder
         $memberData->name = 'Aji Agung';
         $memberData->email = 'aji@gmail.com';
         $memberData->phone_number = '6281234567890';
+        $memberData->password = bcrypt('12345678');
         $memberData->total_point = 100;
         $memberData->registration_date = now();
         $memberData->created_at = now();

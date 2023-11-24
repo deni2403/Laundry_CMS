@@ -57,9 +57,10 @@ class SuperAdminController extends Controller
     }
 
     //Member Start
-    public function indexMember(){
+    public function indexMember()
+    {
         $member = Member::all();
-        return view('member.index',compact(['member']));
+        return view('member.index', compact(['member']));
     }
 
     public function createMember()
@@ -69,7 +70,7 @@ class SuperAdminController extends Controller
 
     public function storeMember(Request $request)
     {
-        member::create($request->except('_token','submit'));
+        member::create($request->except('_token', 'submit'));
         return redirect()->route('index.member');
     }
 
@@ -78,17 +79,40 @@ class SuperAdminController extends Controller
         $member = member::find($id);
         return view('member.edit', compact(['member']));
     }
-    public function updateMember($id, Request $request){
+    public function updateMember($id, Request $request)
+    {
         $member = member::find($id);
-        $member->update($request->except(['_token','submit']));
+        $member->update($request->except(['_token', 'submit']));
         return redirect()->route('index.member');
     }
 
-    public function destroyMember($id){
+    public function destroyMember($id)
+    {
         $member = member::find($id);
-        $member -> delete();
+        $member->delete();
         return redirect()->route('index.member');
     }
 
     //Member End
+
+    //User Start
+    public function indexUser()
+    {
+        return view('superadmin.index', [
+            'users' => User::all(),
+        ]);
+    }
+
+    public function createUser()
+    {
+        return view('superadmin.createUser');
+    }
+
+    public function editUser(User $user)
+    {
+        return view('superadmin.editUser', [
+            'user' => $user,
+        ]);
+    }
+    //User End
 }

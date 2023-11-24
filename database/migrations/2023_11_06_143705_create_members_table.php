@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone_number', 16);
             $table->integer('total_point');
             $table->dateTime('registration_date');
+            $table->string('password');
             $table->timestamps();
         });
     }

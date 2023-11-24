@@ -60,4 +60,8 @@ class IronerController extends Controller
             return redirect()->route('dashboard.ironer')->with('error', 'Order sudah diambil oleh ironer lain.');
         }
     }
+
+    public function orderData(){
+        return view('ironer.index');
+    }
 }

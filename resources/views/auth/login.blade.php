@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Member Login</title>
+    <title>Dashboar Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/login.css">
@@ -19,14 +19,15 @@
     <div class="wrapper">
         <div class="login shadow-sm">
             <div class="login-header d-flex flex-column align-items-center">
-                <h1 class="login-header__title">Alza Laundry</h1>
-                <p class="login-header__text">masuk ke akun kamu !</p>
+                <h1 class="login-header__title">Dashboard</h1>
+                <p class="login-header__text">Masuk ke Dashboard !</p>
             </div>
             <div class="login-form">
-                <form>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div class="mb-4">
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                            required>
+                            required autofocus>
                     </div>
                     <div class="mb-2 pass-container">
                         <input type="password" class="form-control password-input" name="password" id="password"

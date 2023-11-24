@@ -105,4 +105,12 @@ class CashierController extends Controller
 
         return redirect()->back()->with('error', 'Order tidak ditemukan.');
     }
+    
+    public function orderData(){
+        return view('cashier.index');
+    }
+
+    public function createMember(){
+        return view('cashier.createMember');
+    }
 }
