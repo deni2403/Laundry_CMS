@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Order;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -28,11 +29,14 @@ class IronerController extends Controller
     public function takeOrder(String $id)
     {
         $order = Order::findOrFail($id);
+        $log = Log::findOrFail($id);
 
-        // Validasi apakah order belum diambil oleh ironer lain
+        $log->update(['before_status' => $order->status]);
+
         if ($order->ironer_id === null) {
-            // Update ironer_id pada order
-            $order->update(['ironer_id' => Auth::user()->id, 'status' => 'Sedang Disetrika']);
+            $order->update(['ironer_id' => Auth::user()->id, 'status' => 'Sedang disetrika']);
+            $log->update(['created_at' => now()]);
+            $log->update(['after_status' => 'Sedang disetrika']);
 
             return redirect()->route('dashboard.ironer')->with('success', 'Order berhasil diambil.');
         } else {
@@ -43,13 +47,21 @@ class IronerController extends Controller
     public function doneOrder(String $id)
     {
         $order = Order::findOrFail($id);
+        $log = Log::findOrFail($id);$log = Log::findOrFail($id);
 
+        $log->update(['before_status' => $order->status]);
         if ($order->status === 'Sedang disetrika') {
             $order->update(['status' => 'Sudah disetrika']);
+            $log->update(['after_status' => 'Selesai']);
+            $log->update(['updated_at', now()]);
 
             return redirect()->route('dashboard.ironer')->with('success', 'Order berhasil diambil.');
         } else {
             return redirect()->route('dashboard.ironer')->with('error', 'Order sudah diambil oleh ironer lain.');
         }
+    }
+
+    public function orderData(){
+        return view('ironer.index');
     }
 }

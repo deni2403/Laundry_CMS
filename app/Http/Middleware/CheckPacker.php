@@ -18,7 +18,7 @@ class CheckPacker
     {
         $role = Auth::user()->role;
 
-        if (Auth::user()->role == 'packer') {
+        if (Auth::user()->role == 'packer' || Auth::user()->role == 'superadmin') {
             return  $next($request);
         }
         return redirect($role . '/dashboard');

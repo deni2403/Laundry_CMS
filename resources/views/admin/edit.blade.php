@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container-fluid px-3">
-        <div class="row">
-            <div class="col mx-5 mt-2">
-                <form method="POST" action="/admin/events/{{ $events->slug }}">
+@extends('layouts.master')
+
+@section('content')
+    <div class="content-wrapper">
+        <a href="/admin/events" class="btn btn-danger mt-2">Kembali</a>
+        <div class="create-event">
+            <h1 class="create-event__title">Update Informasi Event</h1>
+            <div class="create-event__form">
+                <form method="POST" action="/admin/events/{{ $event->slug }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
-                            name="title" required autofocus value="{{ old('title', $news->title) }}">
+                            value="{{ old('title', $event->title) }}" name="title" required autofocus>
                         @error('title')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -26,8 +22,24 @@
                     <div class="mb-3">
                         <label for="slug" class="form-label">Slug</label>
                         <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                            name="slug" value="{{ old('slug', $news->slug) }}" required>
+                            value="{{ old('slug', $event->slug) }}" name="slug" required>
                         @error('slug')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Gambar</label>
+                        <input type="hidden" name="oldImage" value="{{ $event->image }}">
+                        @if ($event->image)
+                            <img src="{{ asset('storage/' . $event->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                        @else
+                            <img class="img-preview img-fluid mb-3 col-sm-5">
+                        @endif
+                        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                            name="image" onchange="previewImage()">
+                        @error('image')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -38,24 +50,13 @@
                         @error('body')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                        <input id="body" type="hidden" name="body" value="{{ old('body', $news->body) }}">
+                        <input id="body" type="hidden" name="body" value="{{ old('body', $event->body) }}">
                         <trix-editor input="body"></trix-editor>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Events</button>
+                    <button type="submit" class="form-button"><i class="fa-solid fa-file-pen me-1"></i>Update Events</button>
                 </form>
             </div>
         </div>
     </div>
-    <script>
-        const title = document.querySelector('#title');
-        const slug = document.querySelector('#slug');
-
-        title.addEventListener('change', async () => {
-            const response = await fetch('/admin/events/checkSlug?title=' + title.value)
-            const data = await response.json();
-            slug.value = data.slug;
-        });
-    </script>
-</body>
-</html>
+@endsection

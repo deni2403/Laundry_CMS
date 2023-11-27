@@ -1,17 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Super Admin Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+@section('content')
+    <div class="content-wrapper">
+        <div class="superadmin-dashboard">
+            <h1 class="superadmin-dashboard__title">Beranda</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="dashboard-information d-flex flex-wrap">
+                        <div class="dashboard-information__item shadow-sm d-flex justify-content-center align-items-center">
+                            <div class="dashboard-information__item-image rounded-circle">
+                                <img src="/assets/icons/total-order.png" class="img-fluid" alt="total order">
+                            </div>
+                            <div class="dashboard-information__desc-box">
+                                <h2 class="dashboard-information__desc-box__value">200</h2>
+                                <p class="dashboard-information__desc-box__text">Total Order</p>
+                            </div>
+                        </div>
+                        <div class="dashboard-information__item shadow-sm d-flex justify-content-center align-items-center">
+                            <div class="dashboard-information__item-image rounded-circle">
+                                <img src="/assets/icons/process-order.png" class="img-fluid" alt="process order">
+                            </div>
+                            <div class="dashboard-information__desc-box">
+                                <h2 class="dashboard-information__desc-box__value">200</h2>
+                                <p class="dashboard-information__desc-box__text">Total Order</p>
+                            </div>
+                        </div>
+                        <div class="dashboard-information__item shadow-sm d-flex justify-content-center align-items-center">
+                            <div class="dashboard-information__item-image rounded-circle">
+                                <img src="/assets/icons/complete-order.png" class="img-fluid" alt="complete order">
+                            </div>
+                            <div class="dashboard-information__desc-box">
+                                <h2 class="dashboard-information__desc-box__value">200</h2>
+                                <p class="dashboard-information__desc-box__text">Total Order</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

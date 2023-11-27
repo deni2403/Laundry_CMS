@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('order_take');
             $table->float('total_weight');
             $table->float('total_price');
-            $table->enum('status', ['Dalam antrian','Belum dicuci','Sedang dicuci','Sudah Dicuci','Belum disetrika','Sedang disetrika','Sudah disetrika','Sedang dipacking','Selesai'])->default('Dalam Antrian');
+            $table->enum('status', ['Dalam antrian', 'Belum dicuci', 'Sedang dicuci', 'Sudah dicuci', 'Belum disetrika', 'Sedang disetrika', 'Sudah disetrika', 'Sedang dipacking', 'Selesai'])->default('Dalam antrian');
             $table->foreignId('service_id')->constrained();
             $table->unsignedBigInteger('superadmin_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();

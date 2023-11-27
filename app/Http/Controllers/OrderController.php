@@ -39,7 +39,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $newOrder = new Order();
-        $newOrder->invoice = 'INV' . '/' .now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
+        $newOrder->invoice = 'INV' . '/' . now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
         $newOrder->customer_name = $request->customer_name;
         $newOrder->order_in = $request->order_in;
         $newOrder->order_out = $request->order_out;
@@ -62,7 +62,29 @@ class OrderController extends Controller
         $newOrder->log_id = $newLog->id;
         $newOrder->save();
 
-        return redirect()->route('dashboard')->with('success','');
+        if ($newOrder->service_id == 1) {
+            $point = 10;
+        } elseif ($newOrder->service_id == 2) {
+            $point = 20;
+        } else {
+            $point = 0; // Default jika tidak sesuai dengan kondisi di atas
+        }
+
+        $member = Member::find($newOrder->member_id);
+        if ($member) {
+            $member->total_point += $point;
+            $member->save();
+        }
+
+        // // Menghitung diskon berdasarkan poin (misalnya, setiap 1 poin = 1 rupiah diskon)
+        // $discount = $member->total_point;
+
+        // // Mengurangkan diskon dari total harga order
+        // $newOrder->total_price -= $discount;
+        // $newOrder->save();
+
+
+        return redirect()->route('dashboard')->with('success', '');
     }
 
     /**

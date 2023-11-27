@@ -1,17 +1,95 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Packer Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+@section('content')
+    <div class="content-wrapper">
+        <div class="event-index shadow-sm">
+            <h1 class="event-index__title">Daftar Order Baru</h1>
+            {{-- @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif --}}
+            <hr class="divider">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive event-index__table my-2">
+                        <table class="table table-striped border shadow-sm">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Nama Pelanggan</th>
+                                    <th>Layanan</th>
+                                    <th>Tgl. Pesanan</th>
+                                    <th>Tgl. Selesai</th>
+                                    <th>Berat</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr>
+                                    <td>12121231</td>
+                                    <td>Mawar Melati</td>
+                                    <td>Cuci Reguler</td>
+                                    <td>20/12/2023</td>
+                                    <td>25/12/2023</td>
+                                    <td>10 Kg</td>
+                                    <td>
+                                        <button class="update-button">
+                                            Ambil Order
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+        {{-- <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div> --}}
+
+        <div class="event-index shadow-sm">
+            <h1 class="event-index__title">Daftar Order Yang Sedang Diproses</h1>
+            {{-- @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif --}}
+            <hr class="divider">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive event-index__table my-2">
+                        <table class="table table-striped border shadow-sm">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Nama Pelanggan</th>
+                                    <th>Layanan</th>
+                                    <th>Tgl. Pesanan</th>
+                                    <th>Tgl. Selesai</th>
+                                    <th>Berat</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr>
+                                    <td>12121231</td>
+                                    <td>Mawar Melati</td>
+                                    <td>Cuci Reguler</td>
+                                    <td>20/12/2023</td>
+                                    <td>25/12/2023</td>
+                                    <td>10 Kg</td>
+                                    <td>
+                                        <button class="complete-button">
+                                            Selesai
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div> --}}
     </div>
-</x-app-layout>
+@endsection

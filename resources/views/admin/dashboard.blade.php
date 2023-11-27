@@ -1,17 +1,34 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Admin Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+@section('content')
+    <div class="content-wrapper">
+        <div class="admin-dashboard">
+            <h1 class="admin-dashboard__title">Event Yang Terakhir Dibuat</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="event-list d-flex flex-wrap">
+                        @foreach ($events as $event)
+                            <a href="/admin/dashboard/{{ $event->slug }}">
+                                <div class="card m-3 shadow-sm">
+                                    @if ($event->image)
+                                        <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top img-fluid"
+                                            alt="{{ $event->title }}">
+                                    @else
+                                        <img src="/assets/images/event-image.png" class="card-img-top img-fluid"
+                                            alt="{{ $event->title }}">
+                                    @endif
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $event->title }}</h5>
+                                        <p class="card-text">{{ $event->created_at->format('d  M  Y') }}</p>
+                                        <p class="card-text">Posted by : {{ $event->author->name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div>
     </div>
-</x-app-layout>
+@endsection

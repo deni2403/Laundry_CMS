@@ -1,0 +1,1052 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --primary-color: #012970;
+    --secondary-color: #E58440;
+    --text-dark: #000000;
+    --text-gray: #595858;
+    --bg-light: #E9F1F6;
+    --bg-soft: #F8D3B9;
+    --bg-red: #FF3434;
+    --bg-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+    min-height: 100vh;
+}
+
+/* Navbar */
+
+.navbar-container {
+    background-color: var(--bg-white);
+}
+
+.brand-wrapper img {
+    max-width: 25px;
+    max-height: 25px;
+}
+
+.brand-wrapper a {
+    color: var(--secondary-color);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.brand-wrapper a:hover {
+    color: var(--secondary-color);
+}
+
+.brand-wrapper a:focus {
+    color: var(--secondary-color);
+}
+
+.nav-link {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link:focus {
+    color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+    content: '';
+    display: block;
+    color: var(--primary-color) !important;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 2px;
+    margin-bottom: -4px;
+}
+
+.active::after {
+    content: '';
+    display: block;
+    color: var(--primary-color) !important;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 2px;
+    margin-bottom: -4px;
+}
+
+
+.login-btn {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.login-btn a {
+    text-decoration: none;
+    color: var(--bg-white);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.dropdown button {
+    border: 0;
+    background-color: transparent;
+}
+
+.dropdown button span {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.dropdown-toggle {
+    color: var(--primary-color);
+}
+
+.dropdown-item {
+    color: var(--primary-color);
+}
+
+.dropdown-item:hover {
+    color: var(--primary-color);
+    background-color: var(--bg-light);
+}
+
+.dropdown-item:active {
+    color: var(--primary-color);
+    background-color: var(--bg-light);
+}
+
+.dropdown-menu {
+    border-radius: 0;
+}
+
+
+/* hero */
+.hero-section-jumbotron {
+    margin: 35px 0;
+}
+
+.hero-description__title {
+    font-size: 35px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.hero-description__text {
+    color: var(--primary-color);
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.hero-description__button {
+    background-color: var(--secondary-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.hero-description__button a {
+    text-decoration: none;
+    font-size: 12px;
+    color: var(--bg-white);
+}
+
+/* Section Title & Text */
+
+.section-info__title {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.section-info__text {
+    font-size: 13px;
+    color: var(--text-gray);
+}
+
+
+/* service-section */
+.service-section {
+    background-color: var(--bg-light);
+}
+
+.section-serviceImage {
+    margin-bottom: 35px;
+}
+
+.section-serviceImage__item {
+    max-width: 180px;
+    max-height: 171.5px;
+    border-radius: 5px;
+    background-color: var(--bg-white);
+}
+
+.section-serviceImage__item-img {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    background-color: var(--bg-soft);
+}
+
+.section-serviceImage__item-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+
+/* Event Section */
+
+.event-section {
+    margin: 35px 0;
+}
+
+.event-section-item {
+    margin: 10px 0 25px;
+}
+
+.event-section-item .card-title {
+    color: var(--text-dark);
+}
+
+.event-section-item .card-text {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.event-section-item .event-btn {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    color: var(--bg-white);
+}
+
+.card-img-top {
+    flex: 1 1 auto;
+    object-fit: cover;
+}
+
+.event-section-item .card {
+    max-width: 280px;
+    max-height: 396px;
+}
+
+.event-section-item .card-title {
+    font-size: 9px;
+}
+
+.event-section-item .card-text {
+    font-size: 12px;
+}
+
+.event-section-item .event-btn {
+    font-size: 9px;
+}
+
+.event-section-pagination .pagination {
+    list-style: none;
+    padding: 0;
+}
+
+.event-section-pagination li {
+    margin: 0 10px;
+}
+
+.event-section-pagination a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text-gray);
+    font-size: 14px;
+    border: 0;
+}
+
+.event-section-pagination a:hover {
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    border: 0;
+}
+
+.event-section-pagination a:active {
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    border: 0;
+}
+
+.event-section-pagination .page-link {
+    border: 0;
+    background-color: transparent;
+    color: var(--text-gray);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+}
+
+.footer-text {
+    font-weight: 500;
+    color: var(--bg-white);
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+
+/* About Page */
+
+.about-section {
+    margin: 35px 0;
+}
+
+.about-profile-image img {
+    width: 100%;
+    height: auto;
+}
+
+.about-profile-description {
+    margin: 25px 35px 15px 25px;
+}
+
+.about-profile-description__title {
+    font-weight: bold;
+    color: var(--primary-color);
+    display: inline-block;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.about-profile-description__title::after {
+    content: '';
+    position: absolute;
+    border-bottom: 3px solid var(--secondary-color);
+    width: 60%;
+    bottom: 0;
+    left: 0;
+}
+
+.about-profile-description__text {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.about-profile-description__button {
+    background-color: var(--secondary-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.about-profile-description__button a {
+    text-decoration: none;
+    font-size: 12px;
+    color: var(--bg-white);
+}
+
+/* Tracking Page */
+.tracking {
+    padding-left: 20px;
+}
+
+.tracking-header__title {
+    font-weight: 500;
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tracking-search-bar {
+    margin-bottom: 20px;
+}
+
+.tracking-search-bar__button {
+    background-color: var(--secondary-color);
+    color: var(--bg-white);
+    border-radius: 5px;
+    border: 0;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 3px 10px;
+    margin-right: 10px;
+}
+
+.tracking-search-bar .input-group input {
+    border-radius: 0;
+    border-right: 1px solid var(--text-dark);
+    max-height: 30px;
+}
+
+.tracking-search-bar .input-group span {
+    border-radius: 0;
+}
+
+.status-btn__process {
+    border: 0;
+    border-radius: 3px;
+    background-color: var(--secondary-color);
+    color: var(--bg-white);
+    padding: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-btn__finish {
+    border: 0;
+    border-radius: 3px;
+    background-color: var(--bg-red);
+    color: var(--bg-white);
+    padding: 5px 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* Event Detail Page */
+
+.detail-event {
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.detail-event__title {
+    font-size: 20px;
+    color: var(--primary-color);
+    margin: 30px 0;
+    /* padding: 0 80px; */
+    font-weight: 600;
+}
+
+.event-info__date {
+    margin: 15px 0;
+}
+
+.event-info__date-icon {
+    border-right: 2px solid var(--text-gray);
+    padding-right: 10px;
+    margin-right: 5px;
+}
+
+.event-info__date-icon i {
+    font-size: 12px;
+}
+
+.event-info__date-text {
+    font-size: 12px;
+}
+
+.event-info-context p {
+    font-size: 1rem;
+}
+
+.aside-event__title {
+    color: var(--primary-color);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.aside-event__content .card {
+    max-width: 280px;
+    max-height: 350px;
+}
+
+.aside-event__content .card-title {
+    font-size: 10px;
+    color: var(--text-gray);
+}
+
+.aside-event__content .card-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Member Profile Page */
+.member-section {
+    padding-bottom: 100px;
+}
+
+.member-section__title {
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px 0;
+    padding-left: 5px;
+}
+
+.profile {
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px var(--bg-light);
+    padding: 20px 15px;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.profile-name {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.profile-email {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 300;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.profile-email::after {
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid var(--secondary-color);
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.profile-points span {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.profile-points__total {
+    margin-left: 10px;
+}
+
+.profile-edit {
+    padding: 10px 15px;
+    box-shadow: 3px 3px 3px var(--bg-light);
+}
+
+.profile-edit__title {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.profile-edit__text {
+    color: var(--primary-color);
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.profile-edit__text::after {
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid var(--secondary-color);
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.profile-edit__form input {
+    padding: 5px 10px;
+}
+
+.profile-edit__form label {
+    color: var(--primary-color);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.save-button {
+    border: 0;
+    background-color: #FF9D33;
+    color: var(--bg-white);
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+}
+
+
+/* Media Query */
+
+@media (min-width: 768px) {
+
+    /* Navbar */
+    .brand-wrapper {
+        margin-left: 40px;
+    }
+
+    .brand-wrapper img {
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+    .brand-wrapper a {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+    }
+
+    .login-btn a {
+        font-size: 17px;
+    }
+
+    .dropdown button span {
+        font-size: 18px;
+    }
+
+
+    /* Hero */
+
+    .hero-description {
+        padding-left: 40px;
+    }
+
+    .hero-description__title {
+        font-size: 30px;
+    }
+
+    .hero-description__text {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    .hero-description__button {
+        padding: 5px 15px;
+    }
+
+    /* Service Section */
+    .section-serviceImage__item {
+        min-width: 260px;
+        min-height: 161.5px;
+    }
+
+    .section-serviceImage__item-img {
+        margin-top: 35px;
+        margin-bottom: 20px;
+    }
+
+    .section-serviceImage__item-title {
+        font-size: 14px;
+    }
+
+    /* Footer */
+    .footer-text {
+        margin: 15px 0;
+    }
+
+    /* About Page */
+
+    .about-section {
+        margin: 40px 0;
+    }
+
+    .about-profile-image img {
+        margin-left: 50px;
+        max-width: 556px;
+        max-height: 499px;
+    }
+
+    .about-profile-description {
+        margin: 30px 50px 20px 50px;
+    }
+
+    .about-profile-description__title {
+        font-size: 30px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .about-profile-description__text {
+        font-size: 16px;
+    }
+
+    .about-profile-description__button {
+        padding: 5px 15px;
+    }
+
+    .about-profile-description__button a {
+        font-size: 20px;
+    }
+
+    /* Tracking Page */
+
+    .tracking {
+        padding-left: 60px;
+    }
+
+    .tracking-header__title {
+        font-size: 20px;
+    }
+
+    .tracking-search-bar {
+        margin-bottom: 30px;
+    }
+
+    .tracking-search-bar__button {
+        font-size: 16px;
+        padding: 3px 15px;
+        margin-right: 15px;
+    }
+
+    .tracking-table td {
+        font-size: 14px;
+    }
+
+    /* Event Detail Page */
+
+    .detail-event {
+        padding: 0 70px;
+        margin-bottom: 50px;
+    }
+
+    .detail-event__title {
+        font-size: 25px;
+        margin: 30px 0;
+    }
+
+    .event-info__date {
+        margin: 30px 0;
+    }
+
+    .event-info__date-icon {
+        padding-right: 15px;
+        margin-right: 10px;
+    }
+
+    .event-info__date-icon i {
+        font-size: 18px;
+    }
+
+    .event-info__date-text {
+        font-size: 18px;
+    }
+
+    .aside-event {
+        margin-left: 20px;
+    }
+
+    .aside-event__title {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+
+    /* navbar */
+    .brand-wrapper {
+        margin-left: 80px;
+    }
+
+    .brand-wrapper a {
+        font-size: 25px;
+    }
+
+    .navbar-nav {
+        margin-right: 60px;
+    }
+
+    .nav-link {
+        font-size: 20px;
+    }
+
+    .login-btn a {
+        font-size: 19px;
+    }
+
+    .dropdown button span {
+        font-size: 20px;
+    }
+
+    .dropdown-menu {
+        margin-left: -20px;
+    }
+
+    /* hero */
+    .hero-section-jumbotron {
+        margin: 70px 0;
+    }
+
+    .hero-description {
+        padding-left: 80px;
+    }
+
+    .hero-description__title {
+        font-size: 50px;
+    }
+
+    .hero-description__text {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .hero-description__button {
+        padding: 5px 25px;
+    }
+
+    .hero-description__button a {
+        font-size: 20px;
+    }
+
+    /* Section Title & Text */
+
+    .section-info__title {
+        font-size: 30px;
+    }
+
+    .section-info__text {
+        font-size: 15px;
+        margin: 20px 240px 30px;
+    }
+
+
+    /* Service Section */
+
+    .section-serviceImage {
+        margin-bottom: 70px;
+    }
+
+    .section-serviceImage__item {
+        min-width: 280px;
+        min-height: 171.5px;
+    }
+
+    .section-serviceImage__item-img {
+        margin-top: 35px;
+        margin-bottom: 25px;
+    }
+
+    .section-serviceImage__item-title {
+        font-size: 15px;
+    }
+
+    /* Event Section */
+
+    .event-section {
+        margin: 70px 0;
+    }
+
+    .event-section-item {
+        margin: 10px 0 50px;
+    }
+
+    .event-section-item .card {
+        max-width: 280px;
+        max-height: 396px;
+    }
+
+    .event-section-item .card-title {
+        font-size: 10px;
+    }
+
+    .event-section-item .card-text {
+        font-size: 13px;
+    }
+
+    .event-section-item .event-btn {
+        font-size: 10px;
+    }
+
+    .event-pagination__item {
+        margin: 0 20px;
+    }
+
+    .event-pagination__link {
+        font-size: 15px;
+    }
+
+    /* Footer */
+    .footer-text {
+        margin: 20px 0;
+        font-size: 15px;
+    }
+
+    /* About Page */
+    .about-section {
+        margin: 70px 0;
+    }
+
+    .about-profile-image img {
+        margin-left: 80px;
+        width: 556px;
+        height: 499px;
+    }
+
+    .about-profile-description {
+        margin: 50px 70px 30px 50px;
+    }
+
+    .about-profile-description__title {
+        font-size: 35px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .about-profile-description__text {
+        font-size: 20px;
+    }
+
+    .about-profile-description__button {
+        padding: 5px 25px;
+    }
+
+    .about-profile-description__button a {
+        font-size: 25px;
+    }
+
+    /* Tracking Page */
+
+    .tracking {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    .tracking-header__title {
+        font-size: 25px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .tracking-search-bar {
+        margin-bottom: 30px;
+    }
+
+    .tracking-search-bar__button {
+        font-size: 20px;
+        padding: 0 20px;
+        margin-right: 20px;
+    }
+
+    /* Event Detail Page */
+
+    .detail-event {
+        padding: 0 100px;
+        margin-bottom: 50px;
+    }
+
+    .detail-event__title {
+        font-size: 40px;
+        margin: 50px 0;
+        padding: 0 80px;
+    }
+
+    .event-col {
+        border-right: 2px solid #DADADA;
+    }
+
+    .event-info__date {
+        margin: 30px 0;
+    }
+
+    .event-info__date-icon {
+        padding-right: 15px;
+        margin-right: 10px;
+    }
+
+    .event-info__date-icon i {
+        font-size: 20px;
+    }
+
+    .event-info__date-text {
+        font-size: 20px;
+    }
+
+    .event-info-context {
+        padding-right: 70px;
+        font-size: 18px;
+    }
+
+    .aside-event {
+        margin-left: 20px;
+    }
+
+    .aside-event__title {
+        font-size: 25px;
+    }
+
+    /* Member Profile Page */
+    .member-section {
+        padding: 0 100px;
+        padding-bottom: 100px;
+    }
+
+    .member-section__title {
+        font-size: 35px;
+        margin: 30px 0;
+        padding-left: 10px;
+    }
+
+    .profile {
+        padding: 40px 30px;
+    }
+
+    .profile-name {
+        font-size: 25px;
+    }
+
+    .profile-email {
+        font-size: 20;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .profile-points span {
+        font-size: 18px;
+    }
+
+    .profile-points__total {
+        margin-left: 15px;
+    }
+
+    .profile-edit {
+        padding: 20px 30px;
+    }
+
+    .profile-edit__title {
+        font-size: 25px;
+    }
+
+    .profile-edit__text {
+        font-size: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    .profile-edit__form input {
+        padding: 10px 20px;
+    }
+
+    .profile-edit__form label {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .save-button {
+        font-size: 20px;
+        padding: 5px 20px;
+        margin-bottom: 20px;
+    }
+}

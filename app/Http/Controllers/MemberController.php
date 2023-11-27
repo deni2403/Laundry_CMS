@@ -21,7 +21,7 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         member::create($request->except('_token','submit'));
-        return redirect('/member');
+        return redirect(route('index.member'));
     }
 
     public function edit($id)
@@ -32,13 +32,13 @@ class MemberController extends Controller
     public function update($id, Request $request){
         $member = member::find($id);
         $member->update($request->except(['_token','submit']));
-        return redirect('/member');
+        return redirect(route('index.member'));
     }
 
     public function destroy($id){
         $member = member::find($id);
         $member -> delete();
-        return redirect('/member');
+        return redirect(route('index.member'));
     }
 
 }
