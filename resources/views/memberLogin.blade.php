@@ -23,10 +23,11 @@
                 <p class="login-header__text">masuk ke akun kamu !</p>
             </div>
             <div class="login-form">
-                <form>
+                <form method="POST" action="{{ route('login.storeMember') }}">
+                    @csrf
                     <div class="mb-4">
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                            required>
+                            required autofocus>
                     </div>
                     <div class="mb-2 pass-container">
                         <input type="password" class="form-control password-input" name="password" id="password"

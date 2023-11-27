@@ -26,7 +26,6 @@
 </head>
 
 <body>
-
     @include('components.cms.navbar')
 
     <div class="wrapper d-flex">
@@ -41,6 +40,7 @@
     </script>
     <script src="/assets/js/sidebar.js"></script>
     <script src="/assets/js/admin.js"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>

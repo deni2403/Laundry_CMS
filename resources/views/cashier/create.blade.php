@@ -37,15 +37,8 @@
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control" id="status" name="status">
-                            <option value="Dalam Antrian">Dalam Antrian</option>
-                            <option value="Belum dicuci">Belum dicuci</option>
-                            <option value="Sedang dicuci">Sedang dicuci</option>
-                            <option value="Sudah Dicuci">Sudah Dicuci</option>
-                            <option value="Belum disetrika">Belum disetrika</option>
-                            <option value="Sedang disetrika">Sedang disetrika</option>
-                            <option value="Sudah disetrika">Sudah disetrika</option>
-                            <option value="Sedang dipacking">Sedang dipacking</option>
-                            <option value="Selesai">Selesai</option>
+                            <option value="Dalam antrian">Dalam antrian</option>
+                            <option value="Sudah dicuci">Sudah Dicuci</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -53,7 +46,7 @@
                         <select class="form-control" id="service" name="member_id">
                             <option value="">-- Kosong --</option>
                             @foreach ($members as $data)
-                                <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->total_point }}</option>
                             @endforeach
                         </select>
                     </div>

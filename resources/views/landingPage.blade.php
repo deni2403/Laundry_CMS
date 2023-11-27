@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+{{auth()->check()}}
     <header id="hero" class="hero-section">
         <div class="container-fluid hero-section-jumbotron">
             <div class="row">

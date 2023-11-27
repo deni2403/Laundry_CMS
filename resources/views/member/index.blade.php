@@ -23,7 +23,7 @@
                 @method('delete')
                 <input type="submit" value="Delete">
             </form>
-        </td>        
+        </td>
         @endforeach
     </tr>
 </table>

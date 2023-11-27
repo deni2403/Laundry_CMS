@@ -22,17 +22,25 @@
                                     <th>Tgl. Pesanan</th>
                                     <th>Tgl. Selesai</th>
                                     <th>Berat</th>
+                                    @if (auth()->user()->role == 'superadmin')
+                                        <th>Pembungkus</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr>
-                                    <td>12121231</td>
-                                    <td>Mawar Melati</td>
-                                    <td>Cuci Reguler</td>
-                                    <td>20/12/2023</td>
-                                    <td>25/12/2023</td>
-                                    <td>10 Kg</td>
-                                </tr>
+                                @foreach ($orders as $order)
+                                    <tr>
+                                        <td>{{ $order->invoice }}</td>
+                                        <td>{{ $order->customer_name }}</td>
+                                        <td>{{ $order->service->service_name }}</td>
+                                        <td>{{ $order->order_in }}</td>
+                                        <td>{{ $order->order_out }}</td>
+                                        <td>{{ $order->total_weight }} Kg</td>
+                                        @if (auth()->user()->role == 'superadmin')
+                                            <td>{{ $order->packerId->name }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

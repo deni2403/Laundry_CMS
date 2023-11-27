@@ -11,7 +11,7 @@
                 <span>welcome, {{ Auth::user()->name }}</span>
             </button>
             <ul class="dropdown-menu">
-                <form action="/logout" method="POST">
+                <form action="{{route('logout.worker')}}" method="POST">
                     @csrf
                     <li><button class="dropdown-item" type="submit"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Log out</button></li>
                 </form>
