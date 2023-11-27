@@ -55,7 +55,7 @@ class AdminController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         Event::create($validatedData);
-        return redirect('/admin/events')->with('success', 'New Event has been added!');
+        return redirect('/admin/events')->with('success', 'Event Berhasil Ditambahkan!');
     }
 
     public function show(Event $event)
@@ -97,16 +97,16 @@ class AdminController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         Event::where('id', $event->id)
             ->update($validatedData);
-        return redirect('/admin/events')->with('success', 'Event has been updated!');
+        return redirect('/admin/events')->with('success', 'Event Berhasil Diperbarui!');
     }
 
     public function destroy(Event $event)
-    {   
+    {
         if($event->image){
             Storage::delete($event->image);
         }
         Event::destroy($event->id);
-        return redirect('/admin/events')->with('success', 'Event has been deleted!');
+        return redirect('/admin/events')->with('success', 'Event Telah Dihapus!');
     }
 
     public function checkSlug(Request $request)

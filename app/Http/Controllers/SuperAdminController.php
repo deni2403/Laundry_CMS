@@ -14,7 +14,15 @@ class SuperAdminController extends Controller
 {
     public function dashboard()
     {
-        return view('superadmin.dashboard');
+        // 1
+        $totalOrder = Order::all();
+
+        //2
+        $orderProcess = Order::whereNot('status', 'Sudah diambil')->get();
+
+        // 3
+        $completedOrder = Order::where('status', 'Sudah diambil')->get();
+        return view('superadmin.dashboard', compact('totalOrder', 'orderProcess', 'completedOrder'));
     }
 
     public function createOrder()

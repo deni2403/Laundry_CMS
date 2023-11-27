@@ -18,9 +18,9 @@ class CheckMember
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (Member::where('id', Auth::id())->exists()) {
+        if (Auth::guard('member')->check() == 1) {
             return  $next($request);
         }
-        return redirect('/');
+        return redirect('/member');
     }
 }

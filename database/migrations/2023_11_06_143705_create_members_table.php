@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone_number', 16);
-            $table->integer('total_point');
+            $table->integer('total_point')->default(0);
             $table->dateTime('registration_date');
             $table->string('password');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

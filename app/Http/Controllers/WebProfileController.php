@@ -36,10 +36,6 @@ class WebProfileController extends Controller
                     'image' => '/assets/icons/setrika.png',
                 ],
                 [
-                    'title' => 'Cuci Karpet',
-                    'image' => '/assets/icons/karpet.png',
-                ],
-                [
                     'title' => 'Cuci Setrika',
                     'image' => '/assets/icons/cuci-setrika.png',
                 ],
@@ -49,7 +45,7 @@ class WebProfileController extends Controller
     }
 
     public function showEvent(Event $event)
-    {   
+    {
         return view('event', [
             'event' => $event,
             'events' => Event::latest()->paginate(3),

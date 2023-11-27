@@ -34,19 +34,38 @@ class Order extends Model
         'updated_at',
     ];
 
-    public function logs(){
+    public function logs()
+    {
         return $this->belongsTo(Log::class);
     }
 
-    public function members(){
+    public function members()
+    {
         return $this->belongsTo(Member::class);
     }
 
-    public function service(){
+    public function service()
+    {
         return $this->belongsTo(Service::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function ironerId()
+    {
+        return $this->belongsTo(User::class, 'ironer_id');
+    }
+
+    public function packerId()
+    {
+        return $this->belongsTo(User::class, 'packer_id');
+    }
+
+    public function cashierId()
+    {
+        return $this->belongsTo(User::class, 'cashier_id');
     }
 }

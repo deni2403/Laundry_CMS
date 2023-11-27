@@ -12,7 +12,7 @@
                                 <img src="/assets/icons/total-order.png" class="img-fluid" alt="total order">
                             </div>
                             <div class="dashboard-information__desc-box">
-                                <h2 class="dashboard-information__desc-box__value">200</h2>
+                                <h2 class="dashboard-information__desc-box__value">{{ $totalOrder->count() }}</h2>
                                 <p class="dashboard-information__desc-box__text">Total Order</p>
                             </div>
                         </div>
@@ -21,8 +21,8 @@
                                 <img src="/assets/icons/process-order.png" class="img-fluid" alt="process order">
                             </div>
                             <div class="dashboard-information__desc-box">
-                                <h2 class="dashboard-information__desc-box__value">200</h2>
-                                <p class="dashboard-information__desc-box__text">Total Order</p>
+                                <h2 class="dashboard-information__desc-box__value">{{ $orderProcess->count() }}</h2>
+                                <p class="dashboard-information__desc-box__text">Sedang Berjalan</p>
                             </div>
                         </div>
                         <div class="dashboard-information__item shadow-sm d-flex justify-content-center align-items-center">
@@ -30,8 +30,8 @@
                                 <img src="/assets/icons/complete-order.png" class="img-fluid" alt="complete order">
                             </div>
                             <div class="dashboard-information__desc-box">
-                                <h2 class="dashboard-information__desc-box__value">200</h2>
-                                <p class="dashboard-information__desc-box__text">Total Order</p>
+                                <h2 class="dashboard-information__desc-box__value">{{ $completedOrder->count() }}</h2>
+                                <p class="dashboard-information__desc-box__text">Selesai</p>
                             </div>
                         </div>
                     </div>

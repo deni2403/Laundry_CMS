@@ -19,22 +19,32 @@
                                     <th>Invoice</th>
                                     <th>Nama Pelanggan</th>
                                     <th>Layanan</th>
+                                    <th>Status</th>
                                     <th>Tgl. Pesanan</th>
                                     <th>Tgl. Selesai</th>
                                     <th>Berat</th>
                                     <th>Harga</th>
+                                    @if (auth()->user()->role == 'superadmin')
+                                        <th>Kasir</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr>
-                                    <td>12121231</td>
-                                    <td>Mawar Melati</td>
-                                    <td>Cuci Reguler</td>
-                                    <td>20/12/2023</td>
-                                    <td>25/12/2023</td>
-                                    <td>10 Kg</td>
-                                    <td>Rp. 125.000</td>
-                                </tr>
+                                @foreach ($orders as $data)
+                                    <tr>
+                                        <td>{{ $data->invoice }}</td>
+                                        <td>{{ $data->customer_name }}</td>
+                                        <td>{{ $data->service->service_name }}</td>
+                                        <td>{{ $data->status }}</td>
+                                        <td>{{ $data->order_in }}</td>
+                                        <td>{{ $data->order_out }}</td>
+                                        <td>{{ $data->total_weight }} Kg</td>
+                                        <td>{{ $data->total_price }}</td>
+                                        @if (auth()->user()->role == 'superadmin')
+                                            <td>{{ $data->cashierId->name }}</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
