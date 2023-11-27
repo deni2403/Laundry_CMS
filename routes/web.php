@@ -11,6 +11,7 @@ use App\Http\Controllers\IronerController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,15 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::middleware('packer')->group(function () {
         Route::get('/packer/dashboard', [PackerController::class, 'dashboard'])->name('dashboard.packer');
     });
+
+    Route::get('/user',[UserController::class,'index']);
+    Route::get('/user/create',[UserController::class,'create']);
+    Route::post('/user/store', [UserController::class,'store']);
+    Route::get('/user/{id}/edit', [UserController::class,'edit']);
+    Route::put('/user/{id}', [UserController::class,'update']);
+    Route::delete('/user/{id}', [UserController::class,'destroy']);
+
+
 });
 
 
