@@ -12,12 +12,11 @@ class IronerController extends Controller
 {
     public function dashboard()
     {
-        $orderTake = Order::where('status', 'Sudah Dicuci')
+        $orderTake = Order::where('status', 'Sudah dicuci')
             ->whereIn('service_id', [1, 2, 5, 6])
             ->get();
         $orderDone = Order::where('status', 'Sedang Disetrika')->get();
-        $orders = Order::where('ironer_id', Auth::user()->id)->get();
-        return view('ironer.dashboard', compact('orderTake', 'orders', 'orderDone'));
+        return view('ironer.dashboard', compact('orderTake', 'orderDone'));
     }
 
     public function editOrder()
@@ -47,21 +46,34 @@ class IronerController extends Controller
     public function doneOrder(String $id)
     {
         $order = Order::findOrFail($id);
-        $log = Log::findOrFail($id);$log = Log::findOrFail($id);
+        $log = Log::findOrFail($id);
+        $log = Log::findOrFail($id);
 
         $log->update(['before_status' => $order->status]);
         if ($order->status === 'Sedang disetrika') {
             $order->update(['status' => 'Sudah disetrika']);
-            $log->update(['after_status' => 'Selesai']);
+            $log->update(['after_status' => 'Sudah disetrika']);
             $log->update(['updated_at', now()]);
 
-            return redirect()->route('dashboard.ironer')->with('success', 'Order berhasil diambil.');
+            return redirect()->route('dashboard.ironer')->with('success', 'Berhasil Mengubah Status.');
         } else {
-            return redirect()->route('dashboard.ironer')->with('error', 'Order sudah diambil oleh ironer lain.');
+            return redirect()->route('dashboard.ironer')->with('error', 'Gagal Mengubah Status.');
         }
     }
 
-    public function orderData(){
-        return view('ironer.index');
+    public function orderData()
+    {
+        if (Auth::user()->role == 'ironer') {
+            // Jika pengguna memiliki peran "ironer"
+            $orders = Order::where('ironer_id', Auth::user()->id)
+                ->whereIn('service_id', [1, 2, 5, 6])
+                ->get();
+        } else {
+            // Jika pengguna tidak memiliki peran "ironer", ambil semua data
+            $orders = Order::where('service_id', [1, 2, 5, 6])
+                ->whereNotNull('ironer_id')
+                ->get();
+        }
+        return view('ironer.index', compact('orders'));
     }
 }

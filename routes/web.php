@@ -6,10 +6,12 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\IronerController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\WAController;
 use App\Http\Controllers\WebProfileController;
 
@@ -24,12 +26,12 @@ use App\Http\Controllers\WebProfileController;
 |
 */
 
-Route::get('/', [WebProfileController::class, 'index']);
+Route::get('/', [WebProfileController::class, 'index'])->name('landingPage');
 Route::get('/events/{event}', [WebProfileController::class, 'showEvent']);
 
-Route::get('/tracking', function () {
-    return view('trackingPage');
-});
+// Route::post('/tracking', [TrackingController::class, 'search'])->name('searchByInvoice');
+Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+Route::post('/tracking', [TrackingController::class, 'index'])->name('tracking');
 
 Route::get('/about', function () {
     return view('about');
@@ -43,10 +45,6 @@ Route::get('/member-login', function () {
     return view('memberLogin');
 });
 
-Route::get('/member', function () {
-    return view('memberProfile');
-});
-
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -57,15 +55,15 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/superadmin/store', [SuperAdminController::class, 'storeOrder'])->name('storeOrder.superadmin');
         Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard.superadmin');
         //Member
-        Route::get('/superadmin/index/member',[SuperAdminController::class,'indexMember'])->name('index.member');
-        Route::get('/superadmin/create/member',[SuperAdminController::class,'createMember'])->name('create.member');
-        Route::post('/superadmin/store/member',[SuperAdminController::class,'storeMember'])->name('store.member');
-        Route::get('/superadmin/edit/member/{id}',[SuperAdminController::class,'editMember'])->name('edit.member');
-        Route::put('/superadmin/member/{id}',[SuperAdminController::class,'updateMember'])->name('update.member');
-        Route::delete('/superadmin/member/{id}',[SuperAdminController::class,'destroyMember'])->name('destroy.member');
+        Route::get('/superadmin/index/member', [SuperAdminController::class, 'indexMember'])->name('index.member');
+        Route::get('/superadmin/create/member', [SuperAdminController::class, 'createMember'])->name('create.member');
+        Route::post('/superadmin/store/member', [SuperAdminController::class, 'storeMember'])->name('store.member');
+        Route::get('/superadmin/edit/member/{id}', [SuperAdminController::class, 'editMember'])->name('edit.member');
+        Route::put('/superadmin/member/{id}', [SuperAdminController::class, 'updateMember'])->name('update.member');
+        Route::delete('/superadmin/member/{id}', [SuperAdminController::class, 'destroyMember'])->name('destroy.member');
         //user
-        Route::get('/superadmin/users',[SuperAdminController::class,'indexUser'])->name('users.superadmin'); //new
-        Route::get('/superadmin/users/create',[SuperAdminController::class,'createUser'])->name('createUser.superadmin'); //new
+        Route::get('/superadmin/users', [SuperAdminController::class, 'indexUser'])->name('users.superadmin'); //new
+        Route::get('/superadmin/users/create', [SuperAdminController::class, 'createUser'])->name('createUser.superadmin'); //new
         Route::get('/superadmin/users/{user}/edit', [SuperAdminController::class, 'editUser']); //new
     });
 
@@ -87,8 +85,20 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/cashier/store', [CashierController::class, 'storeOrder'])->name('storeOrder.cashier');
         Route::get('/cashier/dashboard', [CashierController::class, 'dashboard'])->name('dashboard.cashier');
         Route::get('/cashier/orders', [CashierController::class, 'orderData'])->name('orderData.cashier'); //new
+
+        Route::get('/cashier/members/index', [CashierController::class, 'indexMember'])->name('indexMember.cashier'); //new
         Route::get('/cashier/members/create', [CashierController::class, 'createMember'])->name('createMember.cashier'); //new
-        Route::post('/cashier/WhatsApp', [WAController::class, 'store'])->name('store.wa');
+        Route::post('/cashier/members/store', [CashierController::class, 'storeMember'])->name('storeMember.cashier'); //new
+        Route::get('/cashier/members/edit/{member}', [CashierController::class, 'editMember'])->name('editMember.cashier'); //new
+        Route::patch('/cashier/members/{member}', [CashierController::class, 'updateMember'])->name('updateMember.cashier'); //new
+        Route::delete('/cashier/members/{member}', [CashierController::class, 'destroyMember'])->name('destroyMember.cashier'); //new
+
+        Route::post('/cashier/WhatsApp/{Id}', [WAController::class, 'store'])->name('store.wa');
+
+        Route::patch('/cashier/change-status-1/{Id}', [CashierController::class, 'belumDicuciStatus'])->name('changeStatus1.cashier');
+        Route::patch('/cashier/change-status-2/{Id}', [CashierController::class, 'sedangDicuciStatus'])->name('changeStatus2.cashier');
+        Route::patch('/cashier/change-status-3/{Id}', [CashierController::class, 'sudahDicuciStatus'])->name('changeStatus3.cashier');
+        Route::patch('/cashier/change-status-4/{Id}', [CashierController::class, 'sudahDiambilStatus'])->name('changeStatus4.cashier');
     });
 
     Route::middleware('ironer')->group(function () {
@@ -105,7 +115,29 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::patch('/packer/done-order/{Id}', [PackerController::class, 'doneOrder'])->name('doneOrder.packer');
         Route::get('/packer/orders', [PackerController::class, 'orderData'])->name('orderData.packer'); //new
     });
+
+    Route::get('/user',[UserController::class,'index']);
+    Route::get('/user/create',[UserController::class,'create']);
+    Route::post('/user/store', [UserController::class,'store']);
+    Route::get('/user/{id}/edit', [UserController::class,'edit']);
+    Route::put('/user/{id}', [UserController::class,'update']);
+    Route::delete('/user/{id}', [UserController::class,'destroy']);
+
+
 });
 
 
 require __DIR__ . '/auth.php';
+
+Route::middleware('auth:member', 'member')->group(function () {
+    Route::get('/member', function () {
+        return view('adminProfile');
+    });
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+});
+
+Route::get('/member', function () {
+    return view('memberProfile');
+})->middleware(['auth:member', 'member']);
+
+require __DIR__ . '/authMember.php';    //new

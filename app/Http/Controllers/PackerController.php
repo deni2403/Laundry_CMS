@@ -50,6 +50,7 @@ class PackerController extends Controller
         $log = Log::findOrFail($id);
 
         $log->update(['before_status' => $order->status]);
+
         if ($order->status === 'Sedang dipacking') {
             $order->update(['status' => 'Selesai']);
             $log->update(['after_status' => 'Selesai']);
@@ -61,7 +62,17 @@ class PackerController extends Controller
         }
     }
 
-    public function orderData(){
-        return view('packer.index');
+    public function orderData()
+    {
+        if (Auth::user()->role === 'packer') {
+            $orders = Order::where('packer_id', Auth::user()->id)
+                ->whereIn('service_id', [1, 2, 3, 4, 5, 6])
+                ->get();
+        } else{
+            $orders = Order::whereIn('service_id', [1, 2, 3, 4, 5, 6])
+                ->whereNotNull('packer_id')
+                ->get();
+        }
+        return view('packer.index', compact('orders'));
     }
 }

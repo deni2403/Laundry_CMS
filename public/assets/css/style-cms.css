@@ -417,6 +417,14 @@
     padding: 5px 10px;
 }
 
+.update-button-finish {
+    background-color: rgb(41, 255, 4);
+    border: 0;
+    border-radius: 5px;
+    color: var(--bg-white);
+    padding: 5px 10px;
+}
+
 .form-input form {
     margin: 20px 0;
 }
