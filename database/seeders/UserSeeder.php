@@ -40,6 +40,13 @@ class UserSeeder extends Seeder
         $userData->password = bcrypt('12345678');
         $userData->role = 'ironer';
         $userData->save();
+        
+        $userData = new User();
+        $userData->name = 'Ajikun';
+        $userData->email = 'ironer2@gmail.com';
+        $userData->password = bcrypt('12345678');
+        $userData->role = 'ironer';
+        $userData->save();
 
         $userData = new User();
         $userData->name = 'Jaka';

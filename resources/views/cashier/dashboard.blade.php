@@ -24,22 +24,74 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr>
-                                    <td>12121231</td>
-                                    <td>Mawar Melati</td>
-                                    <td>Cuci Reguler</td>
-                                    <td>Belum Dicuci</td>
-                                    <td>
-                                        <button class="update-button">
-                                            Sudah Dicuci
-                                        </button>
+                                @foreach ($orders as $data)
+                                    <tr>
+                                        <td>{{ $data->invoice }}</td>
+                                        <td>{{ $data->customer_name }}</td>
+                                        <td>{{ $data->service->service_name }}</td>
+                                        <td>{{ $data->status }}</td>
+                                        @if ($data->status == 'Dalam antrian')
+                                            <td>
+                                                <form action="{{ route('changeStatus1.cashier', $data->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button">Belum Dicuci</button>
+                                                </form>
+                                            </td>
+                                        @endif
 
-                                        {{-- Tombol Notif WA --}}
-                                        {{-- <button class="complete-button">
-                                            Kirim Pesan
-                                        </button> --}}
-                                    </td>
-                                </tr>
+                                        @if ($data->status == 'Belum dicuci')
+                                            <td>
+                                                <form action="{{ route('changeStatus2.cashier', $data->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button">Sedang Dicuci</button>
+                                                </form>
+                                            </td>
+                                        @endif
+
+                                        @if ($data->status == 'Sedang dicuci')
+                                            <td>
+                                                <form action="{{ route('changeStatus3.cashier', $data->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button">Sudah Dicuci</button>
+                                                </form>
+                                            </td>
+                                        @endif
+
+                                        @if ($data->status == 'Selesai' && $data->member_id != null)
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                    <form action="{{ route('store.wa', $data->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success">Kirim WhatsApp</button>
+                                                    </form>
+                                                    <form action="{{ route('changeStatus4.cashier', $data->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button type="submit" class="btn btn-warning">Sudah Diambil</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        @endif
+
+                                        @if ($data->status == 'Selesai' && $data->member_id == null)
+                                            <td>
+                                                <form action="{{ route('changeStatus4.cashier', $data->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button">Sudah Diambil</button>
+                                                </form>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

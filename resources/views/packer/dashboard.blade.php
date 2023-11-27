@@ -26,19 +26,31 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr>
-                                    <td>12121231</td>
-                                    <td>Mawar Melati</td>
-                                    <td>Cuci Reguler</td>
-                                    <td>20/12/2023</td>
-                                    <td>25/12/2023</td>
-                                    <td>10 Kg</td>
-                                    <td>
-                                        <button class="update-button">
-                                            Ambil Order
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach ($orderTake as $order)
+                                    <tr>
+                                        <td>{{ $order->invoice }}</td>
+                                        <td>{{ $order->customer_name }}</td>
+                                        <td>{{ $order->service->service_name }}</td>
+                                        <td>{{ $order->order_in }}</td>
+                                        <td>{{ $order->order_out }}</td>
+                                        <td>{{ $order->total_weight }} Kg</td>
+                                        @if ($order->status == 'Sudah disetrika' || $order->status == 'Sudah dicuci')
+                                            <td>
+                                                <form action="{{ route('takeOrder.packer', $order->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button">Ambil Order</button>
+                                                </form>
+                                            </td>
+                                        @endif
+
+                                        {{-- <td>
+                                            <button class="update-button">
+                                                Ambil Order
+                                            </button>
+                                        </td> --}}
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -71,19 +83,25 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr>
-                                    <td>12121231</td>
-                                    <td>Mawar Melati</td>
-                                    <td>Cuci Reguler</td>
-                                    <td>20/12/2023</td>
-                                    <td>25/12/2023</td>
-                                    <td>10 Kg</td>
-                                    <td>
-                                        <button class="complete-button">
-                                            Selesai
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach ($orderDone as $order)
+                                    <tr>
+                                        <td>{{ $order->invoice }}</td>
+                                        <td>{{ $order->customer_name }}</td>
+                                        <td>{{ $order->service->service_name }}</td>
+                                        <td>{{ $order->order_in }}</td>
+                                        <td>{{ $order->order_out }}</td>
+                                        <td>{{ $order->total_weight }} Kg</td>
+                                        @if ($order->status == 'Sedang dipacking')
+                                            <td>
+                                                <form action="{{ route('doneOrder.packer', $order->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="update-button-finish">Selesai</button>
+                                                </form>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
