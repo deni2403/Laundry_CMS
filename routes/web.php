@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\IronerController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ProfileController;
@@ -105,6 +106,15 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::patch('/packer/done-order/{Id}', [PackerController::class, 'doneOrder'])->name('doneOrder.packer');
         Route::get('/packer/orders', [PackerController::class, 'orderData'])->name('orderData.packer'); //new
     });
+
+    Route::get('/user',[UserController::class,'index']);
+    Route::get('/user/create',[UserController::class,'create']);
+    Route::post('/user/store', [UserController::class,'store']);
+    Route::get('/user/{id}/edit', [UserController::class,'edit']);
+    Route::put('/user/{id}', [UserController::class,'update']);
+    Route::delete('/user/{id}', [UserController::class,'destroy']);
+
+
 });
 
 
