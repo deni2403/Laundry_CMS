@@ -49,8 +49,6 @@
                         </li>
                         <li class="cashier-collapse__item {{ Request::is('cashier/create') ? 'active' : '' }}"><a href="{{ route('createOrder.cashier') }}">Tambah Pesanan</a>
                         </li>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/members/create') ? 'active' : '' }}"><a href="{{ route('createMember.cashier') }}">Tambah Member</a>
-                        </li>
                         <li class="cashier-collapse__item {{ Request::is('cashier/orders') ? 'active' : '' }}"><a href="{{ route('orderData.cashier') }}">Data Order</a>
                         </li>
                         <li class="cashier-collapse__item {{ Request::is('cashier/members/index') ? 'active' : '' }}"><a href="{{ route('indexMember.cashier') }}">Data Member</a>

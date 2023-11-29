@@ -14,8 +14,9 @@ class IronerController extends Controller
     {
         $orderTake = Order::where('status', 'Sudah dicuci')
             ->whereIn('service_id', [1, 2, 5, 6])
-            ->get();
-        $orderDone = Order::where('status', 'Sedang Disetrika')->get();
+            ->paginate(5);
+        $orderDone = Order::where('status', 'Sedang Disetrika')->paginate(5);
+
         return view('ironer.dashboard', compact('orderTake', 'orderDone'));
     }
 
@@ -67,12 +68,12 @@ class IronerController extends Controller
             // Jika pengguna memiliki peran "ironer"
             $orders = Order::where('ironer_id', Auth::user()->id)
                 ->whereIn('service_id', [1, 2, 5, 6])
-                ->get();
+                ->paginate(5);
         } else {
             // Jika pengguna tidak memiliki peran "ironer", ambil semua data
             $orders = Order::where('service_id', [1, 2, 5, 6])
                 ->whereNotNull('ironer_id')
-                ->get();
+                ->paginate(5);
         }
         return view('ironer.index', compact('orders'));
     }
