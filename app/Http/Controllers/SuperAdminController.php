@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SuperAdminController extends Controller
 {
@@ -64,51 +65,16 @@ class SuperAdminController extends Controller
         return redirect()->route('dashboard.superadmin')->with('success', '');
     }
 
-    //Member Start
-    public function indexMember()
-    {
-        $member = Member::all();
-        return view('member.index', compact(['member']));
-    }
-
-    public function createMember()
-    {
-        return view('member.create');
-    }
-
-    public function storeMember(Request $request)
-    {
-        member::create($request->except('_token', 'submit'));
-        return redirect()->route('index.member');
-    }
-
-    public function editMember($id)
-    {
-        $member = member::find($id);
-        return view('member.edit', compact(['member']));
-    }
-    public function updateMember($id, Request $request)
-    {
-        $member = member::find($id);
-        $member->update($request->except(['_token', 'submit']));
-        return redirect()->route('index.member');
-    }
-
-    public function destroyMember($id)
-    {
-        $member = member::find($id);
-        $member->delete();
-        return redirect()->route('index.member');
-    }
-
-    //Member End
-
     //User Start
     public function indexUser()
     {
+        $title = 'Delete User!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         return view('superadmin.index', [
             'users' => User::all(),
         ]);
+
     }
 
     public function createUser()
@@ -116,11 +82,69 @@ class SuperAdminController extends Controller
         return view('superadmin.createUser');
     }
 
+    public function storeUser(Request $request)
+    {
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:8',
+            'role' => 'required|in:superadmin,admin,cashier,ironer,packer',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->file('image')) {
+            $data['image'] = $request->file('image')->store('user-images');
+        }
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+
+        return redirect()->route('users.superadmin')->with('success', 'User Berhasil Ditambahkan!');
+    }
+
     public function editUser(User $user)
     {
         return view('superadmin.editUser', [
             'user' => $user,
         ]);
+    }
+
+    public function updateUser(User $user, Request $request)
+    {
+        $rules = [
+            'name' => 'required|max:255|min:3|regex:/^[a-zA-Z ]+$/',
+            'role' => 'required|in:superadmin,admin,cashier,ironer,packer',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+        ];
+
+        if ($request->filled('password')) {
+            $rules['password'] = 'required|min:6|max:255';
+        }
+
+        if ($request->email != $user->email) {
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['password'] = bcrypt($request->password);
+
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('user-images');
+        }
+
+        User::where('id', $user->id)
+            ->update($validatedData);
+
+        return redirect()->route('users.superadmin')->with('success', 'User Berhasil Diubah!');
+    }
+
+    public function destroyUser(String $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.superadmin')->with('success', 'User Berhasil Dihapus!');
     }
     //User End
 }

@@ -6,8 +6,9 @@
         <div class="create-event shadow-sm border">
             <h1 class="create-event__title">Edit Data Pengguna</h1>
             <div class="create-event__form">
-                <form method="POST" action="/superadmin/users/{{ $user->id }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('updateUser.superadmin', $user->id) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -29,9 +30,19 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password"  autofocus value="">
+                        @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
                         <select type="text" class="form-control" id="role" name="role">
-                            <option value="{{ old('role'), $user->role }}">{{ $user->role }}</option>
+                            <option value="{{ $user->role }}">{{ $user->role }}</option>
                             <option value="superadmin">Super Admin</option>
                             <option value="admin">Admin</option>
                             <option value="cashier">Cashier</option>
@@ -41,7 +52,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Gambar</label>
-                        <img class="img-preview img-fluid mb-3 col-sm-5">
+                        <input type="hidden" name="image" value="{{ $user->image }}" id="image">
+                        @if ($user->image)
+                            <img src="{{ asset('storage/' . $user->image) }}"
+                                class="img-preview img-fluid mb-3 col-sm-5 d-block" id="imagePreview">
+                        @else
+                            <img class="img-preview img-fluid mb-3 col-sm-5">
+                        @endif
                         <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                             name="image" onchange="previewImage()">
                         @error('image')
