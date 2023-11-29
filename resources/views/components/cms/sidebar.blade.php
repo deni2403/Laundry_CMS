@@ -59,8 +59,6 @@
                         </li>
                         <li class="cashier-collapse__item {{ Request::is('cashier/orders') ? 'active' : '' }}"><a
                                 href="{{ route('orderData.cashier') }}">Data Order</a>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/orders') ? 'active' : '' }}"><a
-                                href="{{ route('orderData.cashier') }}">Data Order</a>
                         </li>
                         <li class="cashier-collapse__item {{ Request::is('cashier/members/index') ? 'active' : '' }}">
                             <a href="{{ route('indexMember.cashier') }}">Data Member</a>
