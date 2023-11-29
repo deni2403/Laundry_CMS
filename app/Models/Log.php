@@ -10,13 +10,7 @@ class Log extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'log_id',
-        'before_status',
-        'after_status',
-        'updated_at',
-        'created_at',
-    ];
+    protected $guarded = [''];
 
     public function orders(){
         return $this->hasMany(Order::class);

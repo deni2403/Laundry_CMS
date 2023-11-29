@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PackerController extends Controller
@@ -31,8 +30,10 @@ class PackerController extends Controller
         $order = Order::findOrFail($id);
         $log = Log::findOrFail($id);
 
-        $log->update(['before_status' => $order->status]);
-        $log->update(['created_at' => now()]);
+        $log->update([
+            'before_status' => $order->status,
+            'created_at' => now()
+        ]);
 
         if ($order->packer_id === null) {
             $order->update(['packer_id' => Auth::user()->id, 'status' => 'Sedang dipacking']);
@@ -53,9 +54,10 @@ class PackerController extends Controller
 
         if ($order->status === 'Sedang dipacking') {
             $order->update(['status' => 'Selesai']);
-            $log->update(['after_status' => 'Selesai']);
-            $log->update(['updated_at', now()]);
-
+            $log->update([
+                'after_status' => 'Selesai',
+                'updated_at', now()
+            ]);
             return redirect()->route('dashboard.packer')->with('success', 'Order Selesai.');
         } else {
             return redirect()->route('dashboard.packer')->with('error', 'Gagal Selesai.');
@@ -70,7 +72,7 @@ class PackerController extends Controller
                 ->paginate(5);
         } else {
             $orders = Order::whereIn('service_id', [1, 2, 3, 4, 5, 6])
-                ->whereNotNull('packer_id')
+                ->whereIn('status', ['Selesai', 'Sudah diambil'])
                 ->paginate(5);
         }
         return view('packer.index', compact('orders'));

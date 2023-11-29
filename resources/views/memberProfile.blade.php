@@ -9,7 +9,7 @@
                     <aside class="profile d-flex flex-column align-items-center border">
                         @if (Auth::guard('member')->user()->image == null)
                             <img class="img-fluid rounded-circle img-thumbnail profile-image" alt="Profile Image"
-                                src="/assets/images/profile-image.png">
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png">
                         @else
                             <img class="img-fluid rounded-circle img-thumbnail profile-image" alt="Profile Image"
                                 src="{{ asset('storage/' . Auth::guard('member')->user()->image) }}">
@@ -24,12 +24,12 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="profile-edit border">
-                        <h2 class="profile-edit__title">Ubah Profil</h2>
-                        <p class="profile-edit__text">Kelola profil untuk mengontrol, mengelola, dan mengamankan akun</p>
+                        <h2 class="profile-edit__title">Ubah Password</h2>
+                        <p class="profile-edit__text">Kelola Password untuk mengontrol, mengelola, dan mengamankan akun</p>
                         <div class="profile-edit__form">
                             <form method="post" action="{{ route('password.update') }}">
                                 @csrf
-                                @method('PATCH')
+                                @method('put')
                                 <div class="mb-3">
                                     <label for="current_password">Current Password</label>
                                     <input type="password" id="current_password" name="current_password"

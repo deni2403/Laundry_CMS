@@ -34,17 +34,13 @@
                                                 <a href="/superadmin/users/{{ $user->id }}/edit"
                                                     class="btn btn-warning mx-1" title="Edit"><i
                                                         class="fa-solid fa-pencil"></i></a>
-                                                {{-- <form action="{{route('destroyUser.superadmin', $user->id)}}" method="POST">
+                                                <form action="{{route('destroyUser.superadmin', $user->id)}}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button class="btn btn-danger mx-1" title="Delete"
                                                         onclick="return confirm('Are you sure?')"><i
                                                             class="fa-solid fa-trash"></i></button>
-                                                </form> --}}
-                                                <a href="{{ route('destroyUser.superadmin', $user->id) }}" class="btn btn-danger"
-                                                    data-confirm-delete="true"><i
-                                                    class="fa-solid fa-trash"></i>
-                                                </a>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

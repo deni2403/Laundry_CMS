@@ -21,7 +21,11 @@
                                     style="color: #595858;"></i></span>
                             <span class="event-info__date-text">{{ $event->created_at->format('d  M  Y') }}</span>
                         </div>
-                        <p class="event-info__author">Posted by : {{ $event->author->name }}</p>
+                        @if ($event->author != null)
+                            <p class="event-info__author">Posted by : {{ $event->author->name }}</p>
+                        @else
+                            <p class="event-info__author">Posted by : Alza Laundry</p>
+                        @endif
                         <div class="event-info-context text-truncate">
                             <p>{!! $event->body !!}</p>
                         </div>

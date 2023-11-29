@@ -11,9 +11,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-
         return view('admin.dashboard', [
-            'title' => 'All Events',
             'events' => Event::latest()->paginate(6),
         ]);
     }
@@ -28,16 +26,13 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index', [
-            'title' => 'Manage Event',
             'events' => Event::latest()->paginate(8),
         ]);
     }
 
     public function create()
     {
-        return view('admin.create', [
-            'title' => 'Create Event',
-        ]);
+        return view('admin.create');
     }
 
     public function store(Request $request)
@@ -45,11 +40,12 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // 'nullable
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'body' => 'required',
+            'user_id' => 'nullable',
         ]);
 
-        if($request->file('image')){
+        if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('event-images');
         }
 
@@ -68,7 +64,6 @@ class AdminController extends Controller
     public function edit(Event $event)
     {
         return view('admin.edit', [
-            'title' => 'Update Event',
             'event' => $event,
         ]);
     }
@@ -81,14 +76,14 @@ class AdminController extends Controller
             'body' => 'required',
         ];
 
-        if($request->slug != $event->slug){
+        if ($request->slug != $event->slug) {
             $rules['slug'] = 'required|unique:events';
         }
 
         $validatedData = $request->validate($rules);
 
-        if($request->file('image')){
-            if($request->oldImage){
+        if ($request->file('image')) {
+            if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
             $validatedData['image'] = $request->file('image')->store('event-images');
@@ -102,7 +97,7 @@ class AdminController extends Controller
 
     public function destroy(Event $event)
     {
-        if($event->image){
+        if ($event->image) {
             Storage::delete($event->image);
         }
         Event::destroy($event->id);
