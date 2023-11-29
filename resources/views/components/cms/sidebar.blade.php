@@ -1,7 +1,13 @@
 <aside class="sidebar border-end shadow">
     <div class="sidebar-header d-flex align-items-center justify-content-center flex-wrap">
         <div class="sidebar-header__avatar">
-            <img src="https://placekitten.com/200/200" class="rounded-circle img-fluid " alt="avatar">
+            @if (Auth::user()->image)
+                <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle img-fluid"
+                    alt="Foto Profil">
+            @else
+                <img src="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?size=626&ext=jpg"
+                    class="rounded-circle img-fluid " alt="Foto Profil">
+            @endif
         </div>
         <div class="sidebar-header__user">
             <h6 class="sidebar-header__user-name">{{ Auth::user()->name }}</h6>
@@ -45,15 +51,20 @@
                 </li>
                 <div class="collapse show" id="cashier-collapse">
                     <ul class="btn-toggle-nav">
-                        <li class="cashier-collapse__item {{ Request::is('cashier/dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard.cashier') }}">Dashboard Kasir</a>
+                        <li class="cashier-collapse__item {{ Request::is('cashier/dashboard') ? 'active' : '' }}"><a
+                                href="{{ route('dashboard.cashier') }}">Dashboard Kasir</a>
                         </li>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/create') ? 'active' : '' }}"><a href="{{ route('createOrder.cashier') }}">Tambah Pesanan</a>
+                        <li class="cashier-collapse__item {{ Request::is('cashier/create') ? 'active' : '' }}"><a
+                                href="{{ route('createOrder.cashier') }}">Tambah Pesanan</a>
                         </li>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/members/create') ? 'active' : '' }}"><a href="{{ route('createMember.cashier') }}">Tambah Member</a>
+                        <li class="cashier-collapse__item {{ Request::is('cashier/members/create') ? 'active' : '' }}">
+                            <a href="{{ route('createMember.cashier') }}">Tambah Member</a>
                         </li>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/orders') ? 'active' : '' }}"><a href="{{ route('orderData.cashier') }}">Data Order</a>
+                        <li class="cashier-collapse__item {{ Request::is('cashier/orders') ? 'active' : '' }}"><a
+                                href="{{ route('orderData.cashier') }}">Data Order</a>
                         </li>
-                        <li class="cashier-collapse__item {{ Request::is('cashier/members/index') ? 'active' : '' }}"><a href="{{ route('indexMember.cashier') }}">Data Member</a>
+                        <li class="cashier-collapse__item {{ Request::is('cashier/members/index') ? 'active' : '' }}">
+                            <a href="{{ route('indexMember.cashier') }}">Data Member</a>
                         </li>
                     </ul>
                 </div>

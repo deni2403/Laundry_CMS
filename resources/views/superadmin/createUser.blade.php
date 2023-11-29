@@ -6,7 +6,7 @@
         <div class="create-event shadow-sm border">
             <h1 class="create-event__title">Buat Pengguna Baru</h1>
             <div class="create-event__form">
-                <form method="POST" action="/superadmin/users" enctype="multipart/form-data">
+                <form method="POST" action="{{route('storeUser.superadmin')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Nama</label>
@@ -29,9 +29,19 @@
                         @enderror
                     </div>
                     <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password" required autofocus value="{{ old('password') }}">
+                        @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
                         <select type="text" class="form-control" id="role" name="role">
-                            <option value="">--User Role--</option>
+                            <option value="" disabled>--User Role--</option>
                             <option value="superadmin">Super Admin</option>
                             <option value="admin">Admin</option>
                             <option value="cashier">Cashier</option>
