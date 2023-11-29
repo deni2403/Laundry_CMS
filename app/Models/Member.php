@@ -12,15 +12,7 @@ class Member extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone_number',
-        'total_point',
-        'registration_date',
-        'image',
-    ];
+    protected $guarded = ['id'];
 
     protected $hiddable = [
         'password',

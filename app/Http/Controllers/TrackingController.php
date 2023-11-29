@@ -10,11 +10,8 @@ class TrackingController extends Controller
 {
     public function index()
     {
-        // $order = Order::first();
-        // $logs = Log::where('id', $order->id)->get();
-        // return view('trackingPage', compact('order', 'logs'));
-
-        $invoice = request('invoice'); // Mengecek apakah ada parameter invoice dari URL
+        // Mengecek apakah ada parameter invoice dari URL
+        $invoice = request('invoice');
 
         if ($invoice) {
             $order = Order::where('invoice', $invoice)->first();
@@ -27,25 +24,10 @@ class TrackingController extends Controller
 
             return view('trackingPage', compact('order', 'logs'));
         }
-        $order = null;
-        $logs = null;
+        // $order = null;
+        // $logs = null;
 
         // Jika tidak ada parameter invoice, tampilkan halaman tanpa data
-        return view('trackingPage', compact('order', 'logs'));
+        return view('trackingPage');
     }
-
-    // public function search(Request $request)
-    // {
-    //     $invoice = $request->input('invoice');
-
-    //     $order = Order::where('invoice', $invoice)->first();
-
-    //     if (!$order) {
-    //         return redirect()->route('login.member')->with('error', 'Order not found.');
-    //     }
-
-    //     $logs = Log::where('id', $order->id)->get();
-
-    //     return view('trackingPage', compact('order', 'logs'));
-    // }
 }

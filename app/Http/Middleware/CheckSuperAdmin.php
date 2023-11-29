@@ -18,7 +18,7 @@ class CheckSuperAdmin
     {
         $role = Auth::user()->role;
 
-        if (Auth::user()->role == 'superadmin') {
+        if ($role == 'superadmin') {
             return  $next($request);
         }
         return redirect($role . '/dashboard');

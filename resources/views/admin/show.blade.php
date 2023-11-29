@@ -10,9 +10,10 @@
                     <div class="event-info">
                         <div class="event-info__image d-flex justify-content-center">
                             @if ($event->image)
-                                <img src="{{ asset('storage/' . $event->image) }}" class="img-fluid" alt="{{ $event->title }}">
+                                <img src="{{ asset('storage/' . $event->image) }}" class="img-fluid"
+                                    alt="{{ $event->title }}">
                             @else
-                            <img src="/assets/images/event-image.png" class="img-fluid" alt="{{ $event->title }}">
+                                <img src="/assets/images/event-image.png" class="img-fluid" alt="{{ $event->title }}">
                             @endif
                         </div>
                         <div class="event-info__date">
@@ -20,7 +21,11 @@
                                     style="color: #595858;"></i></span>
                             <span class="event-info__date-text">{{ $event->created_at->format('d  M  Y') }}</span>
                         </div>
-                        <p class="event-info__author">Posted by : {{ $event->author->name }}</p>
+                        @if ($event->author != null)
+                            <p class="event-info__author">Posted by : {{ $event->author->name }}</p>
+                        @else
+                            <p class="event-info__author">Posted by : Alza Laundry</p>
+                        @endif
                         <div class="event-info-context">
                             <p>{!! $event->body !!}</p>
                         </div>

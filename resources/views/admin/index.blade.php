@@ -11,7 +11,8 @@
             @endif
             <div class="row">
                 <div class="col">
-                    <a href="/admin/events/create" class="btn btn-primary my-2"><i class="fa-solid fa-file-circle-plus me-1"></i>Buat Event</a>
+                    <a href="/admin/events/create" class="btn btn-primary my-2"><i
+                            class="fa-solid fa-file-circle-plus me-1"></i>Buat Event</a>
                     <div class="table-responsive event-index__table my-2">
                         <table class="table table-striped border shadow-sm">
                             <thead class="text-center">

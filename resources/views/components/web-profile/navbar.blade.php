@@ -20,14 +20,14 @@
                 <li class="nav-item me-4">
                     <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="/about">Tentang Kami</a>
                 </li>
-                @if (auth()->guard('member')->check() == 1)
+                @if (auth()->guard('member')->check())
                     {{-- Opsi untuk user yang sudah login --}}
                     <li class="nav-item me-4">
                         <a class="nav-link {{ Request::is('member') ? 'active' : '' }}" href="/member">Profil Saya</a>
                     </li>
                 @endif
 
-                @if (auth()->guard('member')->check() == 0 && auth()->check() == 0)
+                @if (!auth()->guard('member')->check() && !auth()->check())
                     {{-- Opsi untuk user yang belum login --}}
                     <a href="/member-login" class="mx-1">
                         <button class="login-btn p-1 px-2">
@@ -37,7 +37,7 @@
                 @endif
 
 
-                @if (auth()->guard('member')->check() == 1 || auth()->check() == 1)
+                @if (auth()->guard('member')->check()|| auth()->check())
                     {{-- Opsi untuk user yang sudah login --}}
                     <div class="dropdown">
                         <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,6 +58,12 @@
                                     </li>
                                 </form>
                             @else
+                                <form action="{{ Auth::user()->role }}/dashboard" method="get">
+                                    @csrf
+                                    <li><button class="dropdown-item" type="submit"><i
+                                                class="fa-solid fa-house-chimney-user me-2"></i>Dashboard</button>
+                                    </li>
+                                </form>
                                 <form action="{{ route('logout.worker') }}" method="POST">
                                     @csrf
                                     <li><button class="dropdown-item" type="submit"><i

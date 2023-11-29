@@ -12,21 +12,13 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        // if (auth()->guard('member')->check()) {
-        //     return $request->expectsJson() ? null : route('login.member');
-        // }
-
-        // if (auth()->guard('member')->check()) {
-        //     return $request->expectsJson() ? null : route('login.worker');
-        // }
 
         if (auth()->guard('member')->check()) {
             return $request->expectsJson() ? null : route('login.member');
         } elseif (auth()->guard('web')->check()) {
-            return $request->expectsJson() ? null : route('login.worker');
+            return $request->expectsJson() ? null : route('login');
         }
 
-        // Jika tidak ada guard yang berhasil, kembalikan ke halaman login default
         return $request->expectsJson() ? null : route('landingPage');
     }
 }

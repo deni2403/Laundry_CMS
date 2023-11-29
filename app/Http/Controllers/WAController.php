@@ -17,12 +17,10 @@ class WAController extends Controller
 
         // Pastikan order ditemukan sebelum melanjutkan
         if ($order) {
-            // Mengambil informasi member dari order
             $member = Member::findOrFail($order->member_id);
 
             // Pastikan member ditemukan sebelum melanjutkan
             if ($member) {
-                // Mengambil phone number dan informasi lainnya
                 $data['phone'] = $member->phone_number;
                 $data['message'] = 'Laundry dengan nomor invoice ' . $order->invoice . ' atas nama ' . $order->customer_name . ' telah selesai diproses. Terima kasih telah menggunakan jasa kami.';
                 $data['secret'] = false;

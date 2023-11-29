@@ -19,7 +19,7 @@
                             berkualitas dan handal kepada pelanggan kami. Sejak didirikan pada tahun 2009, kami telah tumbuh
                             dan berkembang menjadi salah satu pilihan terkemuka dalam industri laundry di Jawa Barat.
                         </p>
-                        <a href="">
+                        <a href="https://maps.app.goo.gl/ss94MBrxkEpV3dS36" target="_blank">
                             <button class="about-profile-description__button d-flex align-items-center shadow-sm">
                                 <span class="me-4">Kunjungi Lokasi</span>
                                 <img src="/assets/icons/location.png" class="img-fluid" alt="location">
