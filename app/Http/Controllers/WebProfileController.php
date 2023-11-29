@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Member;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rules\Password;
 
 class WebProfileController extends Controller
 {
@@ -48,7 +53,7 @@ class WebProfileController extends Controller
     {
         return view('event', [
             'event' => $event,
-            'events' => Event::latest()->paginate(3),
+            'events' => Event::latest()->paginate(4)->skip(1),
         ]);
     }
 }

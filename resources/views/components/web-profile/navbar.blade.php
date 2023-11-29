@@ -29,9 +29,11 @@
 
                 @if (auth()->guard('member')->check() == 0 && auth()->check() == 0)
                     {{-- Opsi untuk user yang belum login --}}
-                    <button class="login-btn p-1 px-2">
-                        <a href="/member-login" class="mx-1">Masuk</a>
-                    </button>
+                    <a href="/member-login" class="mx-1">
+                        <button class="login-btn p-1 px-2">
+                            Masuk
+                        </button>
+                    </a>
                 @endif
 
 
