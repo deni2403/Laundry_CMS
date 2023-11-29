@@ -10,6 +10,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CashierController extends Controller
 {
@@ -18,7 +19,7 @@ class CashierController extends Controller
         $orders = Order::whereIn('status', ['Dalam antrian', 'Belum dicuci', 'Sedang dicuci', 'Selesai'])
             ->whereIn('service_id', [1, 2, 3, 4])
             ->orderby('order_in', 'asc')
-            ->get();
+            ->paginate(6);
         return view('cashier.dashboard', compact('orders'));
     }
 
@@ -64,7 +65,7 @@ class CashierController extends Controller
 
         $member = Member::find($newOrder->member_id);
 
-        if($member && $usePoints == false){
+        if ($member && $usePoints == false) {
             $newOrder->total_price -= $discount;
             $newOrder->save();
         }
@@ -82,12 +83,14 @@ class CashierController extends Controller
         $member = Member::find($newOrder->member_id);
         if ($service->id == 1) {
             $point = 10;
-        } elseif ($service->id == 3) {
+        } elseif ($service->id == 2) {
             $point = 20;
+        } elseif ($service->id == 3) {
+            $point = 10;
         } elseif ($service->id == 4) {
             $point = 20;
         } elseif ($service->id == 5) {
-            $point = 20;
+            $point = 10;
         } elseif ($service->id == 6) {
             $point = 20;
         } elseif ($service->id == 7) {
@@ -122,7 +125,7 @@ class CashierController extends Controller
 
     public function orderData()
     {
-        $orders = Order::orderby('order_in', 'desc')->get();
+        $orders = Order::orderby('order_in', 'desc')->paginate(5);
         return view('cashier.index', compact('orders'));
     }
 
@@ -139,9 +142,9 @@ class CashierController extends Controller
             $log->update(['created_at' => now()]);
             $log->update(['after_status' => 'Belum dicuci']);
 
-            return redirect()->route('dashboard.cashier')->with('success', 'Status Berhasil Diubah Belum Dicuci.');
+            return redirect()->route('dashboard.cashier')->with('success', 'Orderan di Ambil');
         } else {
-            return redirect()->route('dashboard.cashier')->with('error', 'Status Gagal Diubah.');
+            return redirect()->route('dashboard.cashier')->with('error', 'Orderan Gagal di Ambil');
         }
     }
 
@@ -157,7 +160,7 @@ class CashierController extends Controller
             $log->update(['created_at' => now()]);
             $log->update(['after_status' => 'Sedang dicuci']);
 
-            return redirect()->route('dashboard.cashier')->with('success', 'Status Berhasil Diubah Sedang Dicuci.');
+            return redirect()->route('dashboard.cashier')->with('success', 'Orderan sedang dicuci.');
         } else {
             return redirect()->route('dashboard.cashier')->with('error', 'Status Gagal Diubah.');
         }
@@ -175,7 +178,7 @@ class CashierController extends Controller
             $log->update(['created_at' => now()]);
             $log->update(['after_status' => 'Sudah dicuci']);
 
-            return redirect()->route('dashboard.cashier')->with('success', 'Status Berhasil Diubah Sudah Dicuci.');
+            return redirect()->route('dashboard.cashier')->with('success', 'Orderan Selesai dicuci.');
         } else {
             return redirect()->route('dashboard.cashier')->with('error', 'Status Gagal Diubah Sudah Dicuci.');
         }
@@ -193,16 +196,19 @@ class CashierController extends Controller
             $log->update(['created_at' => now()]);
             $log->update(['after_status' => 'Sudah diambil']);
 
-            return redirect()->route('dashboard.cashier')->with('success', 'Status Berhasil Diubah Sudah Diambil.');
+            return redirect()->route('dashboard.cashier')->with('success', 'Orderan Sudah Diambil.');
         } else {
             return redirect()->route('dashboard.cashier')->with('error', 'Status Gagal Diubah Sudah Diambil.');
         }
     }
 
+
+    //Member Start
     public function indexMember()
     {
-        $members = Member::all();
-        return view('cashier.dataMember', compact('members'));
+        return view('cashier.dataMember', [
+            'members' => Member::latest()->paginate(5),
+        ]);
     }
 
     public function createMember()
@@ -212,49 +218,72 @@ class CashierController extends Controller
 
     public function storeMember(Request $request)
     {
-        $newMember = new Member();
-        $newMember->name = $request->name;
-        $newMember->email = $request->email;
-        $newMember->password = bcrypt($request->password);
-        $newMember->phone_number = $request->phone_number;
-        $newMember->total_point = 0;
-        $newMember->registration_date = now();
+        $validatedData = $request->validate([
+            'name' => 'required|max:255|regex:/^[a-zA-Z ]+$/|min:3',
+            'email' => 'required|email|unique:members',
+            'password' => 'required|min:6|max:255',
+            'phone_number' => 'required|regex:/^\+?[0-9]{9,15}$/|min:10',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('member-images');
         }
-        $newMember->image = $validatedData['image'];
-        $newMember->save();
 
+        $validatedData['password'] = bcrypt($request->password);
+        $validatedData['total_point'] = 0;
+        $validatedData['registration_date'] = now();
+        Member::create($validatedData);
         return redirect()->route('indexMember.cashier')->with('success', 'Member berhasil ditambahkan.');
     }
 
-    public function editMember(String $id)
+    public function editMember(Member $member)
     {
-        $member = Member::findOrFail($id);
-        return view('cashier.editMember', compact('member'));
+        return view('cashier.editMember', [
+            'member' => $member,
+        ]);
     }
 
-    public function updateMember(Request $request, String $id)
+    public function updateMember(Request $request, Member $member)
     {
-        $member = Member::findOrFail($id);
-        $member->name = $request->name;
-        $member->email = $request->email;
-        $member->phone_number = $request->phone_number;
-        $member->total_point = $request->total_point;
+        $rules = [
+            'name' => 'required|max:255|min:3|regex:/^[a-zA-Z ]+$/',
+            'phone_number' => 'required|regex:/^\+?[0-9]{9,15}$/|min:10',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+
+        if ($request->filled('password')) {
+            $rules['password'] = 'required|min:6|max:255';
+        }
+
+        if ($request->email != $member->email) {
+            $rules['email'] = 'required|email|unique:members';
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['password'] = bcrypt($request->password);
+
         if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
             $validatedData['image'] = $request->file('image')->store('member-images');
         }
-        $member->image = $validatedData['image'];
-        $member->save();
 
+        Member::where('id', $member->id)
+            ->update($validatedData);
         return redirect()->route('indexMember.cashier')->with('success', 'Member berhasil diubah.');
     }
 
-    public function destroyMember(String $id)
+    public function destroyMember(Member $member)
     {
-        $member = Member::findOrFail($id);
-        $member->delete();
+        if ($member->image) {
+            Storage::delete($member->image);
+        }
 
+        Member::destroy($member->id);
         return redirect()->route('indexMember.cashier')->with('success', 'Member berhasil dihapus.');
     }
+
+    //member end
 }

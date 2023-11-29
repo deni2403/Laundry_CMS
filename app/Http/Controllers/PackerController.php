@@ -19,10 +19,10 @@ class PackerController extends Controller
                 $query->where('status', 'Sudah Disetrika')
                     ->whereIn('service_id', [1, 2, 5, 6]);
             })
-            ->get();
+            ->paginate(5);
 
-        $orderDone = Order::where('status', 'Sedang dipacking')->get();
-        $orders = Order::where('packer_id', Auth::user()->id)->get();
+        $orderDone = Order::where('status', 'Sedang dipacking')->paginate(5);
+        $orders = Order::where('packer_id', Auth::user()->id)->paginate(5);
         return view('packer.dashboard', compact('orderTake', 'orders', 'orderDone'));
     }
 
@@ -67,11 +67,11 @@ class PackerController extends Controller
         if (Auth::user()->role === 'packer') {
             $orders = Order::where('packer_id', Auth::user()->id)
                 ->whereIn('service_id', [1, 2, 3, 4, 5, 6])
-                ->get();
-        } else{
+                ->paginate(5);
+        } else {
             $orders = Order::whereIn('service_id', [1, 2, 3, 4, 5, 6])
                 ->whereNotNull('packer_id')
-                ->get();
+                ->paginate(5);
         }
         return view('packer.index', compact('orders'));
     }
