@@ -30,7 +30,7 @@
                                         <td>{{ date('d M Y', strtotime($member->registration_date)) }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center action-button">
-                                                <a href="{{ route('editMember.cashier', $member->id) }}}"
+                                                <a href="{{ route('editMember.cashier', ['member' => $member->id]) }}"
                                                     class="btn btn-warning mx-1" title="Edit"><i
                                                         class="fa-solid fa-pencil"></i></a>
                                                 <form action="{{ route('destroyMember.cashier', $member->id) }}"

@@ -55,11 +55,17 @@
                         <label for="image" class="form-label">Gambar</label>
                         <input type="hidden" name="oldImage" value="{{ $member->image }}">
                         @if ($member->image)
-                            <img src="{{ asset('storage/' . $member->image) }}"
-                                class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                            <img src="{{ asset('storage/' . $member->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
                         @else
                             <img class="img-preview img-fluid mb-3 col-sm-5">
                         @endif
+                        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                            name="image">
+                        @error('image')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     @error('image')
                         <div class="invalid-feedback">

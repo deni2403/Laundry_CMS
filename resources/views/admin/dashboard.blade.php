@@ -20,7 +20,11 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $event->title }}</h5>
                                         <p class="card-text">{{ $event->created_at->format('d  M  Y') }}</p>
-                                        <p class="card-text">Posted by : {{ $event->author->name }}</p>
+                                        @if ($event->author != null)
+                                            <p class="card-text">Posted by : {{ $event->author->name }}</p>
+                                        @else
+                                            <p class="card-text">Posted by : Alza Laundry</p>
+                                        @endif
                                     </div>
                                 </div>
                             </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Log;
 use App\Models\User;
 use App\Models\Order;
@@ -15,66 +16,18 @@ class SuperAdminController extends Controller
 {
     public function dashboard()
     {
-        // 1
         $totalOrder = Order::all();
-
-        //2
         $orderProcess = Order::whereNot('status', 'Sudah diambil')->get();
-
-        // 3
         $completedOrder = Order::where('status', 'Sudah diambil')->get();
         return view('superadmin.dashboard', compact('totalOrder', 'orderProcess', 'completedOrder'));
-    }
-
-    public function createOrder()
-    {
-        $orders = Order::all();
-        $services = Service::all();
-        $logs = Log::all();
-        $members = Member::all();
-        $users = User::all();
-        return view('superadmin.create', compact('orders', 'services', 'logs', 'members', 'users'));
-    }
-
-    public function storeOrder(Request $request)
-    {
-        $newOrder = new Order();
-        $newOrder->invoice = 'INV' . '/' . now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
-        $newOrder->customer_name = $request->customer_name;
-        $newOrder->order_in = $request->order_in;
-        $newOrder->order_out = $request->order_out;
-        $newOrder->order_take = now();
-        $newOrder->total_weight = $request->total_weight;
-        $newOrder->status = $request->status;
-        $newOrder->service_id = $request->service_id;
-        $newOrder->member_id = $request->member_id;
-        $newOrder->superadmin_id = Auth::user()->id;
-        $service = Service::find($newOrder->service_id);
-        $newOrder->total_price = $newOrder->total_weight * $service->service_price;
-        $newOrder->save();
-
-        $newLog = new Log();
-        $newLog->id = $newOrder->id;
-        $newLog->before_status = $newOrder->status;
-        $newLog->after_status = $newOrder->status;
-        $newLog->save();
-
-        $newOrder->log_id = $newLog->id;
-        $newOrder->save();
-
-        return redirect()->route('dashboard.superadmin')->with('success', '');
     }
 
     //User Start
     public function indexUser()
     {
-        $title = 'Delete User!';
-        $text = "Are you sure you want to delete?";
-        confirmDelete($title, $text);
         return view('superadmin.index', [
             'users' => User::all(),
         ]);
-
     }
 
     public function createUser()
@@ -85,16 +38,16 @@ class SuperAdminController extends Controller
     public function storeUser(Request $request)
     {
         $data = request()->validate([
-            'name' => 'required',
+            'name' => 'required|max:255|min:3|regex:/^[a-zA-Z ]+$/',
             'email' => 'required|unique:users,email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|max:255',
             'role' => 'required|in:superadmin,admin,cashier,ironer,packer',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
         if ($request->file('image')) {
             $data['image'] = $request->file('image')->store('user-images');
         }
+
         $data['password'] = bcrypt($data['password']);
         User::create($data);
 
@@ -117,7 +70,7 @@ class SuperAdminController extends Controller
         ];
 
         if ($request->filled('password')) {
-            $rules['password'] = 'required|min:6|max:255';
+            $rules['password'] = 'required|min:8|max:255';
         }
 
         if ($request->email != $user->email) {
@@ -125,7 +78,7 @@ class SuperAdminController extends Controller
         }
 
         $validatedData = $request->validate($rules);
-        $validatedData['password'] = bcrypt($request->password);
+        $validatedData['password'] = $request->filled('password') ? bcrypt($request->password) : $user->password;
 
         if ($request->file('image')) {
             if ($request->oldImage) {
@@ -140,10 +93,67 @@ class SuperAdminController extends Controller
         return redirect()->route('users.superadmin')->with('success', 'User Berhasil Diubah!');
     }
 
-    public function destroyUser(String $id)
+    public function destroyUser(User $user, Order $order, Event $event)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        // if ($user->role == 'superadmin') {
+        //     return redirect()->route('users.superadmin')->with('error', 'User Superadmin Tidak Bisa Dihapus!');
+        // } elseif ($user->role == 'admin') {
+        //     $events = Event::where('user_id', $user->id)->get();
+        //     foreach ($events as $event) {
+        //         $event->update(['user_id' => null]);
+        //     }
+        //     User::destroy($user->id);
+        // } elseif ($user->role == 'cashier') {
+        //     $orders = Order::where('cashier_id', $user->id)->get();
+        //     foreach ($orders as $order) {
+        //         $order->update(['cashier_id' => null]);
+        //     }
+        //     User::destroy($user->id);
+        // } elseif ($user->role == 'ironer') {
+        //     $orders = Order::where('ironer_id', $user->id)->get();
+        //     foreach ($orders as $order) {
+        //         $order->update(['ironer_id' => null]);
+        //     }
+        //     User::destroy($user->id);
+        // } elseif ($user->role == 'packer') {
+        //     $orders = Order::where('packer_id', $user->id)->get();
+        //     foreach ($orders as $order) {
+        //         $order->update(['packer_id' => null]);
+        //     }
+        //     User::destroy($user->id);
+        // }
+
+        if ($user->role == 'superadmin') {
+            return redirect()->route('users.superadmin')->with('error', 'User Superadmin Tidak Bisa Dihapus!');
+        }
+
+        if ($user->role == 'admin') {
+            $events = Event::where('user_id', $user->id)->get();
+            foreach ($events as $event) {
+                $event->update(['user_id' => null]);
+            }
+        }
+
+        $roleSpecificFields = [
+            'cashier' => 'cashier_id',
+            'ironer' => 'ironer_id',
+            'packer' => 'packer_id',
+        ];
+
+        if (array_key_exists($user->role, $roleSpecificFields)) {
+            $fieldName = $roleSpecificFields[$user->role];
+            $orders = Order::where($fieldName, $user->id)->get();
+
+            foreach ($orders as $order) {
+                $order->update([$fieldName => null]);
+            }
+        }
+
+        User::destroy($user->id);
+
+        if ($user->image) {
+            Storage::delete($user->image);
+        }
         return redirect()->route('users.superadmin')->with('success', 'User Berhasil Dihapus!');
     }
     //User End

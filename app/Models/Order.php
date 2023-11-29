@@ -12,27 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'order_id',
-        'invoice',
-        'customer_name',
-        'order_in',
-        'order_out',
-        'order_take',
-        'total_weight',
-        'total_price',
-        'status',
-        'superadmin_id',
-        'admin_id',
-        'cashier_id',
-        'ironer_id',
-        'packer_id',
-        'service_id',
-        'member_id',
-        'log_id',
-        'created_at',
-        'updated_at',
-    ];
+    protected $guarded = ['id'];
 
     public function logs()
     {

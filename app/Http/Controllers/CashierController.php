@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cashier\StoreOrderRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,71 +34,62 @@ class CashierController extends Controller
         return view('cashier.create', compact('orders', 'services', 'logs', 'members', 'users'));
     }
 
-    public function storeOrder(Request $request)
+    public function storeOrder(Request $request, Order $order, Log $log)
     {
-        $newOrder = new Order();
-        $newOrder->invoice = 'INV' . '/' . now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
-        $newOrder->customer_name = $request->customer_name;
-        $newOrder->order_in = $request->order_in;
-        $newOrder->order_out = $request->order_out;
-        $newOrder->order_take = now();
-        $newOrder->total_weight = $request->total_weight;
-        $newOrder->status = $request->status;
-        $newOrder->service_id = $request->service_id;
-        $newOrder->member_id = $request->member_id;
-        $newOrder->cashier_id = Auth::user()->id;
-        $service = Service::find($newOrder->service_id);
-        $newOrder->total_price = $newOrder->total_weight * $service->service_price;
-        $newOrder->save();
 
-        // Menambahkan Log Status
-        $newLog = new Log();
-        $newLog->id = $newOrder->id;
-        $newLog->before_status = $newOrder->status;
-        $newLog->after_status = $newOrder->status;
-        $newLog->save();
-        $newOrder->log_id = $newLog->id;
+        $validatedData = $request->validate([
+            'customer_name' => 'required|max:255|min:3|regex:/^[a-zA-Z ]+$/',
+            'order_in' => 'required|date',
+            'order_out' => 'required|date',
+            'order_take' => 'nullable|date',
+            'total_weight' => 'required|numeric|min:1',
+            'status' => 'required|in:Dalam antrian,Sudah dicuci',
+            'service_id' => 'required|exists:services,id',
+            'member_id' => 'exists:members,id|nullable',
+        ]);
+        $validatedData['invoice'] = 'INV' . '/' . now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
+        $validatedData['order_take'] = now();
+        $validatedData['cashier_id'] = Auth::user()->id;
+        $serviceId = Service::find($validatedData['service_id']);
+        $validatedData['total_price'] = $validatedData['total_weight'] * $serviceId->service_price;
+        $newOrder = Order::create($validatedData);
+
+        // Membuat log
+        $log->id = $newOrder->id;
+        $log->before_status = $newOrder->status;
+        $log->after_status = $newOrder->status;
+        $log->save();
+        $newOrder->log_id = $log->id;
         $newOrder->save();
 
         // Menghitung dan menyimpan diskon
         $usePoints = $request->has('use_points');
         $discount = 0;
-
         $member = Member::find($newOrder->member_id);
 
+        // Menghitung diskon
         if ($member && $usePoints == false) {
             $newOrder->total_price -= $discount;
             $newOrder->save();
         }
 
         if ($member && $usePoints) {
-            $discount = $member->total_point; // Atur perhitungan diskon sesuai kebutuhan
+            $discount = $member->total_point;
             $newOrder->total_price -= $discount;
-            // Mengurangi point
             $member->total_point -= $discount;
             $member->save();
             $newOrder->save();
         }
 
         // Menambahkan Point
-        $member = Member::find($newOrder->member_id);
-        if ($service->id == 1) {
+        if ($newOrder->service_id == 1 || $newOrder->service_id == 3 || $newOrder->service_id == 5) {
             $point = 10;
-        } elseif ($service->id == 2) {
-            $point = 20;
-        } elseif ($service->id == 3) {
-            $point = 10;
-        } elseif ($service->id == 4) {
-            $point = 20;
-        } elseif ($service->id == 5) {
-            $point = 10;
-        } elseif ($service->id == 6) {
-            $point = 20;
-        } elseif ($service->id == 7) {
+        } elseif ($newOrder->service_id == 2 || $newOrder->service_id == 4 || $newOrder->service_id == 6) {
             $point = 20;
         } else {
             $point = 0;
         }
+
         if ($member) {
             $member->total_point += $point;
             $member->save();
@@ -123,6 +115,35 @@ class CashierController extends Controller
         return redirect()->back()->with('error', 'Point tidak ditemukan.');
     }
 
+    public function editOrder(String $id)
+    {
+        $order = Order::findOrFail($id);
+        $services = Service::all();
+        return view('cashier.editOrder', compact('order', 'services'));
+    }
+
+    public function updateOrder(Request $request, Order $order)
+    {
+        $validatedData = $request->validate([
+            'customer_name' => 'required|max:255|regex:/^[a-zA-Z ]+$/|min:3',
+            'order_in' => 'required|date',
+            'order_out' => 'required|date',
+            'total_weight' => 'required|numeric|min:1',
+            'service_id' => 'required',
+        ]);
+        $order->where('id', $order->id)->update($validatedData);
+        return redirect()->route('dashboard.cashier')->with('success', 'Order berhasil diubah.');
+    }
+
+    public function destroyOrder(Order $order)
+    {
+        $order = Order::findOrFail($order->id);
+        $logs = Log::findOrFail($order->id);
+        $order->delete();
+        $logs->delete();
+        return redirect()->route('orderData.cashier')->with('success', 'Order berhasil dihapus.');
+    }
+
     public function orderData()
     {
         $orders = Order::orderby('order_in', 'desc')->paginate(5);
@@ -139,12 +160,14 @@ class CashierController extends Controller
 
         if ($orders->status === 'Dalam antrian') {
             $orders->update(['status' => 'Belum dicuci']);
-            $log->update(['created_at' => now()]);
-            $log->update(['after_status' => 'Belum dicuci']);
+            $log->update([
+                'created_at' => now(),
+                'after_status' => 'Belum dicuci'
+            ]);
 
-            return redirect()->route('dashboard.cashier')->with('success', 'Orderan di Ambil');
+            return redirect()->route('dashboard.cashier')->with('success', 'Orderan diambil');
         } else {
-            return redirect()->route('dashboard.cashier')->with('error', 'Orderan Gagal di Ambil');
+            return redirect()->route('dashboard.cashier')->with('error', 'Orderan Gagal diambil');
         }
     }
 
@@ -157,8 +180,10 @@ class CashierController extends Controller
 
         if ($orders->status === 'Belum dicuci') {
             $orders->update(['status' => 'Sedang dicuci']);
-            $log->update(['created_at' => now()]);
-            $log->update(['after_status' => 'Sedang dicuci']);
+            $log->update([
+                'created_at' => now(),
+                'after_status' => 'Sedang dicuci'
+            ]);
 
             return redirect()->route('dashboard.cashier')->with('success', 'Orderan sedang dicuci.');
         } else {
@@ -175,8 +200,10 @@ class CashierController extends Controller
 
         if ($orders->status === 'Sedang dicuci') {
             $orders->update(['status' => 'Sudah dicuci']);
-            $log->update(['created_at' => now()]);
-            $log->update(['after_status' => 'Sudah dicuci']);
+            $log->update([
+                'created_at' => now(),
+                'after_status' => 'Sudah dicuci'
+            ]);
 
             return redirect()->route('dashboard.cashier')->with('success', 'Orderan Selesai dicuci.');
         } else {
@@ -193,8 +220,10 @@ class CashierController extends Controller
 
         if ($orders->status === 'Selesai') {
             $orders->update(['status' => 'Sudah diambil']);
-            $log->update(['created_at' => now()]);
-            $log->update(['after_status' => 'Sudah diambil']);
+            $log->update([
+                'created_at' => now(),
+                'after_status' => 'Sudah diambil'
+            ]);
 
             return redirect()->route('dashboard.cashier')->with('success', 'Orderan Sudah Diambil.');
         } else {
@@ -221,7 +250,7 @@ class CashierController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255|regex:/^[a-zA-Z ]+$/|min:3',
             'email' => 'required|email|unique:members',
-            'password' => 'required|min:6|max:255',
+            'password' => 'required|min:8|max:255',
             'phone_number' => 'required|regex:/^\+?[0-9]{9,15}$/|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -253,7 +282,7 @@ class CashierController extends Controller
         ];
 
         if ($request->filled('password')) {
-            $rules['password'] = 'required|min:6|max:255';
+            $rules['password'] = 'required|min:8|max:255';
         }
 
         if ($request->email != $member->email) {
@@ -261,7 +290,7 @@ class CashierController extends Controller
         }
 
         $validatedData = $request->validate($rules);
-        $validatedData['password'] = bcrypt($request->password);
+        $validatedData['password'] = $request->filled('password') ? bcrypt($request->password) : $member->password;
 
         if ($request->file('image')) {
             if ($request->oldImage) {
@@ -275,15 +304,20 @@ class CashierController extends Controller
         return redirect()->route('indexMember.cashier')->with('success', 'Member berhasil diubah.');
     }
 
-    public function destroyMember(Member $member)
+    public function destroyMember(Member $member, Order $order)
     {
+        $orders = Order::where('member_id', $member->id)->get();
+        foreach ($orders as $order) {
+            $order->update(['member_id' => null]);
+        }
+
         if ($member->image) {
             Storage::delete($member->image);
         }
 
         Member::destroy($member->id);
+
         return redirect()->route('indexMember.cashier')->with('success', 'Member berhasil dihapus.');
     }
-
     //member end
 }

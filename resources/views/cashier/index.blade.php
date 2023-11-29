@@ -22,22 +22,42 @@
                                     @if (auth()->user()->role == 'superadmin')
                                         <th>Kasir</th>
                                     @endif
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                @foreach ($orders as $data)
+                                @foreach ($orders as $order)
                                     <tr>
-                                        <td>{{ $data->invoice }}</td>
-                                        <td>{{ $data->customer_name }}</td>
-                                        <td>{{ $data->service->service_name }}</td>
-                                        <td>{{ $data->status }}</td>
-                                        <td>{{ date('d M Y', strtotime($data->order_in)) }}</td>
-                                        <td>{{ date('d M Y', strtotime($data->order_out)) }}</td>
-                                        <td>{{ $data->total_weight }} Kg</td>
-                                        <td>{{ $data->total_price }}</td>
+                                        <td>{{ $order->invoice }}</td>
+                                        <td>{{ $order->customer_name }}</td>
+                                        <td>{{ $order->service->service_name }}</td>
+                                        <td>{{ $order->status }}</td>
+                                        <td>{{ date('d M Y', strtotime($order->order_in)) }}</td>
+                                        <td>{{ date('d M Y', strtotime($order->order_out)) }}</td>
+                                        <td>{{ $order->total_weight }} Kg</td>
+                                        <td>{{ $order->total_price }}</td>
                                         @if (auth()->user()->role == 'superadmin')
-                                            <td>{{ $data->cashierId->name }}</td>
+                                            @if ($order->cashier_id)
+                                                <td>{{ $order->cashierId->name }}</td>
+                                            @else
+                                                <td>Kasir</td>
+                                            @endif
                                         @endif
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center action-button">
+                                                <a href="{{ route('editOrder.cashier', ['order' => $order->id]) }}"
+                                                    class="btn btn-warning mx-1" title="Edit"><i
+                                                        class="fa-solid fa-pencil"></i></a>
+                                                <form action="{{ route('destroyOrder.cashier', $order->id) }}"
+                                                    method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger mx-1" title="Delete"
+                                                        onclick="return confirm('Are you sure?')"><i
+                                                            class="fa-solid fa-trash"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

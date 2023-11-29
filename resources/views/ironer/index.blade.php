@@ -32,7 +32,11 @@
                                         <td>{{ date('d M Y', strtotime($order->order_out)) }}</td>
                                         <td>{{ $order->total_weight }} Kg</td>
                                         @if (auth()->user()->role == 'superadmin')
-                                            <td>{{ $order->ironerId->name }}</td>
+                                            @if ($order->ironer_id)
+                                                <td>{{ $order->ironerId->name }}</td>
+                                            @else
+                                                <td>Penyetrika</td>
+                                            @endif
                                         @endif
                                     </tr>
                                 @endforeach
