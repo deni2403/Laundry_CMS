@@ -9,8 +9,9 @@ use App\Models\Member;
 class MemberController extends Controller
 {
     public function index(){
-        $member = Member::all();
-        return view('member.index',compact(['member']));
+        return view('member.index',[
+            'members' => Member::all(),
+        ]);
     }
 
     public function create()
@@ -24,16 +25,16 @@ class MemberController extends Controller
         return redirect(route('index.member'));
     }
 
-    public function edit($id)
-    {
-        $member = member::find($id);
-        return view('member.edit', compact(['member']));
-    }
-    public function update($id, Request $request){
-        $member = member::find($id);
-        $member->update($request->except(['_token','submit']));
-        return redirect(route('index.member'));
-    }
+    // public function edit($id)
+    // {
+    //     $member = member::find($id);
+    //     return view('member.edit', compact(['member']));
+    // }
+    // public function update($id, Request $request){
+    //     $member = member::find($id);
+    //     $member->update($request->except(['_token','submit']));
+    //     return redirect(route('index.member'));
+    // }
 
     public function destroy($id){
         $member = member::find($id);

@@ -39,7 +39,9 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="/assets/js/sidebar.js"></script>
-    <script src="/assets/js/admin.js"></script>
+    <script defer src="/assets/js/admin.js"></script>
+    <script src="/assets/js/cashier.js"></script>
+    <script src="/assets/js/image-preview.js"></script>
     @include('sweetalert::alert')
 </body>
 

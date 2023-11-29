@@ -4,11 +4,6 @@
     <div class="content-wrapper">
         <div class="event-index shadow-sm">
             <h1 class="event-index__title">Daftar Rekap Orderan</h1>
-            {{-- @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif --}}
             <hr class="divider">
             <div class="row">
                 <div class="col">
@@ -36,8 +31,8 @@
                                         <td>{{ $data->customer_name }}</td>
                                         <td>{{ $data->service->service_name }}</td>
                                         <td>{{ $data->status }}</td>
-                                        <td>{{ $data->order_in }}</td>
-                                        <td>{{ $data->order_out }}</td>
+                                        <td>{{ date('d M Y', strtotime($data->order_in)) }}</td>
+                                        <td>{{ date('d M Y', strtotime($data->order_out)) }}</td>
                                         <td>{{ $data->total_weight }} Kg</td>
                                         <td>{{ $data->total_price }}</td>
                                         @if (auth()->user()->role == 'superadmin')
@@ -50,7 +45,7 @@
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center py-2">{{ $orders->links() }}</div>
         </div>
-        {{-- <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div> --}}
     </div>
 @endsection

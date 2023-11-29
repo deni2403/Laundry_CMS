@@ -4,11 +4,6 @@
     <div class="content-wrapper">
         <div class="event-index shadow-sm">
             <h1 class="event-index__title">Daftar Proses Order Laundry</h1>
-            {{-- @if (session()->has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif --}}
             <hr class="divider">
             <div class="row">
                 <div class="col">
@@ -36,7 +31,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="update-button">Belum Dicuci</button>
+                                                    <button type="submit" class="update-button">Ambil</button>
                                                 </form>
                                             </td>
                                         @endif
@@ -47,7 +42,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="update-button">Sedang Dicuci</button>
+                                                    <button type="submit" class="update-button">Cuci</button>
                                                 </form>
                                             </td>
                                         @endif
@@ -58,23 +53,26 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="update-button">Sudah Dicuci</button>
+                                                    <button type="submit" class="update-button">Selesai Dicuci</button>
                                                 </form>
                                             </td>
                                         @endif
 
                                         @if ($data->status == 'Selesai' && $data->member_id != null)
                                             <td>
-                                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                <div class="btn-group" role="group"
+                                                    aria-label="Basic mixed styles example">
                                                     <form action="{{ route('store.wa', $data->id) }}" method="POST">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success">Kirim WhatsApp</button>
+                                                        <button type="submit" class="btn btn-success me-2">Kirim
+                                                            WhatsApp</button>
                                                     </form>
                                                     <form action="{{ route('changeStatus4.cashier', $data->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PATCH')
-                                                        <button type="submit" class="btn btn-warning">Sudah Diambil</button>
+                                                        <button type="submit" class="btn btn-warning">Sudah
+                                                            Diambil</button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -97,7 +95,7 @@
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center py-2">{{ $orders->links() }}</div>
         </div>
-        {{-- <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div> --}}
     </div>
 @endsection

@@ -10,7 +10,8 @@
                     @csrf
                     <div class="form-group">
                         <label for="customerName">Nama Pelanggan</label>
-                        <input type="text" class="form-control rounded" id="customerName" name="customer_name">
+                        <input type="text" class="form-control rounded" id="customerName" name="customer_name"
+                            value="">
                     </div>
                     <div class="form-group">
                         <label for="service">Layanan</label>
@@ -43,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="member">Member</label>
-                        <select class="form-control" id="service" name="member_id">
+                        <select class="form-control" id="member_id" name="member_id">
                             <option value="">-- Kosong --</option>
                             @foreach ($members as $data)
                                 <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->total_point }}</option>
@@ -51,7 +52,7 @@
                         </select>
                     </div>
                     <div class="checkbox-point d-flex align-items-center">
-                        <label for="use_points">Gunakan Poin:</label>
+                        <label for="use_points">Gunakan Poin</label>
                         <input type="checkbox" name="use_points" id="use_points" value="1">
                     </div>
                     <button type="submit" class="form-button">
