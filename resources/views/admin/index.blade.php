@@ -84,3 +84,5 @@
         <div class="d-flex justify-content-center py-2">{{ $events->links() }}</div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Daftar Event')

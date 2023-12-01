@@ -9,7 +9,6 @@ use App\Models\Member;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cashier\StoreOrderRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -69,24 +68,28 @@ class CashierController extends Controller
         $member = Member::find($newOrder->member_id);
 
         // Menghitung diskon
-        if ($member && $usePoints == false) {
+
+        if (!$member && !$usePoints) {
             $newOrder->total_price -= $discount;
             $newOrder->save();
+        } else if ($member && $usePoints) {
+            if ($member->total_point >= 100) {
+                $discount = $member->total_point;
+                $newOrder->total_price -= $discount;
+                $member->total_point -= $discount;
+                $member->save();
+                $newOrder->save();
+            }
         }
 
-        if ($member && $usePoints) {
-            $discount = $member->total_point;
-            $newOrder->total_price -= $discount;
-            $member->total_point -= $discount;
-            $member->save();
-            $newOrder->save();
-        }
+        $getTotalWeight = round($validatedData['total_weight']);
+        // Ketika Value total_weight = 1,5 maka value dibulatkan ke atas menjadi 2
 
         // Menambahkan Point
         if ($newOrder->service_id == 1 || $newOrder->service_id == 3 || $newOrder->service_id == 5) {
-            $point = 10;
+            $point = 10 * $getTotalWeight;
         } elseif ($newOrder->service_id == 2 || $newOrder->service_id == 4 || $newOrder->service_id == 6) {
-            $point = 20;
+            $point = 20 * $getTotalWeight;
         } else {
             $point = 0;
         }
@@ -125,15 +128,33 @@ class CashierController extends Controller
 
     public function updateOrder(Request $request, Order $order)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'customer_name' => 'required|max:255|regex:/^[a-zA-Z ]+$/|min:3',
             'order_in' => 'required|date',
             'order_out' => 'required|date',
             'total_weight' => 'required|numeric|min:1',
             'service_id' => 'required',
-        ]);
-        $total_price = $validatedData['total_weight'] * $order->service->service_price;
-        $validatedData['total_price'] = $total_price;
+        ];
+
+        $user_point = ($order->total_weight * $order->service->service_price) - $order->total_price;
+        $final_price = 0;
+
+        if ($order->member_id) {
+            $rules['total_price'] = 'numeric|min:1';
+            $serviceId = Service::find($request->service_id);
+            $price = $request->total_weight * $serviceId->service_price;
+            $final_price = $price - $user_point;
+            $request->merge(['total_price' => $final_price]);
+        }
+
+        if (!$order->member_id) {
+            $rules['total_price'] = 'numeric|min:1';
+            $serviceId = Service::find($request->service_id);
+            $total_price = $request->total_weight * $serviceId->service_price;
+            $request->merge(['total_price' => $total_price]);
+        }
+
+        $validatedData = $request->validate($rules);
         $order->where('id', $order->id)->update($validatedData);
         return redirect()->route('dashboard.cashier')->with('success', 'Order berhasil diubah.');
     }
@@ -149,7 +170,7 @@ class CashierController extends Controller
 
     public function orderData()
     {
-        $orders = Order::orderby('order_in', 'desc')->paginate(5);
+        $orders = Order::latest()->paginate(5);
         return view('cashier.index', compact('orders'));
     }
 

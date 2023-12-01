@@ -83,3 +83,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Data Member')

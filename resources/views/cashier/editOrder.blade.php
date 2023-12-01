@@ -12,16 +12,27 @@
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
-                        <label for="customer_name" class="form-label">Nama</label>
+                        <label for="customer_name" class="form-label">
+                            @if ($order->member_id)
+                                Nama (Member)
+                            @else
+                                Nama (Bukan Member)
+                            @endif
+                        </label>
                         @if ($order->member_id)
                             <input type="text" class="form-control @error('customer_name') is-invalid @enderror"
-                                id="customer_name" readonly name="customer_name"
+                                id="customer_name" name="customer_name" required autofocus readonly
                                 value="{{ old('customer_name', $order->customer_name) }}">
                         @else
                             <input type="text" class="form-control @error('customer_name') is-invalid @enderror"
                                 id="customer_name" name="customer_name" required autofocus
                                 value="{{ old('customer_name', $order->customer_name) }}">
                         @endif
+                        @error('customer_name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     @error('customer_name')
                         <div class="invalid-feedback">
@@ -53,8 +64,13 @@
                     <div class="form-group">
                         <label for="total_weight" class="form-label">Total Berat</label>
                         <input type="number" class="form-control @error('total_weight') is-invalid @enderror"
-                            id="total_weight" name="total_weight" required autofocus
-                            value="{{ old('total_weight', $order->total_weight) }}" step="0.1" min="0">
+                            id="total_weight" name="total_weight" required autofocus step="any" min="0"
+                            value="{{ old('total_weight', $order->total_weight) }}">
+                        @error('total_weight')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     @error('total_weight')
                         <div class="invalid-feedback">
@@ -64,9 +80,10 @@
                     <div class="form-group">
                         <label for="service_id" class="form-label">Service</label>
                         <select type="text" class="form-control" id="service_id" name="service_id">
-                            <option value="{{ $order->service->id }}">{{ $order->service->service_name }}</option>
+                            <option value="{{ $order->service->id }}">{{ $order->service->service_name }} - Rp. {{ $order->service->service_price }}</option>
                             @foreach ($services as $service)
-                                <option value="{{ $service->id }}">{{ $service->id }} - {{ $service->service_name }}
+                                <option value="{{ $service->id }}">{{ $service->service_name }} - Rp.
+                                    {{ $service->service_price }}
                                 </option>
                             @endforeach
                         </select>
@@ -79,3 +96,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Edit Order')
