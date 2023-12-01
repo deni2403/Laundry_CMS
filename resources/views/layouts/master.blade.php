@@ -42,6 +42,16 @@
     <script defer src="/assets/js/admin.js"></script>
     <script src="/assets/js/cashier.js"></script>
     <script src="/assets/js/image-preview.js"></script>
+    <script>
+        // Ambil elemen div dan input
+        var customerNameDiv = document.getElementById('customerNameDiv');
+        var customerNameInput = document.getElementById('customerName');
+
+        // Periksa apakah input harus dibuat readonly berdasarkan kondisi
+        @if (Request::get('member_id'))
+            customerNameInput.setAttribute('readonly', 'readonly');
+        @endif
+    </script>
     @include('sweetalert::alert')
 </body>
 

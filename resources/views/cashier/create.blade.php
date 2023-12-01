@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="totalWeight">Total Berat</label>
-                        <input type="number" class="form-control" id="totalWeight" name="total_weight" step="0.01"
+                        <input type="number" class="form-control" id="totalWeight" name="total_weight" step="any"
                             min="0">
                     </div>
                     <div class="form-group">

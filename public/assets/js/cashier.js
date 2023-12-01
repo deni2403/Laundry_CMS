@@ -1,4 +1,4 @@
-window.document.addEventListener("DOMContentLoaded", () => {
+    window.document.addEventListener("DOMContentLoaded", () => {
     var memberSelect = document.getElementById("member_id");
     var customerNameInput = document.getElementById("customerName");
 
@@ -13,8 +13,12 @@ window.document.addEventListener("DOMContentLoaded", () => {
             var parts = selectedMemberText.split(" - ");
 
             customerNameInput.value = parts[0];
+            customerNameInput.readOnly = true;
         } else {
             customerNameInput.value = "";
+            customerNameInput.readOnly = false;
         }
+
+
     });
 });
