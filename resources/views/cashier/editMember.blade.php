@@ -80,3 +80,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Edit Member')

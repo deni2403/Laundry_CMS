@@ -11,12 +11,12 @@
                 <form method="POST" action="{{ route('updateOrder.cashier', $order->id) }}">
                     @csrf
                     @method('PATCH')
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="customer_name" class="form-label">
                             @if ($order->member_id)
-                                Nama Pelanggan (Member)
+                                Nama (Member)
                             @else
-                                Nama Pelanggan (Bukan Member)
+                                Nama (Bukan Member)
                             @endif
                         </label>
                         @if ($order->member_id)
@@ -80,8 +80,7 @@
                     <div class="form-group">
                         <label for="service_id" class="form-label">Service</label>
                         <select type="text" class="form-control" id="service_id" name="service_id">
-                            <option value="{{ $order->service->id }}">Rp. {{ $order->service->service_price }} -
-                                {{ $order->service->service_name }}</option>
+                            <option value="{{ $order->service->id }}">{{ $order->service->service_name }} - Rp. {{ $order->service->service_price }}</option>
                             @foreach ($services as $service)
                                 <option value="{{ $service->id }}">{{ $service->service_name }} - Rp.
                                     {{ $service->service_price }}
@@ -97,3 +96,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Edit Order')

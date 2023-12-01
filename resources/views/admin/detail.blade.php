@@ -35,3 +35,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Detail Event')

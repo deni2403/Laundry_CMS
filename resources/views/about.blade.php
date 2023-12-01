@@ -30,6 +30,7 @@
             </div>
         </div>
     </div>
+    </div>
 @endsection
 
 @section('title', 'Alza Laundry | Tentang Kami')

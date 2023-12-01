@@ -12,7 +12,7 @@
                         <p class="hero-description__text">Dengan layanan laundry kami, Anda tidak perlu lagi
                             khawatir tentang mencuci pakaian. Pakaian bersih, harum, dan segar adalah janji kami.
                         </p>
-                        <a href="https://wa.me/085972789853" target="_blank">
+                        <a href="https://wa.me/6282123411891" target="_blank">
                         <button class="hero-description__button d-flex align-items-center shadow-sm">
                             <span class="me-4">Hubungi Kami</span>
                             <img src="/assets/icons/wa.png" class="img-fluid" alt="location">

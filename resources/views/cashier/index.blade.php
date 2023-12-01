@@ -45,10 +45,12 @@
                                         @endif
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center action-button">
-                                                <a href="{{ route('editOrder.cashier', ['order' => $order->id]) }}"
-                                                    class="btn btn-warning mx-1" title="Edit">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </a>
+                                                @if ($order->status != 'Sudah diambil')
+                                                    <a href="{{ route('editOrder.cashier', ['order' => $order->id]) }}"
+                                                        class="btn btn-warning mx-1" title="Edit">
+                                                        <i class="fa-solid fa-pencil"></i>
+                                                    </a>
+                                                @endif
 
                                                 <button class="btn btn-danger mx-1" title="Delete" data-bs-toggle="modal"
                                                     data-bs-target="#confirmDeleteModal_{{ $order->id }}">
@@ -80,8 +82,7 @@
                                                                 method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button type="submit"
-                                                                    class="btn btn-danger">Hapus</button>
+                                                                <button type="submit" class="btn btn-danger">Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -99,3 +100,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Daftar Orderan')

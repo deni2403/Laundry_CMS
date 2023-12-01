@@ -75,3 +75,5 @@
         </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Daftar Pengguna')
