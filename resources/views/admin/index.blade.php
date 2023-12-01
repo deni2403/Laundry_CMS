@@ -32,17 +32,45 @@
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center action-button">
                                                 <a href="/admin/events/{{ $event->slug }}" class="btn btn-success mx-1"
-                                                    title="Show"><i class="fa-solid fa-eye"></i></a>
+                                                    title="Show">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
                                                 <a href="/admin/events/{{ $event->slug }}/edit"
-                                                    class="btn btn-warning mx-1" title="Edit"><i
-                                                        class="fa-solid fa-pencil"></i></a>
-                                                <form action="/admin/events/{{ $event->slug }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-danger mx-1" title="Delete"
-                                                        onclick="return confirm('Are you sure?')"><i
-                                                            class="fa-solid fa-trash"></i></button>
-                                                </form>
+                                                    class="btn btn-warning mx-1" title="Edit">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-danger mx-1" title="Delete" data-bs-toggle="modal"
+                                                    data-bs-target="#confirmDeleteModal_{{ $event->slug }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal fade" id="confirmDeleteModal_{{ $event->slug }}"
+                                                tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmDeleteModalLabel">
+                                                                Konfirmasi</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah kamu yakin ingin menghapus event ini?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Batal</button>
+                                                            <form id="deleteForm_{{ $event->slug }}"
+                                                                action="/admin/events/{{ $event->slug }}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

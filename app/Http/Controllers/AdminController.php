@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Models\Event;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -40,13 +41,22 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3072',
             'body' => 'required',
             'user_id' => 'nullable',
         ]);
 
         if ($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('event-images');
+            $imagePath = $request->file('image')->store('event-images');
+
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 780 || $image->height() > 430) {
+                $image->fit(780, 430, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $validatedData['image'] = $imagePath;
         }
 
         $validatedData['user_id'] = auth()->user()->id;
@@ -72,7 +82,7 @@ class AdminController extends Controller
     {
         $rules = [
             'title' => 'required|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // 'nullable
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:3072',
             'body' => 'required',
         ];
 
@@ -86,7 +96,16 @@ class AdminController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['image'] = $request->file('image')->store('event-images');
+            $imagePath = $request->file('image')->store('event-images');
+
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 780 || $image->height() > 430) {
+                $image->fit(780, 430, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $validatedData['image'] = $imagePath;
         }
 
         $validatedData['user_id'] = auth()->user()->id;
