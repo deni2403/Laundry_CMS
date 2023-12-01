@@ -15,15 +15,8 @@
                                 <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"
                                         style="color: #afb4bb;"></i></span>
                             </div>
-                            {{-- <input type="text" name="invoice" id="invoice" required> --}}
                             <button class="tracking-search-bar__button mt-3" type="submit">Cari</button>
                         </form>
-                        {{-- <button class="tracking-search-bar__button">Cari</button> --}}
-                        {{-- <div class="input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"
-                                        style="color: #afb4bb;"></i></span>
-                            </div> --}}
                     </div>
                 </div>
             </div>
@@ -42,37 +35,17 @@
                             </thead>
 
                             <tbody class="text-center">
-                                {{-- <tr>
-                                    <td>{{ $order->invoice }}</td>
-                                    @foreach ($logs as $log)
-                                        <td>{{ $log->before_status }} - {{ $log->created_at }}</td>
-                                        <td>{{ $log->after_status }} - {{ $log->updated_at }}</td>
-                                    @endforeach --}}
-
-                                {{-- batas --}}
-                                {{-- <td>0098667</td>
-                                        <td>Hanum Faulinnuur</td>
-                                        <td>Cuci Setrika</td>
-                                        <td>17/11/2023</td> --}}
-                                {{-- <td>
-                                            <button class="status-btn__process">
-                                                On Proses
-                                            </button>
-                                        </td> --}}
-                                {{-- </tr> --}}
-                                {{-- batas --}}
-
                                 <tr>
                                     @isset($logs)
                                         @isset($order)
                                             <td>{{ $order->invoice }}</td>
                                             <td>{{ $order->customer_name }}</td>
                                             <td>{{ $order->service->service_name }}</td>
-                                            {{-- <td>{{ $order->order_in}}</td>  --}}
                                             <td>{{ date('d M Y', strtotime($order->order_in)) }}</td>
                                         @endisset
                                         @foreach ($logs as $log)
-                                            <td>{{ $log->after_status }} - {{ date('d M Y | H:i', strtotime($log->updated_at)) }}</td>
+                                            <td>{{ $log->after_status }} -
+                                                {{ date('d M Y | H:i', strtotime($log->updated_at)) }}</td>
                                         @endforeach
                                     @endisset
                                 </tr>
@@ -85,3 +58,5 @@
     </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Lacak Status')

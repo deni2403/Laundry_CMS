@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IronerController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\PackerController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\SuperAdminController;

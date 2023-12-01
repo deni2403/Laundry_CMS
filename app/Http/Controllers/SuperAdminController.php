@@ -11,6 +11,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class SuperAdminController extends Controller
 {
@@ -44,8 +45,18 @@ class SuperAdminController extends Controller
             'role' => 'required|in:superadmin,admin,cashier,ironer,packer',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
         if ($request->file('image')) {
-            $data['image'] = $request->file('image')->store('user-images');
+            $imagePath = $request->file('image')->store('user-images');
+
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 100 || $image->height() > 100) {
+                $image->fit(100, 100, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $data['image'] = $imagePath;
         }
 
         $data['password'] = bcrypt($data['password']);
@@ -84,7 +95,16 @@ class SuperAdminController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['image'] = $request->file('image')->store('user-images');
+
+            $imagePath = $request->file('image')->store('user-images');
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 100 || $image->height() > 100) {
+                $image->fit(100, 100, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $validatedData['image'] = $imagePath;
         }
 
         User::where('id', $user->id)
