@@ -3,43 +3,44 @@
 @section('content')
     <div class="content-wrapper">
         <a href="/superadmin/users" class="btn btn-danger mt-2"><i class="fa-solid fa-arrow-left me-1"></i>Kembali</a>
-        <div class="create-event shadow-sm border">
-            <h1 class="create-event__title">Edit Data Pengguna</h1>
-            <div class="create-event__form">
+        <div class="event-index shadow-sm border">
+            <h1 class="form-title">Edit Data Pengguna</h1>
+            <hr class="divider">
+            <div class="form-input">
                 <form method="POST" action="{{ route('updateUser.superadmin', $user->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="name" class="form-label">Nama</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                             name="name" required autofocus value="{{ old('name', $user->name) }}">
-                        @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
-                    <div class="mb-3">
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div class="form-group">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                             name="email" required autofocus value="{{ old('email', $user->email) }}">
-                        @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
-                    <div class="mb-3">
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div class="form-group">
                         <label for="" class="form-label">Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password"  autofocus value="">
-                        @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                            name="password" autofocus value="">
                     </div>
-                    <div class="mb-3">
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div class="form-group">
                         <label for="role" class="form-label">Role</label>
                         <select type="text" class="form-control" id="role" name="role">
                             <option value="{{ $user->role }}">{{ $user->role }}</option>
@@ -61,12 +62,12 @@
                         @endif
                         <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                             name="image" onchange="previewImage()">
-                        @error('image')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
                     </div>
+                    @error('image')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <button type="submit" class="form-button">
                         <i class="fa-solid fa-pen me-2"></i>Edit
                     </button>

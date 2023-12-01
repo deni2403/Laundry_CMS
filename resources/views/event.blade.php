@@ -3,16 +3,16 @@
 @section('content')
     <div id="event" class="section-detailEvent">
         <div class="container-fluid detail-event">
-            <h1 class="detail-event__title text-center">{{ $event->title }}</h1>
+            <h1 class="event-detail__title text-center">{{ $event->title }}</h1>
             <div class="row">
                 <div class="col-lg-9 col-md-8 event-col">
                     <div class="event-info">
-                        <div class="event-info__image">
+                        <div class="event-info__image d-flex justify-content-center">
                             @if ($event->image)
                                 <img src="{{ asset('storage/' . $event->image) }}" class="img-fluid"
                                     alt="{{ $event->title }}">
                             @else
-                                <img src="/assets/images/event-image.png" class="img-fluid" alt="{{ $event->title }}">
+                                <img src="/assets/images/no-event.png" class="img-fluid" alt="{{ $event->title }}">
                             @endif
                         </div>
                         <div class="event-info__date">
@@ -25,6 +25,7 @@
                         </div>
                     </div>
                 </div>
+                <hr class="divider d-md-none">
                 <div class="col-lg-3 col-md-4">
                     <aside class="aside-event">
                         <h3 class="aside-event__title">Event Terbaru</h3>
@@ -54,3 +55,5 @@
     </div>
     </div>
 @endsection
+
+@section('title', 'Alza Laundry | Event')

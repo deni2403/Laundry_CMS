@@ -40,7 +40,7 @@
                         <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
                             name="image">
                         @error('image')
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback mt-2">
                                 {{ $message }}
                             </div>
                         @enderror

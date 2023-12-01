@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cashier\StoreOrderRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class CashierController extends Controller
 {
@@ -131,6 +132,8 @@ class CashierController extends Controller
             'total_weight' => 'required|numeric|min:1',
             'service_id' => 'required',
         ]);
+        $total_price = $validatedData['total_weight'] * $order->service->service_price;
+        $validatedData['total_price'] = $total_price;
         $order->where('id', $order->id)->update($validatedData);
         return redirect()->route('dashboard.cashier')->with('success', 'Order berhasil diubah.');
     }
@@ -256,7 +259,16 @@ class CashierController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('member-images');
+            $imagePath = $request->file('image')->store('member-images');
+
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 100 || $image->height() > 100) {
+                $image->fit(100, 100, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $validatedData['image'] = $imagePath;
         }
 
         $validatedData['password'] = bcrypt($request->password);
@@ -296,7 +308,16 @@ class CashierController extends Controller
             if ($request->oldImage) {
                 Storage::delete($request->oldImage);
             }
-            $validatedData['image'] = $request->file('image')->store('member-images');
+
+            $imagePath = $request->file('image')->store('member-images');
+            $image = Image::make(storage_path("app/public/{$imagePath}"));
+            if ($image->width() > 100 || $image->height() > 100) {
+                $image->fit(100, 100, function ($constraint) {
+                    $constraint->upsize();
+                })->save();
+            }
+
+            $validatedData['image'] = $imagePath;
         }
 
         Member::where('id', $member->id)

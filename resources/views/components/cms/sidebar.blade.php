@@ -2,7 +2,7 @@
     <div class="sidebar-header d-flex align-items-center justify-content-center flex-wrap">
         <div class="sidebar-header__avatar">
             @if (Auth::user()->image)
-                <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle img-fluid"
+                <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle img-thumbnail img-fluid"
                     alt="Foto Profil">
             @else
                 <img src="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?size=626&ext=jpg"
