@@ -1,16 +1,16 @@
     window.document.addEventListener("DOMContentLoaded", () => {
-    var memberSelect = document.getElementById("member_id");
-    var customerNameInput = document.getElementById("customerName");
+    let memberSelect = document.getElementById("member_id");
+    let customerNameInput = document.getElementById("customerName");
 
     memberSelect.addEventListener("change", function () {
-        var selectedMember = memberSelect.value;
+        let selectedMember = memberSelect.value;
 
         if (selectedMember !== "") {
-            var selectedOption =
+            let selectedOption =
                 memberSelect.options[memberSelect.selectedIndex];
-            var selectedMemberText = selectedOption.textContent;
+            let selectedMemberText = selectedOption.textContent;
 
-            var parts = selectedMemberText.split(" - ");
+            let parts = selectedMemberText.split(" - ");
 
             customerNameInput.value = parts[0];
             customerNameInput.readOnly = true;

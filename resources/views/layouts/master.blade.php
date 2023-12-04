@@ -44,6 +44,7 @@
     <script src="/assets/js/image-preview.js"></script>
     <script src="/assets/js/order.js"></script>
     <script src="/assets/js/login.js"></script>
+    <script src="/assets/js/order-status.js"></script>
     @include('sweetalert::alert')
 </body>
 
