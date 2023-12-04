@@ -13,7 +13,7 @@
                                 <img src="{{ asset('storage/' . $event->image) }}" class="img-fluid"
                                     alt="{{ $event->title }}">
                             @else
-                                <img src="/assets/images/event-image.png" class="img-fluid" alt="{{ $event->title }}">
+                                <img src="/assets/images/no-event.png" class="img-fluid" alt="{{ $event->title }}">
                             @endif
                         </div>
                         <div class="event-info__date">
