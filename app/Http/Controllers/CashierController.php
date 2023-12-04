@@ -48,6 +48,11 @@ class CashierController extends Controller
             'member_id' => 'exists:members,id|nullable',
         ]);
         $validatedData['invoice'] = 'INV' . '/' . now()->year . now()->month . now()->day . '/' . random_int(1, 1000000);
+        // if ($request->service_id == 5 || $request->service_id == 6) {
+        //     $validatedData['status'] = 'Sudah dicuci';
+        // } else {
+        //     $validatedData['status'] = 'Dalam antrian';
+        // }
         $validatedData['order_take'] = now();
         $validatedData['cashier_id'] = Auth::user()->id;
         $serviceId = Service::find($validatedData['service_id']);

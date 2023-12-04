@@ -10,8 +10,8 @@
                     @csrf
                     <div class="form-group">
                         <label for="customerName">Nama Pelanggan</label>
-                        <input type="text" class="form-control @error('customer_name') is-invalid @enderror" id="customerName" name="customer_name"
-                            value="">
+                        <input type="text" class="form-control @error('customer_name') is-invalid @enderror"
+                            id="customerName" name="customer_name" value="">
                     </div>
                     @error('customer_name')
                         <div class="invalid-feedback">
@@ -22,13 +22,15 @@
                         <label for="service">Layanan</label>
                         <select class="form-control" id="service" name="service_id">
                             @foreach ($services as $data)
-                                <option value="{{ $data->id }}" data-price="{{ $data->service_price }}">{{ $data->service_name }} - Rp. {{ $data->service_price }}</option>
+                                <option value="{{ $data->id }}" data-price="{{ $data->service_price }}">
+                                    {{ $data->service_name }} - Rp. {{ $data->service_price }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="orderIn">Tanggal Pesan</label>
-                        <input type="datetime-local" class="form-control @error('order_in') is-invalid @enderror" id="orderIn" name="order_in">
+                        <input type="datetime-local" class="form-control @error('order_in') is-invalid @enderror"
+                            id="orderIn" name="order_in">
                     </div>
                     @error('order_in')
                         <div class="invalid-feedback">
@@ -37,7 +39,8 @@
                     @enderror
                     <div class="form-group">
                         <label for="orderOut">Tanggal Selesai</label>
-                        <input type="datetime-local" class="form-control @error('order_out') is-invalid @enderror" id="orderOut" name="order_out">
+                        <input type="datetime-local" class="form-control @error('order_out') is-invalid @enderror"
+                            id="orderOut" name="order_out">
                     </div>
                     @error('order_out')
                         <div class="invalid-feedback">
@@ -46,8 +49,8 @@
                     @enderror
                     <div class="form-group">
                         <label for="totalWeight">Total Berat</label>
-                        <input type="number" class="form-control @error('total_weight') is-invalid @enderror" id="totalWeight" name="total_weight" step="0.1"
-                            min="0">
+                        <input type="number" class="form-control @error('total_weight') is-invalid @enderror"
+                            id="totalWeight" name="total_weight" step="0.1" min="0">
                     </div>
                     @error('total_weight')
                         <div class="invalid-feedback">
@@ -56,17 +59,16 @@
                     @enderror
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="Dalam antrian">Dalam antrian</option>
-                            <option value="Sudah dicuci">Sudah Dicuci</option>
-                        </select>
+                        <input type="text" class="form-control @error('status') is-invalid @enderror"
+                            id="status" name="status" value="Dalam antrian" readonly>
                     </div>
                     <div class="form-group">
                         <label for="member">Member</label>
                         <select class="form-control" id="member_id" name="member_id">
                             <option value="">-- Kosong --</option>
                             @foreach ($members as $data)
-                                <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->total_point }}</option>
+                                <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->total_point }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
