@@ -17,11 +17,9 @@ class CheckAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $role = Auth::user()->role;
-
-        if (Auth::user()->role == 'admin') {
+        if (($role == 'admin') || ($role == 'superadmin')) {
             return  $next($request);
         }
-        
-        return redirect()->to(url($role . '/dashboard'));
+        return redirect($role . '/dashboard');
     }
 }

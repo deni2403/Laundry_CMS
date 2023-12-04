@@ -18,7 +18,7 @@ class CheckIroner
     {
         $role = Auth::user()->role;
 
-        if (Auth::user()->role == 'ironer') {
+        if ($role == 'ironer' || $role == 'superadmin') {
             return  $next($request);
         }
         return redirect($role . '/dashboard');

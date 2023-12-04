@@ -10,13 +10,7 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'service_name',
-        'service_price',
-        'service_day',
-        'created_at',
-        'updated_at',
-    ];
+    protected $guarded = ['id'];
 
     public function orders(){
         return $this->hasOne(Order::class);

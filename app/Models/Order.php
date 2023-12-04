@@ -12,39 +12,40 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'order_id',
-        'invoice',
-        'customer_name',
-        'order_in',
-        'order_out',
-        'order_take',
-        'total_weight',
-        'total_price',
-        'status',
-        'user_id',
-        'service_id',
-        'member_id',
-        'log_id',
-        'created_at',
-        'updated_at',
-    ];
+    protected $guarded = ['id'];
 
-    public function logs(){
+    public function logs()
+    {
         return $this->belongsTo(Log::class);
     }
 
-    public function members(){
+    public function members()
+    {
         return $this->belongsTo(Member::class);
     }
 
-    public function service(){
+    public function service()
+    {
         return $this->belongsTo(Service::class);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
+    public function ironerId()
+    {
+        return $this->belongsTo(User::class, 'ironer_id');
+    }
 
+    public function packerId()
+    {
+        return $this->belongsTo(User::class, 'packer_id');
+    }
+
+    public function cashierId()
+    {
+        return $this->belongsTo(User::class, 'cashier_id');
+    }
 }

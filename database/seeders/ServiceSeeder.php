@@ -61,13 +61,5 @@ class ServiceSeeder extends Seeder
         $serviceData->updated_at = now();
         $serviceData->save();
 
-        $serviceData = new Service();
-        $serviceData->service_name = "Cuci Karpet";
-        $serviceData->service_price = "6000";
-        $serviceData->service_day = "7";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
     }
 }
