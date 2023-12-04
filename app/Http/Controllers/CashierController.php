@@ -134,6 +134,7 @@ class CashierController extends Controller
             'order_out' => 'required|date',
             'total_weight' => 'required|numeric|min:1',
             'service_id' => 'required',
+            'status' => 'required|in:Dalam antrian,Sudah dicuci',
         ];
 
         $user_point = ($order->total_weight * $order->service->service_price) - $order->total_price;

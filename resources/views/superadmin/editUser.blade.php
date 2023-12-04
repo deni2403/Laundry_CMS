@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label for="role" class="form-label">Role</label>
                         <select type="text" class="form-control" id="role" name="role">
-                            <option value="{{ $user->role }}">{{ $user->role }}</option>
+                            <option hidden value="{{ $user->role }}">{{ $user->role }}</option>
                             <option value="superadmin">Super Admin</option>
                             <option value="admin">Admin</option>
                             <option value="cashier">Cashier</option>

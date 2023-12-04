@@ -80,12 +80,20 @@
                     <div class="form-group">
                         <label for="service_id" class="form-label">Service</label>
                         <select type="text" class="form-control" id="service_id" name="service_id">
-                            <option value="{{ $order->service->id }}">{{ $order->service->service_name }} - Rp. {{ $order->service->service_price }}</option>
+                            <option hidden value="{{ $order->service->id }}">{{ $order->service->service_name }} - Rp. {{ $order->service->service_price }}</option>
                             @foreach ($services as $service)
                                 <option value="{{ $service->id }}">{{ $service->service_name }} - Rp.
                                     {{ $service->service_price }}
                                 </option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status" name="status">
+                            <option hidden value="{{ $order->status }}">{{ $order->status }}</option>
+                            <option value="Dalam antrian">Dalam antrian</option>
+                            <option value="Sudah dicuci">Sudah Dicuci</option>
                         </select>
                     </div>
                     <button type="submit" class="form-button">

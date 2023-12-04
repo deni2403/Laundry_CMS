@@ -22,12 +22,10 @@ return new class extends Migration
             $table->float('total_price');
             $table->enum('status', ['Dalam antrian', 'Belum dicuci', 'Sedang dicuci', 'Sudah dicuci', 'Belum disetrika', 'Sedang disetrika', 'Sudah disetrika', 'Sedang dipacking', 'Selesai','Sudah diambil'])->default('Dalam antrian');
             $table->foreignId('service_id')->constrained();
-            // $table->unsignedBigInteger('superadmin_id')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('cashier_id')->nullable();
             $table->unsignedBigInteger('ironer_id')->nullable();
             $table->unsignedBigInteger('packer_id')->nullable();
-            // $table->foreign('superadmin_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('admin_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('cashier_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('ironer_id')->references('id')->on('users')->cascadeOnDelete();
