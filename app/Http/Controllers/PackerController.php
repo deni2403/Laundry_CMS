@@ -20,7 +20,7 @@ class PackerController extends Controller
             })
             ->paginate(5);
 
-        $orderDone = Order::where('status', 'Sedang dipacking')->paginate(5);
+        $orderDone = Order::where('status', 'Sedang dipacking')->where('packer_id', Auth::user()->id)->paginate(5);
         $orders = Order::where('packer_id', Auth::user()->id)->paginate(5);
         return view('packer.dashboard', compact('orderTake', 'orders', 'orderDone'));
     }
