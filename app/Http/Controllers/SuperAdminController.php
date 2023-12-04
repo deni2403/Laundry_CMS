@@ -77,7 +77,7 @@ class SuperAdminController extends Controller
         $rules = [
             'name' => 'required|max:255|min:3|regex:/^[a-zA-Z ]+$/',
             'role' => 'required|in:superadmin,admin,cashier,ironer,packer',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         if ($request->filled('password')) {
@@ -115,34 +115,6 @@ class SuperAdminController extends Controller
 
     public function destroyUser(User $user, Order $order, Event $event)
     {
-        // if ($user->role == 'superadmin') {
-        //     return redirect()->route('users.superadmin')->with('error', 'User Superadmin Tidak Bisa Dihapus!');
-        // } elseif ($user->role == 'admin') {
-        //     $events = Event::where('user_id', $user->id)->get();
-        //     foreach ($events as $event) {
-        //         $event->update(['user_id' => null]);
-        //     }
-        //     User::destroy($user->id);
-        // } elseif ($user->role == 'cashier') {
-        //     $orders = Order::where('cashier_id', $user->id)->get();
-        //     foreach ($orders as $order) {
-        //         $order->update(['cashier_id' => null]);
-        //     }
-        //     User::destroy($user->id);
-        // } elseif ($user->role == 'ironer') {
-        //     $orders = Order::where('ironer_id', $user->id)->get();
-        //     foreach ($orders as $order) {
-        //         $order->update(['ironer_id' => null]);
-        //     }
-        //     User::destroy($user->id);
-        // } elseif ($user->role == 'packer') {
-        //     $orders = Order::where('packer_id', $user->id)->get();
-        //     foreach ($orders as $order) {
-        //         $order->update(['packer_id' => null]);
-        //     }
-        //     User::destroy($user->id);
-        // }
-
         if ($user->role == 'superadmin') {
             return redirect()->route('users.superadmin')->with('error', 'User Superadmin Tidak Bisa Dihapus!');
         }

@@ -30,10 +30,10 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password">
+                        <input type="password" class="form-control password-input" id="password" name="password">
+                        <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
                     @error('password')
                         <div class="invalid-feedback">
@@ -55,7 +55,8 @@
                         <label for="image" class="form-label">Gambar</label>
                         <input type="hidden" name="oldImage" value="{{ $member->image }}">
                         @if ($member->image)
-                            <img src="{{ asset('storage/' . $member->image) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                            <img src="{{ asset('storage/' . $member->image) }}"
+                                class="img-preview img-fluid mb-3 col-sm-5 d-block">
                         @else
                             <img class="img-preview img-fluid mb-3 col-sm-5">
                         @endif
@@ -73,7 +74,7 @@
                         </div>
                     @enderror
                     <button type="submit" class="form-button">
-                        <i class="fa-solid fa-file-circle-plus me-1"></i>Tambah
+                        <i class="fa-solid fa-file-circle-plus me-1"></i>Ubah
                     </button>
                 </form>
             </div>

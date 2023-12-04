@@ -89,7 +89,7 @@
                         </select>
                     </div>
                     <button type="submit" class="form-button">
-                        <i class="fa-solid fa-pen me-2"></i>Edit
+                        <i class="fa-solid fa-pen me-2"></i>Ubah
                     </button>
                 </form>
             </div>
