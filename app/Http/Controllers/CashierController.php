@@ -74,7 +74,7 @@ class CashierController extends Controller
             $newOrder->save();
         } else if ($member && $usePoints) {
             if ($member->total_point >= 100) {
-                $discount = $member->total_point;
+                $discount = $member->total_point - ($member->total_point % 100);
                 $newOrder->total_price -= $discount;
                 $member->total_point -= $discount;
                 $member->save();

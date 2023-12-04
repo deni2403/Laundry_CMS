@@ -32,8 +32,10 @@ window.document.addEventListener("DOMContentLoaded", function() {
             memberPoint = parseInt(memberPoint);
         }
 
+        let discount = memberPoint - (memberPoint % 100);
+
         if (totalWeight) {
-            discountedPrice = (servicePrice * totalWeight) - memberPoint;
+            discountedPrice = (servicePrice * totalWeight) - discount;
         }
 
         discountedPrice = parseFloat(discountedPrice);
@@ -41,7 +43,7 @@ window.document.addEventListener("DOMContentLoaded", function() {
         let formattedDiscon = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR'
-        }).format(memberPoint);
+        }).format(discount);
 
         let formattedPrice = new Intl.NumberFormat('id-ID', {
             style: 'currency',

@@ -43,7 +43,7 @@
     <script src="/assets/js/cashier.js"></script>
     <script src="/assets/js/image-preview.js"></script>
     <script src="/assets/js/order.js"></script>
-
+    <script src="/assets/js/login.js"></script>
     @include('sweetalert::alert')
 </body>
 

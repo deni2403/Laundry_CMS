@@ -29,10 +29,11 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        <input type="password" class="form-control password-input" id="password"
                             name="password" required>
+                        <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
                     @error('password')
                         <span class="invalid-feedback">

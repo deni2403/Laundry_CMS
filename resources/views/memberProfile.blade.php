@@ -30,20 +30,26 @@
                             <form method="post" action="{{ route('password.update') }}">
                                 @csrf
                                 @method('put')
-                                <div class="mb-3">
+                                <div class="mb-3" style="position: relative;">
                                     <label for="current_password">Current Password</label>
                                     <input type="password" id="current_password" name="current_password"
-                                        class="form-control" placeholder="Current Password">
+                                        class="form-control password-input" placeholder="Current Password">
+                                    <button class="show-btn"><i class="fa-solid fa-eye"
+                                            style="color: #545454;"></i></button>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3" style="position: relative;">
                                     <label for="password">Password</label>
-                                    <input type="password" id="password" name="password" class="form-control"
-                                        placeholder=" New Password">
+                                    <input type="password" id="password" name="password"
+                                        class="form-control password-input" placeholder=" New Password">
+                                    <button class="show-btn"><i class="fa-solid fa-eye"
+                                            style="color: #545454;"></i></button>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3" style="position: relative;">
                                     <label for="password_confirmation">Password Confirmation</label>
                                     <input type="password" id="password_confirmation" name="password_confirmation"
-                                        class="form-control" placeholder="Password Confirmation">
+                                        class="form-control password-input" placeholder="Password Confirmation">
+                                    <button class="show-btn"><i class="fa-solid fa-eye"
+                                            style="color: #545454;"></i></button>
                                 </div>
                                 <button type="submit" class="save-button">Save</button>
                             </form>

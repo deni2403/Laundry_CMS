@@ -30,10 +30,11 @@
                             {{ $message }}
                         </div>
                     @enderror
-                    <div class="form-group">
-                        <label for="" class="form-label">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                            name="password" autofocus value="">
+                    <div class="form-group" style="position: relative;">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control password-input" id="password" name="password" autofocus
+                            value="">
+                        <button class="show-btn"><i class="fa-solid fa-eye" style="color: #545454;"></i></button>
                     </div>
                     @error('password')
                         <div class="invalid-feedback">
@@ -53,15 +54,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Gambar</label>
-                        <input type="hidden" name="image" value="{{ $user->image }}" id="image">
+                        <input type="hidden" name="oldImage" value="{{ $user->image }}" id="image">
                         @if ($user->image)
                             <img src="{{ asset('storage/' . $user->image) }}"
-                                class="img-preview img-fluid mb-3 col-sm-5 d-block" id="imagePreview">
+                                class="img-preview img-fluid mb-3 col-sm-5 d-block">
                         @else
                             <img class="img-preview img-fluid mb-3 col-sm-5">
                         @endif
                         <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
-                            name="image" onchange="previewImage()">
+                            name="image">
                     </div>
                     @error('image')
                         <div class="invalid-feedback">
@@ -69,7 +70,7 @@
                         </div>
                     @enderror
                     <button type="submit" class="form-button">
-                        <i class="fa-solid fa-pen me-2"></i>Edit
+                        <i class="fa-solid fa-pen me-2"></i>Ubah
                     </button>
                 </form>
             </div>
