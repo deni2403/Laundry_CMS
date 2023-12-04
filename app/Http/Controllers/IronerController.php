@@ -13,7 +13,7 @@ class IronerController extends Controller
         $orderTake = Order::where('status', 'Sudah dicuci')
             ->whereIn('service_id', [1, 2, 5, 6])
             ->paginate(5);
-        $orderDone = Order::where('status', 'Sedang Disetrika')->paginate(5);
+        $orderDone = Order::where('status', 'Sedang Disetrika')->where('ironer_id', Auth::user()->id)->paginate(5);
 
         return view('ironer.dashboard', compact('orderTake', 'orderDone'));
     }
