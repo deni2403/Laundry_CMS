@@ -36,7 +36,7 @@
                                         <img src="{{ asset('storage/' . $e->image) }}" class="card-img-top img-fluid"
                                             alt="{{ $e->title }}">
                                     @else
-                                        <img src="/assets/images/event-image.png" class="card-img-top img-fluid"
+                                        <img src="/assets/images/no-event.png" class="card-img-top img-fluid"
                                             alt="{{ $e->title }}">
                                     @endif
                                     <a href="/events/{{ $e->slug }}" class="text-decoration-none">
