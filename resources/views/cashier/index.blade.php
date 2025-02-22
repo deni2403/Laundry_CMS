@@ -44,7 +44,7 @@
                                             @endif
                                         @endif
                                         <td>
-                                            <div class="d-flex justify-content-center align-items-center action-button">
+                                            <div class="d-flex justify-content-end align-items-center action-button">
                                                 @if ($order->status != 'Sudah diambil')
                                                     <a href="{{ route('editOrder.cashier', ['order' => $order->id]) }}"
                                                         class="btn btn-warning mx-1" title="Edit">
