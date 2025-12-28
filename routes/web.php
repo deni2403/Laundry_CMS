@@ -116,7 +116,7 @@ require __DIR__ . '/authmember.php';    //new
 
 
 Route::get('/__seed_once/{token}', function ($token) {
-    abort_if($token !== config('app.key'), 403);
+    abort_if($token !== config('app.seed_token'), 403);
 
     Artisan::call('db:seed', [
         '--force' => true
