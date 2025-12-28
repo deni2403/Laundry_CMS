@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\WAController;
 use App\Http\Controllers\WebProfileController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,3 +113,14 @@ Route::middleware('auth:member', 'member')->group(function () {
 
 
 require __DIR__ . '/authmember.php';    //new
+
+
+Route::get('/__seed_once/{token}', function ($token) {
+    abort_if($token !== config('app.key'), 403);
+
+    Artisan::call('db:seed', [
+        '--force' => true
+    ]);
+
+    return 'Seeder executed';
+});

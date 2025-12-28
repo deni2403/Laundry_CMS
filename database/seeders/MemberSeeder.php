@@ -10,31 +10,28 @@ use function Symfony\Component\String\b;
 
 class MemberSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $memberData = new Member();
-        $memberData->name = 'Aji Pamungkas';
-        $memberData->email = 'aji@gmail.com';
-        $memberData->phone_number = '085972789853';
-        $memberData->password = bcrypt('12345678');
-        $memberData->total_point = 100;
-        $memberData->registration_date = now();
-        $memberData->created_at = now();
-        $memberData->updated_at = now();
-        $memberData->save();
+        Member::firstOrCreate(
+            ['email' => 'aji@gmail.com'],
+            [
+                'name' => 'Aji Pamungkas',
+                'phone_number' => '085972789853',
+                'password' => bcrypt('12345678'),
+                'total_point' => 100,
+                'registration_date' => now(),
+            ]
+        );
 
-        $memberData = new Member();
-        $memberData->name = 'Rosyid';
-        $memberData->email = 'rosyid@gmail.com';
-        $memberData->phone_number = '085972789853';
-        $memberData->password = bcrypt('12345678');
-        $memberData->total_point = 100;
-        $memberData->registration_date = now();
-        $memberData->created_at = now();
-        $memberData->updated_at = now();
-        $memberData->save();
+        Member::firstOrCreate(
+            ['email' => 'rosyid@gmail.com'],
+            [
+                'name' => 'Rosyid',
+                'phone_number' => '085972789853',
+                'password' => bcrypt('12345678'),
+                'total_point' => 100,
+                'registration_date' => now(),
+            ]
+        );
     }
 }

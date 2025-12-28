@@ -8,58 +8,25 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ServiceSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $serviceData = new Service();
-        $serviceData->service_name = "Cuci Setrika Reguler";
-        $serviceData->service_price = "6000";
-        $serviceData->service_day = "3";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
+        $services = [
+            ['Cuci Setrika Reguler', 6000, 3],
+            ['Cuci Setrika Express', 8000, 1],
+            ['Cuci Reguler', 4000, 2],
+            ['Cuci Express', 6000, 1],
+            ['Setrika Reguler', 4000, 2],
+            ['Setrika Express', 6000, 1],
+        ];
 
-        $serviceData = new Service();
-        $serviceData->service_name = "Cuci Setrika Express";
-        $serviceData->service_price = "8000";
-        $serviceData->service_day = "1";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
-        $serviceData = new Service();
-        $serviceData->service_name = "Cuci Reguler";
-        $serviceData->service_price = "4000";
-        $serviceData->service_day = "2";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
-        $serviceData = new Service();
-        $serviceData->service_name = "Cuci Express";
-        $serviceData->service_price = "6000";
-        $serviceData->service_day = "1";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
-        $serviceData = new Service();
-        $serviceData->service_name = "Setrika Reguler";
-        $serviceData->service_price = "4000";
-        $serviceData->service_day = "2";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
-        $serviceData = new Service();
-        $serviceData->service_name = "Setrika Express";
-        $serviceData->service_price = "6000";
-        $serviceData->service_day = "1";
-        $serviceData->created_at = now();
-        $serviceData->updated_at = now();
-        $serviceData->save();
-
+        foreach ($services as [$name, $price, $day]) {
+            Service::firstOrCreate(
+                ['service_name' => $name],
+                [
+                    'service_price' => $price,
+                    'service_day' => $day,
+                ]
+            );
+        }
     }
 }
