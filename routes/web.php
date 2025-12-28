@@ -111,4 +111,4 @@ Route::middleware('auth:member', 'member')->group(function () {
 });
 
 
-require __DIR__ . '/authMember.php';    //new
+require __DIR__ . '/authmember.php';    //new
