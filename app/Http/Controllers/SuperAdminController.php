@@ -47,7 +47,7 @@ class SuperAdminController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('user-images');
+            $imagePath = $request->file('image')->store('user-images', 'public');
 
             $image = Image::make(storage_path("app/public/{$imagePath}"));
             if ($image->width() > 100 || $image->height() > 100) {
@@ -96,7 +96,7 @@ class SuperAdminController extends Controller
                 Storage::delete($request->oldImage);
             }
 
-            $imagePath = $request->file('image')->store('user-images');
+            $imagePath = $request->file('image')->store('user-images', 'public');
             $image = Image::make(storage_path("app/public/{$imagePath}"));
             if ($image->width() > 100 || $image->height() > 100) {
                 $image->fit(100, 100, function ($constraint) {
