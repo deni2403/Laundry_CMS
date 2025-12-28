@@ -121,7 +121,7 @@ class AdminController extends Controller
     public function destroy(Event $event)
     {
         if ($event->image) {
-            Storage::delete($event->image);
+            Storage::disk('public')->delete($event->image);
         }
         Event::destroy($event->id);
         return redirect('/admin/events')->with('success', 'Event Telah Dihapus!');

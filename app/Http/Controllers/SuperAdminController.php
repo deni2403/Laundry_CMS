@@ -144,7 +144,7 @@ class SuperAdminController extends Controller
         User::destroy($user->id);
 
         if ($user->image) {
-            Storage::delete($user->image);
+            Storage::disk('public')->delete($user->image);
         }
         return redirect()->route('users.superadmin')->with('success', 'User Berhasil Dihapus!');
     }
