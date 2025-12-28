@@ -7,6 +7,8 @@ use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Models\Event;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class AdminController extends Controller
 {
@@ -36,6 +38,34 @@ class AdminController extends Controller
         return view('admin.create');
     }
 
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|max:255',
+    //         'slug' => 'required|unique:events',
+    //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:3072',
+    //         'body' => 'required',
+    //         'user_id' => 'nullable',
+    //     ]);
+
+    //     if ($request->file('image')) {
+    //         $imagePath = $request->file('image')->store('event-images');
+
+    //         $image = Image::make(storage_path("app/public/{$imagePath}"));
+    //         if ($image->width() > 780 || $image->height() > 430) {
+    //             $image->fit(780, 430, function ($constraint) {
+    //                 $constraint->upsize();
+    //             })->save();
+    //         }
+
+    //         $validatedData['image'] = $imagePath;
+    //     }
+
+    //     $validatedData['user_id'] = auth()->user()->id;
+    //     Event::create($validatedData);
+    //     return redirect('/admin/events')->with('success', 'Event Berhasil Ditambahkan!');
+    // }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -47,20 +77,30 @@ class AdminController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('event-images');
 
-            $image = Image::make(storage_path("app/public/{$imagePath}"));
-            if ($image->width() > 780 || $image->height() > 430) {
-                $image->fit(780, 430, function ($constraint) {
-                    $constraint->upsize();
-                })->save();
-            }
+            $upload = Cloudinary::upload(
+                $request->file('image')->getRealPath(),
+                [
+                    'folder' => 'event-images',
+                    'transformation' => [
+                        'width' => 780,
+                        'height' => 430,
+                        'crop' => 'fill'
+                    ]
+                ]
+            );
 
-            $validatedData['image'] = $imagePath;
+            // simpan URL hasil upload
+            $validatedData['image'] = $upload->getSecurePath();
+
+            // opsional tapi sangat disarankan (untuk delete/update ke depan)
+            // pastikan kolomnya ada kalau mau dipakai
+            // $validatedData['image_public_id'] = $upload->getPublicId();
         }
 
         $validatedData['user_id'] = auth()->user()->id;
         Event::create($validatedData);
+
         return redirect('/admin/events')->with('success', 'Event Berhasil Ditambahkan!');
     }
 
@@ -78,6 +118,43 @@ class AdminController extends Controller
         ]);
     }
 
+    // public function update(Request $request, Event $event)
+    // {
+    //     $rules = [
+    //         'title' => 'required|max:255',
+    //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:3072',
+    //         'body' => 'required',
+    //     ];
+
+    //     if ($request->slug != $event->slug) {
+    //         $rules['slug'] = 'required|unique:events';
+    //     }
+
+    //     $validatedData = $request->validate($rules);
+
+    //     if ($request->file('image')) {
+    //         if ($request->oldImage) {
+    //             Storage::delete($request->oldImage);
+    //         }
+    //         $imagePath = $request->file('image')->store('event-images');
+
+    //         $image = Image::make(storage_path("app/public/{$imagePath}"));
+    //         if ($image->width() > 780 || $image->height() > 430) {
+    //             $image->fit(780, 430, function ($constraint) {
+    //                 $constraint->upsize();
+    //             })->save();
+    //         }
+
+    //         $validatedData['image'] = $imagePath;
+    //     }
+
+    //     $validatedData['user_id'] = auth()->user()->id;
+    //     Event::where('id', $event->id)
+    //         ->update($validatedData);
+    //     return redirect('/admin/events')->with('success', 'Event Berhasil Diperbarui!');
+    // }
+
+
     public function update(Request $request, Event $event)
     {
         $rules = [
@@ -93,35 +170,56 @@ class AdminController extends Controller
         $validatedData = $request->validate($rules);
 
         if ($request->file('image')) {
-            if ($request->oldImage) {
-                Storage::delete($request->oldImage);
-            }
-            $imagePath = $request->file('image')->store('event-images');
 
-            $image = Image::make(storage_path("app/public/{$imagePath}"));
-            if ($image->width() > 780 || $image->height() > 430) {
-                $image->fit(780, 430, function ($constraint) {
-                    $constraint->upsize();
-                })->save();
+            // hapus gambar lama di Cloudinary (jika ada)
+            if ($event->image) {
+                $publicId = pathinfo(parse_url($event->image, PHP_URL_PATH), PATHINFO_FILENAME);
+                Cloudinary::destroy('event-images/' . $publicId);
             }
 
-            $validatedData['image'] = $imagePath;
+            $upload = Cloudinary::upload(
+                $request->file('image')->getRealPath(),
+                [
+                    'folder' => 'event-images',
+                    'transformation' => [
+                        'width' => 780,
+                        'height' => 430,
+                        'crop' => 'fill'
+                    ]
+                ]
+            );
+
+            $validatedData['image'] = $upload->getSecurePath();
         }
 
         $validatedData['user_id'] = auth()->user()->id;
-        Event::where('id', $event->id)
-            ->update($validatedData);
+
+        Event::where('id', $event->id)->update($validatedData);
+
         return redirect('/admin/events')->with('success', 'Event Berhasil Diperbarui!');
     }
+
+    // public function destroy(Event $event)
+    // {
+    //     if ($event->image) {
+    //         Storage::delete($event->image);
+    //     }
+    //     Event::destroy($event->id);
+    //     return redirect('/admin/events')->with('success', 'Event Telah Dihapus!');
+    // }
 
     public function destroy(Event $event)
     {
         if ($event->image) {
-            Storage::delete($event->image);
+            $publicId = pathinfo(parse_url($event->image, PHP_URL_PATH), PATHINFO_FILENAME);
+            Cloudinary::destroy('event-images/' . $publicId);
         }
+
         Event::destroy($event->id);
+
         return redirect('/admin/events')->with('success', 'Event Telah Dihapus!');
     }
+
 
     public function checkSlug(Request $request)
     {
