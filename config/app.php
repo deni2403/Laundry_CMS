@@ -187,6 +187,4 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ])->toArray(),
 
-    'seed_token' => env('SEED_TOKEN'),
-
 ];
